@@ -34,15 +34,15 @@ namespace Posttrack.BLL
             this.reader = reader;
         }
 
-        public void Register(RegisterTrackingModel model)
+        void IPackagePresentationService.Register(RegisterTrackingModel model)
         {
             RegisterPackageDTO dto = model.Map();
             log.InfoFormat("Registration {0}", dto.Tracking);
             packageDAO.Register(dto);
-            messageSender.SendRegistered(dto);
+            Task.Factory.StartNew(() => SendRegistered(dto));
         }
 
-        public void UpdateComingPackages()
+        void IPackagePresentationService.UpdateComingPackages()
         {
             ICollection<PackageDTO> packages = packageDAO.LoadComingPackets();
             if (packages == null)
@@ -51,52 +51,65 @@ namespace Posttrack.BLL
                 return;
             }
 
-            log.InfoFormat("Starting update {0} packages", packages.Count);
-            ThreadPool.SetMaxThreads(packages.Count, packages.Count);
+            log.InfoFormat("Starting update {0} packages", packages.Count);       
             if (packages.Count == 0)
             {
                 return;
             }
 
-            //var tasks = new Collection<Task>();
-
+            ThreadPool.SetMaxThreads(4, 4);
             Parallel.ForEach(packages, UpdatePackage);
-
-            //foreach (var package in packages)
-            //{
-            //    log.DebugFormat("Starting update package {0}", package.Tracking);
-            //    tasks.Add(Task.Factory.StartNew(() => UpdatePackage(package)));
-            //}
-
-            //Task.WaitAll(tasks.ToArray());
         }
 
-        private void UpdatePackage(PackageDTO package)
+        private void SendRegistered(RegisterPackageDTO dto)
         {
-            log.DebugFormat("Starting update package {0}", package.Tracking);
+            var package = packageDAO.Load(dto.Tracking);
+            if (package == null)
+            {
+                log.FatalFormat("Cannot find package {0}", dto.Tracking);
+                return;
+            }
+
+            var history = SearchPackageStatus(package);
+
+            messageSender.SendRegistered(package, history);
+
+            if (PackageHelper.IsEmpty(history))
+            {
+                return;
+            }
+
+            SavePackageStatus(package, history);
+        }
+
+        private ICollection<PackageHistoryItemDTO> SearchPackageStatus(PackageDTO package)
+        {
+            log.DebugFormat("Starting search package {0}", package.Tracking);
 
             if (string.IsNullOrEmpty(package.Tracking))
             {
                 log.Fatal("Package has empty tracing. I can't update this package.");
-                return;
+                return null;
             }
 
             var response = searcher.Search(package);
             if (string.IsNullOrEmpty(response))
             {
                 log.ErrorFormat("Response from web is empty. I can't update package {0}", package.Tracking);
-                return;
+                return null;
             }
 
-            var history = reader.Read(response);
-            if ((IsEmpty(history) && IsEmpty(package.History)) || (package.History != null && package.History.Count == history.Count))
+            return reader.Read(response);
+        }
+
+        private void UpdatePackage(PackageDTO package)
+        {
+            var history = SearchPackageStatus(package);
+            if (PackageHelper.IsStatusTheSame(history, package))
             {
-                if (package.UpdateDate < DateTime.Now.AddMonths(-Settings.Default.InactivityPeriodInMonths))
+                if (PackageHelper.IsInactivityPeriodElapsed(package))
                 {
-                    log.WarnFormat("The package {0} was inactive for {1} months. Stop tracking it.", package.Tracking, Settings.Default.InactivityPeriodInMonths);
-                    messageSender.SendInactivityEmail(package);
-                    package.IsFinished = true;
-                    packageDAO.Update(package);
+                    StopTracking(package);
                 }
 
                 log.DebugFormat("No update was found for package {0}", package.Tracking);
@@ -104,21 +117,26 @@ namespace Posttrack.BLL
             }
 
             log.DebugFormat("Update was Found!!! Sending an update email for package {0}", package.Tracking);
-            if (messageSender.SendStatusUpdate(package, history))
-            {
-                package.History = history;
-                string lastHistoryAction = package.History.Last().Action;
-                package.IsFinished = lastHistoryAction != null &&
-                                     (lastHistoryAction.Contains("Доставлено, вручено") ||
-                                      lastHistoryAction == "Отправление доставлено");
-                log.WarnFormat("Updating status for package {0}", package.Tracking);
-                packageDAO.Update(package);
-            }
+            
+            messageSender.SendStatusUpdate(package, history);
+            SavePackageStatus(package, history);
         }
 
-        private static bool IsEmpty(IEnumerable<PackageHistoryItemDTO> history)
+        private void SavePackageStatus(PackageDTO package, ICollection<PackageHistoryItemDTO> history)
         {
-            return history == null || !history.Any();
+            package.History = history;
+            package.IsFinished = PackageHelper.IsFinished(package);
+
+            log.WarnFormat("Updating status for package {0}", package.Tracking);
+            packageDAO.Update(package);
+        }
+
+        private void StopTracking(PackageDTO package)
+        {
+            log.WarnFormat("The package {0} was inactive for {1} months. Stop tracking it.", package.Tracking, Settings.Default.InactivityPeriodInMonths);
+            messageSender.SendInactivityEmail(package);
+            package.IsFinished = true;
+            packageDAO.Update(package);
         }
     }
 }

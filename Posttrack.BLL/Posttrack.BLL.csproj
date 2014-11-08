@@ -63,6 +63,7 @@
     <Compile Include="Helpers\Interfaces\IResponseReader.cs" />
     <Compile Include="Helpers\Interfaces\IUpdateSearcher.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="PackageHelper.cs" />
     <Compile Include="PackageHistoryItemDTOComparer.cs" />
     <Compile Include="PackagePresentationService.cs" />
     <Compile Include="PackageValidator.cs" />

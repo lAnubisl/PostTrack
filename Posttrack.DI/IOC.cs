@@ -31,14 +31,14 @@ namespace Posttrack.DI
             container.Register<IResponseReader, ResponseReader>(Reuse.Singleton);
         }
 
-        public void RegisterController(Type serviceType)
-        {
-            container.Register(serviceType, Reuse.Transient);
-        }
-
         private InversionOfControlContainer(Container container)
         {
             this.container = container;
+        }
+
+        public void RegisterController(Type serviceType)
+        {
+            container.Register(serviceType, Reuse.Transient);
         }
 
         public static InversionOfControlContainer Instance

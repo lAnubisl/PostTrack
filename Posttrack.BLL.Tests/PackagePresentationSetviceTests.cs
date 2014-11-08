@@ -53,7 +53,7 @@ namespace Posttrack.BLL.Tests
             model.Email = "email@email.com";
             model.Tracking = "AA123123123PP";
             service.Register(model);
-            sender.Verify(c => c.SendRegistered(It.Is<RegisterPackageDTO>(d => d.Tracking == model.Tracking && d.Email == model.Email && d.Description == model.Description)));
+            sender.Verify(c => c.SendRegistered(It.Is<PackageDTO>(d => d.Tracking == model.Tracking && d.Email == model.Email && d.Description == model.Description), null));
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace Posttrack.BLL.Tests
             dao.Setup(d => d.LoadComingPackets()).Returns(new Collection<PackageDTO>() { package });
             searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(true);
+            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
             service.UpdateComingPackages();
 
@@ -147,7 +147,7 @@ namespace Posttrack.BLL.Tests
             dao.Setup(d => d.LoadComingPackets()).Returns(new Collection<PackageDTO>() { package });
             searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(true);
+            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
             service.UpdateComingPackages();
             Assert.IsTrue(package.IsFinished);
@@ -161,7 +161,7 @@ namespace Posttrack.BLL.Tests
             dao.Setup(d => d.LoadComingPackets()).Returns(new Collection<PackageDTO>() { package });
             searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(true);
+            sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
             service.UpdateComingPackages();
             Assert.IsTrue(package.IsFinished);
@@ -189,8 +189,7 @@ namespace Posttrack.BLL.Tests
                 .Callback(() => Thread.Sleep(500))
                 .Returns("Not empty search result");
             sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()))
-                .Callback(() => Thread.Sleep(500))
-                .Returns(true);
+                .Callback(() => Thread.Sleep(500));
             dao.Setup(d => d.LoadComingPackets()).Returns(packages);
             var stopwatch = new Stopwatch();
             stopwatch.Start();

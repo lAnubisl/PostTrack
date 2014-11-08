@@ -5,10 +5,10 @@ namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface IMessageSender
     {
-        bool SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
+        void SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
 
         void SendInactivityEmail(PackageDTO package);
 
-        void SendRegistered(RegisterPackageDTO package);
+        void SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
     }
 }

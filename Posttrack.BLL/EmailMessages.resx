@@ -123,6 +123,9 @@
   <data name="RegisteredEmailSubject" xml:space="preserve">
     <value>Регистрация посылки '{0}' с номером слежения '{1}' прошла успешно</value>
   </data>
+  <data name="RegisterStatusNotFoundMessage" xml:space="preserve">
+    <value>Пока мы не обнаружили вашей посылки на сайте http://search.belpost.by но будем высылать вам уведомления как только обнаружим изменение состояния посылки.</value>
+  </data>
   <data name="StatusUpdateEmailSubject" xml:space="preserve">
     <value>Изменился статус посылки '{0}' с номером слежения '{1}'</value>
   </data>

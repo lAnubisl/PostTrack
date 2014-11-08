@@ -5,7 +5,7 @@ namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface IEmailTemplateManager
     {
-        string GetRegisteredEmailBody(RegisterPackageDTO package);
+        string GetRegisteredEmailBody(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
 
         string GetInactivityEmailBody(PackageDTO package);
 

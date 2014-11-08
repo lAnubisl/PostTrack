@@ -79,6 +79,15 @@ namespace Posttrack.BLL {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пока мы не обнаружили вашей посылки на сайте http://search.belpost.by но будем высылать вам уведомления как только обнаружим изменение состояния посылки..
+        /// </summary>
+        internal static string RegisterStatusNotFoundMessage {
+            get {
+                return ResourceManager.GetString("RegisterStatusNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Изменился статус посылки &apos;{0}&apos; с номером слежения &apos;{1}&apos;.
         /// </summary>
         internal static string StatusUpdateEmailSubject {

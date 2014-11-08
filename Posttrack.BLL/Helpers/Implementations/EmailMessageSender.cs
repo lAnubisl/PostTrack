@@ -24,7 +24,7 @@ namespace Posttrack.BLL.Helpers.Implementations
             this.smtpClient.Timeout = 20000;
         }
 
-        bool IMessageSender.SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        void IMessageSender.SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             using (var message = new MailMessage(Settings.Default.SmtpFrom, package.Email))
             {
@@ -32,16 +32,15 @@ namespace Posttrack.BLL.Helpers.Implementations
                 message.Body = templateManager.GetUpdateStatusEmailBody(package, update);
                 message.IsBodyHtml = true;
                 smtpClient.Send(message);
-                return true;
             }
         }
 
-        void IMessageSender.SendRegistered(RegisterPackageDTO package)
+        void IMessageSender.SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             using(var message = new MailMessage(Settings.Default.SmtpFrom, package.Email))
             {
                 message.Subject = GetRegisteredEmailSubject(package);
-                message.Body = templateManager.GetRegisteredEmailBody(package);
+                message.Body = templateManager.GetRegisteredEmailBody(package, update);
                 message.IsBodyHtml = true;
                 smtpClient.Send(message);
             }
@@ -69,7 +68,7 @@ namespace Posttrack.BLL.Helpers.Implementations
             return string.Format(CultureInfo.CurrentCulture, EmailMessages.StatusUpdateEmailSubject, package.Description, package.Tracking);
         }
 
-        private static string GetRegisteredEmailSubject(RegisterPackageDTO package)
+        private static string GetRegisteredEmailSubject(PackageDTO package)
         {
             return string.Format(CultureInfo.CurrentCulture, EmailMessages.RegisteredEmailSubject, package.Description, package.Tracking);
         }

@@ -7,6 +7,8 @@ namespace Posttrack.Data.Interfaces
     {
         ICollection<PackageDTO> LoadComingPackets();
 
+        PackageDTO Load(string trackingNumber);
+
         void Register(RegisterPackageDTO package);
 
         bool Exists(string trackingNumber);

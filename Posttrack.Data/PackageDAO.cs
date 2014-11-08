@@ -48,6 +48,12 @@ namespace Posttrack.Data
             return packages.Count(Query<Package>.EQ(e => e.Tracking, trackingNumber)) > 0;
         }
 
+        PackageDTO IPackageDAO.Load(string trackingNumber)
+        {
+            var package = packages.Find(Query<Package>.EQ(e => e.Tracking, trackingNumber)).First();
+            return package.Map();
+        }
+
         void IPackageDAO.Update(PackageDTO package)
         {
             if (package == null || string.IsNullOrWhiteSpace(package.Tracking)) return;

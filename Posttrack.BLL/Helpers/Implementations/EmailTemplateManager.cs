@@ -10,9 +10,10 @@ namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailTemplateManager : IEmailTemplateManager
     {
-        string IEmailTemplateManager.GetRegisteredEmailBody(RegisterPackageDTO package)
+        string IEmailTemplateManager.GetRegisteredEmailBody(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            return LoadInnerHtml("TemplateInnerRegistered.html", package.Description, package.Tracking);
+            return LoadInnerHtml("TemplateInnerRegistered.html", package.Description, package.Tracking)
+                .Replace("{RegisterStatusMessage}", LoadRegisteredItemsUpdate(package, update));
         }
 
         string IEmailTemplateManager.GetInactivityEmailBody(PackageDTO package)
@@ -26,6 +27,18 @@ namespace Posttrack.BLL.Helpers.Implementations
                 .Replace("{TemplateHistoryItems}", LoadHistoryTemplate(package.History, update));
         }
 
+        private static string LoadRegisteredItemsUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        {
+            if (PackageHelper.IsEmpty(update))
+            {
+                return EmailMessages.RegisterStatusNotFoundMessage;
+            }
+            else
+            {
+                return LoadHistoryTemplate(package.History, update);
+            }
+        }
+
         private static string LoadInnerHtml(string templateName, string description, string tracking)
         {
             var template = LoadTemplate("TemplateOuter.html")
@@ -35,7 +48,8 @@ namespace Posttrack.BLL.Helpers.Implementations
                 .Replace("{Tracking}", tracking);
         }
 
-        private static string LoadHistoryTemplate(ICollection<PackageHistoryItemDTO> oldHistory,
+        private static string LoadHistoryTemplate(
+            ICollection<PackageHistoryItemDTO> oldHistory,
             IEnumerable<PackageHistoryItemDTO> newHistory)
         {
             var itemTemplate = LoadTemplate("TemplateItem.html");
@@ -52,7 +66,7 @@ namespace Posttrack.BLL.Helpers.Implementations
                 counter++;
             }
 
-            return sb.ToString();
+            return string.Format("<table>{0}</table>", sb.ToString());
         }
 
         private static string LoadTemplate(string templateName)
