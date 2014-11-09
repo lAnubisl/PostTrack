@@ -23,7 +23,6 @@ namespace Posttrack.DI
         {
             var connectionString = ConfigurationManager.ConnectionStrings["mongodb"].ConnectionString;
             container = new Container();
-            container.RegisterDelegate<TaskScheduler>(x => TaskScheduler.FromCurrentSynchronizationContext(), Reuse.Singleton);
             container.RegisterDelegate<IPackageDAO>(r => new PackageDAO(connectionString), Reuse.Singleton);
             container.Register<IPackagePresentationService, PackagePresentationService>(Reuse.Singleton);
             container.Register<IPackageValidator, PackageValidator>(Reuse.Singleton);

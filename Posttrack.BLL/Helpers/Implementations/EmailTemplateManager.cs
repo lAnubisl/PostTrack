@@ -5,6 +5,7 @@ using System.Text;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 using System;
+using System.Collections.ObjectModel;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
@@ -53,20 +54,17 @@ namespace Posttrack.BLL.Helpers.Implementations
             IEnumerable<PackageHistoryItemDTO> newHistory)
         {
             var itemTemplate = LoadTemplate("TemplateItem.html");
-            var sb = new StringBuilder();
-            var oldItemsCount = oldHistory != null ? oldHistory.Count : 0;
-            var counter = 1;
+            var renderedItems = new Collection<string>();
             foreach (var item in newHistory)
             {
-                sb.Append(itemTemplate
+                renderedItems.Add(itemTemplate
                     .Replace("{Date}", item.Date.ToString("dd.MM.yy HH:mm", CultureInfo.CurrentCulture))
                     .Replace("{Action}", item.Action)
                     .Replace("{Place}", item.Place)
-                    .Replace("{Style}", counter > oldItemsCount ? "color:green;font-weight:bold;" : string.Empty));
-                counter++;
+                    .Replace("{Style}", oldHistory.Contains(item) ? string.Empty : "color:green;font-weight:bold;"));
             }
 
-            return string.Format("<table>{0}</table>", sb.ToString());
+            return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));
         }
 
         private static string LoadTemplate(string templateName)

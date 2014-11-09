@@ -21,20 +21,24 @@ namespace Posttrack.BLL
         private readonly IPackageDAO packageDAO;
         private readonly IResponseReader reader;
         private readonly IUpdateSearcher searcher;
-        private readonly TaskScheduler taskScheduler;
+        private TaskScheduler taskScheduler;
+
+        internal TaskScheduler TaskScheduler
+        {
+            get { return taskScheduler ?? TaskScheduler.FromCurrentSynchronizationContext(); }
+            set { taskScheduler = value; }
+        }
 
         public PackagePresentationService(
             IPackageDAO packageDAO, 
             IMessageSender messageSender, 
             IUpdateSearcher searcher,
-            IResponseReader reader,
-            TaskScheduler taskScheduler)
+            IResponseReader reader)
         {
             this.packageDAO = packageDAO;
             this.messageSender = messageSender;
             this.searcher = searcher;
             this.reader = reader;
-            this.taskScheduler = taskScheduler;
         }
 
         void IPackagePresentationService.Register(RegisterTrackingModel model)
@@ -42,7 +46,7 @@ namespace Posttrack.BLL
             RegisterPackageDTO dto = model.Map();
             log.InfoFormat("Registration {0}", dto.Tracking);
             packageDAO.Register(dto);
-            Task.Factory.StartNew(() => SendRegistered(dto), CancellationToken.None, TaskCreationOptions.None, taskScheduler);
+            Task.Factory.StartNew(() => SendRegistered(dto), CancellationToken.None, TaskCreationOptions.None, TaskScheduler);
         }
 
         void IPackagePresentationService.UpdateComingPackages()

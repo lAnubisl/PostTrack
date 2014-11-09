@@ -9,7 +9,7 @@ namespace Posttrack.BLL
         {
             if (x == null) return 1;
             if (y == null) return -1;
-            return x.Date > y.Date ? 1 : -1;
+            return x.Date > y.Date ? -1 : 1;
         }
     }
 }

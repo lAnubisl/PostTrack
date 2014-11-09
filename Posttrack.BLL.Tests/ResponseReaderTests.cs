@@ -104,39 +104,9 @@ namespace Posttrack.BLL.Tests
             IResponseReader reader = new ResponseReader();
             var history = reader.Read(fullResult).GetEnumerator();
             history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 16, 13, 11, 00), history.Current.Date);
-            Assert.AreEqual("Получение отправления от отправителя", history.Current.Action);
-            Assert.AreEqual("MD2024*", history.Current.Place);
-
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 16, 19, 39, 00), history.Current.Date);
-            Assert.AreEqual("Получение отправления в учреждение обмена", history.Current.Action);
-            Assert.AreEqual("CHISINAU CPTP", history.Current.Place);
-
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 16, 20, 46, 00), history.Current.Date);
-            Assert.AreEqual("Отправка отправления из учреждения обмена", history.Current.Action);
-            Assert.AreEqual("CHISINAU CPTP", history.Current.Place);
-
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 27, 12, 27, 34), history.Current.Date);
-            Assert.AreEqual("Получение отправления в учреждение обмена", history.Current.Action);
-            Assert.AreEqual("MINSK PI 2", history.Current.Place);
-
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 28, 04, 42, 41), history.Current.Date);
-            Assert.AreEqual("08. Передано из (200400) Минск ПОПП в (220034) Минск - 34", history.Current.Action);
-            Assert.AreEqual(string.Empty, history.Current.Place);
-
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 28, 04, 42, 41), history.Current.Date);
-            Assert.AreEqual("Отправка отправления в местное учреждение", history.Current.Action);
-            Assert.AreEqual("MINSK PI 3", history.Current.Place);
-            
-            history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 28, 05, 31, 00), history.Current.Date);
-            Assert.AreEqual("06. Поступило в участок обработки почты (220034) Минск - 34", history.Current.Action);
-            Assert.AreEqual(string.Empty, history.Current.Place);
+            Assert.AreEqual(new DateTime(2014, 06, 30, 21, 19, 00), history.Current.Date);
+            Assert.AreEqual("Отправление доставлено", history.Current.Action);
+            Assert.AreEqual("MINSK - 34", history.Current.Place);
 
             history.MoveNext();
             Assert.AreEqual(new DateTime(2014, 06, 30, 18, 19, 00), history.Current.Date);
@@ -144,9 +114,39 @@ namespace Posttrack.BLL.Tests
             Assert.AreEqual(string.Empty, history.Current.Place);
 
             history.MoveNext();
-            Assert.AreEqual(new DateTime(2014, 06, 30, 21, 19, 00), history.Current.Date);
-            Assert.AreEqual("Отправление доставлено", history.Current.Action);
-            Assert.AreEqual("MINSK - 34", history.Current.Place);
+            Assert.AreEqual(new DateTime(2014, 06, 28, 05, 31, 00), history.Current.Date);
+            Assert.AreEqual("06. Поступило в участок обработки почты (220034) Минск - 34", history.Current.Action);
+            Assert.AreEqual(string.Empty, history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 28, 04, 42, 41), history.Current.Date);
+            Assert.AreEqual("Отправка отправления в местное учреждение", history.Current.Action);
+            Assert.AreEqual("MINSK PI 3", history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 28, 04, 42, 41), history.Current.Date);
+            Assert.AreEqual("08. Передано из (200400) Минск ПОПП в (220034) Минск - 34", history.Current.Action);
+            Assert.AreEqual(string.Empty, history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 27, 12, 27, 34), history.Current.Date);
+            Assert.AreEqual("Получение отправления в учреждение обмена", history.Current.Action);
+            Assert.AreEqual("MINSK PI 2", history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 16, 20, 46, 00), history.Current.Date);
+            Assert.AreEqual("Отправка отправления из учреждения обмена", history.Current.Action);
+            Assert.AreEqual("CHISINAU CPTP", history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 16, 19, 39, 00), history.Current.Date);
+            Assert.AreEqual("Получение отправления в учреждение обмена", history.Current.Action);
+            Assert.AreEqual("CHISINAU CPTP", history.Current.Place);
+
+            history.MoveNext();
+            Assert.AreEqual(new DateTime(2014, 06, 16, 13, 11, 00), history.Current.Date);
+            Assert.AreEqual("Получение отправления от отправителя", history.Current.Action);
+            Assert.AreEqual("MD2024*", history.Current.Place);
         }
     }
 }

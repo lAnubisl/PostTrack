@@ -33,7 +33,9 @@ namespace Posttrack.BLL.Tests
             reader = new Mock<IResponseReader>();
             sender = new Mock<IMessageSender>();
             scheduler = new DeterministicTaskScheduler();
-            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, scheduler);
+            var svc = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object);
+            svc.TaskScheduler = scheduler;
+            service = svc;        
         }
 
         [TestMethod]
