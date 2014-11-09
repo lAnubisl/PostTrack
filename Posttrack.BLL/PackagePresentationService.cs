@@ -11,6 +11,7 @@ using Posttrack.Data.Interfaces.DTO;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Collections.Concurrent;
 
 namespace Posttrack.BLL
 {
@@ -65,7 +66,22 @@ namespace Posttrack.BLL
             }
 
             ThreadPool.SetMaxThreads(4, 4);
-            Parallel.ForEach(packages, UpdatePackage);
+            var exceptions = new ConcurrentQueue<Exception>();
+            Parallel.ForEach(packages, d =>
+            {
+                try
+                {
+                    UpdatePackage(d);
+                }                 
+                catch (Exception e) 
+                { 
+                    exceptions.Enqueue(e); 
+                }
+            });
+            if (exceptions.Count > 0)
+            {
+                throw new AggregateException(exceptions);
+            }
         }
 
         private void SendRegistered(RegisterPackageDTO dto)
