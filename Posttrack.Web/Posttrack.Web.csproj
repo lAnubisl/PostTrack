@@ -63,6 +63,11 @@
   <ItemGroup>
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\templatemo_main.css" />
+    <Content Include="EmailTemplates\TemplateInnerInactivity.html" />
+    <Content Include="EmailTemplates\TemplateInnerRegistered.html" />
+    <Content Include="EmailTemplates\TemplateInnerStatusChanged.html" />
+    <Content Include="EmailTemplates\TemplateItem.html" />
+    <Content Include="EmailTemplates\TemplateOuter.html" />
     <Content Include="Global.asax" />
     <Content Include="images\background.jpg" />
     <Content Include="images\status.gif" />

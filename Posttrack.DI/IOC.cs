@@ -9,6 +9,7 @@ using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL;
 using Posttrack.BLL.Helpers.Implementations;
 using Posttrack.Data;
+using System.Threading.Tasks;
 
 namespace Posttrack.DI
 {
@@ -22,6 +23,7 @@ namespace Posttrack.DI
         {
             var connectionString = ConfigurationManager.ConnectionStrings["mongodb"].ConnectionString;
             container = new Container();
+            container.RegisterDelegate<TaskScheduler>(x => TaskScheduler.FromCurrentSynchronizationContext(), Reuse.Singleton);
             container.RegisterDelegate<IPackageDAO>(r => new PackageDAO(connectionString), Reuse.Singleton);
             container.Register<IPackagePresentationService, PackagePresentationService>(Reuse.Singleton);
             container.Register<IPackageValidator, PackageValidator>(Reuse.Singleton);

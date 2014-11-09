@@ -23,6 +23,7 @@ namespace Posttrack.BLL.Tests
         private Mock<IResponseReader> reader;
         private Mock<IMessageSender> sender;
         private IPackagePresentationService service;
+        private DeterministicTaskScheduler scheduler;
 
         [TestInitialize]
         public void Init()
@@ -31,7 +32,8 @@ namespace Posttrack.BLL.Tests
             searcher = new Mock<IUpdateSearcher>();
             reader = new Mock<IResponseReader>();
             sender = new Mock<IMessageSender>();
-            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object);
+            scheduler = new DeterministicTaskScheduler();
+            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, scheduler);
         }
 
         [TestMethod]
@@ -52,8 +54,15 @@ namespace Posttrack.BLL.Tests
             model.Description = "Description";
             model.Email = "email@email.com";
             model.Tracking = "AA123123123PP";
+
+            var savedPackage = new PackageDTO() { Tracking = model.Tracking };
+
+            dao.Setup(d => d.Load(model.Tracking)).Returns(savedPackage);
+            searcher.Setup(s => s.Search(savedPackage)).Returns("Empty search result");
+
             service.Register(model);
-            sender.Verify(c => c.SendRegistered(It.Is<PackageDTO>(d => d.Tracking == model.Tracking && d.Email == model.Email && d.Description == model.Description), null));
+            scheduler.RunPendingTasks();
+            sender.Verify(c => c.SendRegistered(savedPackage, null));
         }
 
         [TestMethod]
