@@ -67,21 +67,17 @@ namespace Posttrack.BLL
 
             ThreadPool.SetMaxThreads(4, 4);
             var exceptions = new ConcurrentQueue<Exception>();
-            Parallel.ForEach(packages, d =>
+            Parallel.ForEach(packages, p =>
             {
                 try
                 {
-                    UpdatePackage(d);
+                    UpdatePackage(p);
                 }                 
                 catch (Exception e) 
-                { 
-                    exceptions.Enqueue(e); 
+                {
+                    log.Fatal(e.Message + " " + e.StackTrace);
                 }
             });
-            if (exceptions.Count > 0)
-            {
-                throw new AggregateException(exceptions);
-            }
         }
 
         private void SendRegistered(RegisterPackageDTO dto)
@@ -107,7 +103,7 @@ namespace Posttrack.BLL
 
         private ICollection<PackageHistoryItemDTO> SearchPackageStatus(PackageDTO package)
         {
-            log.DebugFormat("Starting search package {0}", package.Tracking);
+            log.WarnFormat("Starting search package {0}", package.Tracking);
 
             if (string.IsNullOrEmpty(package.Tracking))
             {

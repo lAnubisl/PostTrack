@@ -61,7 +61,7 @@ namespace Posttrack.BLL.Helpers.Implementations
                     .Replace("{Date}", item.Date.ToString("dd.MM.yy HH:mm", CultureInfo.CurrentCulture))
                     .Replace("{Action}", item.Action)
                     .Replace("{Place}", item.Place)
-                    .Replace("{Style}", oldHistory.Contains(item) ? string.Empty : "color:green;font-weight:bold;"));
+                    .Replace("{Style}", oldHistory != null && oldHistory.Contains(item) ? string.Empty : "color:green;font-weight:bold;"));
             }
 
             return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));

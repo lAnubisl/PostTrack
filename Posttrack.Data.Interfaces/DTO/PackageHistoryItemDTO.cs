@@ -12,11 +12,21 @@ namespace Posttrack.Data.Interfaces.DTO
 
         public override bool Equals(object obj)
         {
-            return Equals((PackageHistoryItemDTO) obj);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return Equals(obj as PackageHistoryItemDTO);
         }
 
         public bool Equals(PackageHistoryItemDTO another)
         {
+            if (another == null)
+            {
+                return false;
+            }
+
             return Object.Equals(this.Date, another.Date) &&
                 Object.Equals(this.Action, another.Action) &&
                 Object.Equals(this.Place, another.Place);
@@ -24,11 +34,14 @@ namespace Posttrack.Data.Interfaces.DTO
 
         public override int GetHashCode()
         {
-            var hash = 24;
-            hash = hash * 17 + this.Date.GetHashCode();
-            hash = hash * 17 + this.Action.GetHashCode();
-            hash = hash * 17 + this.Place.GetHashCode();
-            return hash;
+            unchecked
+            {
+                var hash = 24;
+                hash = hash * 17 + this.Date.GetHashCode();
+                hash = hash * 17 + this.Action.GetHashCode();
+                hash = hash * 17 + this.Place.GetHashCode();
+                return hash;
+            }
         }
     }
 }
