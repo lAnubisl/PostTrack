@@ -57,11 +57,12 @@ namespace Posttrack.BLL.Helpers.Implementations
             var renderedItems = new Collection<string>();
             foreach (var item in newHistory)
             {
+                var greenItem = oldHistory == null || !oldHistory.Contains(item);
                 renderedItems.Add(itemTemplate
                     .Replace("{Date}", item.Date.ToString("dd.MM.yy HH:mm", CultureInfo.CurrentCulture))
                     .Replace("{Action}", item.Action)
                     .Replace("{Place}", item.Place)
-                    .Replace("{Style}", oldHistory != null && oldHistory.Contains(item) ? string.Empty : "color:green;font-weight:bold;"));
+                    .Replace("{Style}", greenItem ? "color:green;font-weight:bold;" : string.Empty));
             }
 
             return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));
