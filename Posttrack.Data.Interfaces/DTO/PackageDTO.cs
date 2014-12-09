@@ -13,6 +13,7 @@ namespace Posttrack.Data.Interfaces.DTO
 
         public DateTime UpdateDate { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "DTO")]
         public ICollection<PackageHistoryItemDTO> History { get; set; }
 
         public bool IsFinished { get; set; }

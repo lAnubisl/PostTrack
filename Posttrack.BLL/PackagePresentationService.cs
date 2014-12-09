@@ -17,6 +17,7 @@ namespace Posttrack.BLL
 {
     public class PackagePresentationService : IPackagePresentationService
     {
+        private static readonly int threadsCount = 4;
         private static readonly ILog log = LogManager.GetLogger(typeof (PackagePresentationService));
         private readonly IMessageSender messageSender;
         private readonly IPackageDAO packageDAO;
@@ -26,8 +27,14 @@ namespace Posttrack.BLL
 
         internal TaskScheduler TaskScheduler
         {
-            get { return taskScheduler ?? TaskScheduler.FromCurrentSynchronizationContext(); }
-            set { taskScheduler = value; }
+            get 
+            {
+                return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); 
+            }
+            set 
+            { 
+                taskScheduler = value; 
+            }
         }
 
         public PackagePresentationService(
@@ -65,19 +72,24 @@ namespace Posttrack.BLL
                 return;
             }
 
-            ThreadPool.SetMaxThreads(4, 4);
-            var exceptions = new ConcurrentQueue<Exception>();
-            Parallel.ForEach(packages, p =>
-            {
-                try
+            ThreadPool.SetMaxThreads(threadsCount, threadsCount);
+            ThreadPool.SetMinThreads(threadsCount, threadsCount);
+
+            var task = new Task(() => {
+                var options = new ParallelOptions { TaskScheduler = this.TaskScheduler, MaxDegreeOfParallelism = threadsCount };
+                Parallel.ForEach(packages, options, p =>
                 {
-                    UpdatePackage(p);
-                }                 
-                catch (Exception e) 
-                {
-                    log.Fatal(e.Message + " " + e.StackTrace);
-                }
+                    try
+                    {
+                        UpdatePackage(p);
+                    }
+                    catch (Exception e)
+                    {
+                        log.Fatal(e.Message + " " + e.StackTrace);
+                    }
+                });
             });
+            task.RunSynchronously(TaskScheduler);
         }
 
         private void SendRegistered(RegisterPackageDTO dto)
@@ -103,7 +115,7 @@ namespace Posttrack.BLL
 
         private ICollection<PackageHistoryItemDTO> SearchPackageStatus(PackageDTO package)
         {
-            log.WarnFormat("Starting search package {0}", package.Tracking);
+            log.WarnFormat("Starting search package {0} in thread {1}", package.Tracking, Thread.CurrentThread.ManagedThreadId);
 
             if (string.IsNullOrEmpty(package.Tracking))
             {

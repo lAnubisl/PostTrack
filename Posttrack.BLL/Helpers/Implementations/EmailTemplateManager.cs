@@ -6,11 +6,14 @@ using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 using System;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailTemplateManager : IEmailTemplateManager
     {
+        private static readonly Regex actionPattern = new Regex(@"^\d{2} ", RegexOptions.Compiled);
+
         string IEmailTemplateManager.GetRegisteredEmailBody(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             return LoadInnerHtml("TemplateInnerRegistered.html", package.Description, package.Tracking)
@@ -66,6 +69,11 @@ namespace Posttrack.BLL.Helpers.Implementations
             }
 
             return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));
+        }
+
+        private static string ClearAction(string action)
+        {
+            return actionPattern.Replace(action, string.Empty);
         }
 
         private static string LoadTemplate(string templateName)

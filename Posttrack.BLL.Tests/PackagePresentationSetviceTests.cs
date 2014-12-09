@@ -23,7 +23,7 @@ namespace Posttrack.BLL.Tests
         private Mock<IResponseReader> reader;
         private Mock<IMessageSender> sender;
         private IPackagePresentationService service;
-        private DeterministicTaskScheduler scheduler;
+        private DeterministicTaskScheduler determenisticScheduler;
 
         [TestInitialize]
         public void Init()
@@ -32,10 +32,8 @@ namespace Posttrack.BLL.Tests
             searcher = new Mock<IUpdateSearcher>();
             reader = new Mock<IResponseReader>();
             sender = new Mock<IMessageSender>();
-            scheduler = new DeterministicTaskScheduler();
-            var svc = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object);
-            svc.TaskScheduler = scheduler;
-            service = svc;        
+            determenisticScheduler = new DeterministicTaskScheduler();
+            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object);     
         }
 
         [TestMethod]
@@ -45,6 +43,7 @@ namespace Posttrack.BLL.Tests
             model.Description = "Description";
             model.Email = "email@email.com";
             model.Tracking = "AA123123123PP";
+            ((PackagePresentationService)service).TaskScheduler = determenisticScheduler;
             service.Register(model);
             dao.Verify(c => c.Register(It.Is<RegisterPackageDTO>(d => d.Tracking == model.Tracking && d.Email == model.Email && d.Description == model.Description)));
         }
@@ -61,9 +60,10 @@ namespace Posttrack.BLL.Tests
 
             dao.Setup(d => d.Load(model.Tracking)).Returns(savedPackage);
             searcher.Setup(s => s.Search(savedPackage)).Returns("Empty search result");
+            ((PackagePresentationService)service).TaskScheduler = determenisticScheduler;
 
             service.Register(model);
-            scheduler.RunPendingTasks();
+            determenisticScheduler.RunPendingTasks();
             sender.Verify(c => c.SendRegistered(savedPackage, null));
         }
 

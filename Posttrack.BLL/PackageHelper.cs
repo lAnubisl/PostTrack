@@ -24,8 +24,17 @@ namespace Posttrack.BLL
 
         internal static bool IsStatusTheSame(ICollection<PackageHistoryItemDTO> history, PackageDTO package)
         {
-            return (IsEmpty(history) && IsEmpty(package.History))
-                || (package.History != null && package.History.Count == history.Count);
+            if (IsEmpty(history) && IsEmpty(package.History))
+            {
+                return true;
+            }
+
+            if (!IsEmpty(history) && !IsEmpty(package.History) && package.History.Count == history.Count)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         internal static bool IsEmpty(IEnumerable<PackageHistoryItemDTO> history)

@@ -16,6 +16,12 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         string IUpdateSearcher.Search(PackageDTO package)
         {
+            if (package == null)
+            {
+                log.Error("package is null");
+                return null;
+            }
+
             using (var webClient = new WebClient())
             {
                 webClient.Encoding = new UTF8Encoding();
