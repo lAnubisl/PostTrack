@@ -102,6 +102,7 @@ img.slide {
     top: 0; 
     background-color: rgba(255,255,255,0.75);
     padding-bottom: 20px;
+    border-radius: 4px;
 }
 
 
@@ -241,4 +242,16 @@ label.valid {
     border-color: #3c763d;
     color: #3c763d;
     font-size:14px;
+}
+.fb_iframe_widget {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+#vk_like {
+    height: 22px; 
+    width: 100px; 
+    clear: both; 
+    display: inline-block; 
+    vertical-align: middle;
 }
