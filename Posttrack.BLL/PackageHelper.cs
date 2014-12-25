@@ -11,7 +11,7 @@ namespace Posttrack.BLL
     {
         internal static bool IsFinished(PackageDTO package)
         {
-            string lastHistoryAction = package.History.Last().Action;
+            string lastHistoryAction = package.History.First().Action;
             return lastHistoryAction != null &&
                                      (lastHistoryAction.Contains("Доставлено, вручено") ||
                                       lastHistoryAction == "Отправление доставлено");

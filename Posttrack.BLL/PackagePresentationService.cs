@@ -75,7 +75,8 @@ namespace Posttrack.BLL
             ThreadPool.SetMaxThreads(threadsCount, threadsCount);
             ThreadPool.SetMinThreads(threadsCount, threadsCount);
 
-            var task = new Task(() => {
+            var task = new Task(() =>
+            {
                 var options = new ParallelOptions { TaskScheduler = this.TaskScheduler, MaxDegreeOfParallelism = threadsCount };
                 Parallel.ForEach(packages, options, p =>
                 {
@@ -136,6 +137,12 @@ namespace Posttrack.BLL
         private void UpdatePackage(PackageDTO package)
         {
             var history = SearchPackageStatus(package);
+            if (history == null)
+            {
+                log.Error("History is null. I can't continue work");
+                return;
+            }
+
             if (PackageHelper.IsStatusTheSame(history, package))
             {
                 if (PackageHelper.IsInactivityPeriodElapsed(package))
@@ -144,6 +151,7 @@ namespace Posttrack.BLL
                 }
 
                 log.DebugFormat("No update was found for package {0}", package.Tracking);
+                SavePackageStatus(package, history);
                 return;
             }
 
