@@ -137,12 +137,6 @@ namespace Posttrack.BLL
         private void UpdatePackage(PackageDTO package)
         {
             var history = SearchPackageStatus(package);
-            if (history == null)
-            {
-                log.Error("History is null. I can't continue work");
-                return;
-            }
-
             if (PackageHelper.IsStatusTheSame(history, package))
             {
                 if (PackageHelper.IsInactivityPeriodElapsed(package))
@@ -151,14 +145,15 @@ namespace Posttrack.BLL
                 }
 
                 log.DebugFormat("No update was found for package {0}", package.Tracking);
-                SavePackageStatus(package, history);
                 return;
             }
 
-            log.DebugFormat("Update was Found!!! Sending an update email for package {0}", package.Tracking);
-            
-            messageSender.SendStatusUpdate(package, history);
-            SavePackageStatus(package, history);
+            if (history != null)
+            {
+                log.DebugFormat("Update was Found!!! Sending an update email for package {0}", package.Tracking);
+                messageSender.SendStatusUpdate(package, history);
+                SavePackageStatus(package, history);
+            }
         }
 
         private void SavePackageStatus(PackageDTO package, ICollection<PackageHistoryItemDTO> history)
