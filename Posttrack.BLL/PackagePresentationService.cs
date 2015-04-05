@@ -54,7 +54,7 @@ namespace Posttrack.BLL
             RegisterPackageDTO dto = model.Map();
             log.InfoFormat("Registration {0}", dto.Tracking);
             packageDAO.Register(dto);
-            Task.Factory.StartNew(() => SendRegistered(dto), CancellationToken.None, TaskCreationOptions.None, TaskScheduler);
+            SendRegistered(dto);
         }
 
         void IPackagePresentationService.UpdateComingPackages()
