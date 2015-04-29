@@ -3,7 +3,6 @@ using Posttrack.Data.Interfaces.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Posttrack.BLL
 {
@@ -11,10 +10,10 @@ namespace Posttrack.BLL
     {
         internal static bool IsFinished(PackageDTO package)
         {
-            string lastHistoryAction = package.History.First().Action;
-            return lastHistoryAction != null &&
-                                     (lastHistoryAction.Contains("Доставлено, вручено") ||
-                                      lastHistoryAction == "Отправление доставлено");
+            string historyAction = package.History.First().Action;
+            return historyAction != null &&
+                                     (historyAction.ToLowerInvariant().Contains("вручено") ||
+                                      historyAction == "Отправление доставлено");
         }
 
         internal static bool IsInactivityPeriodElapsed(PackageDTO package)
