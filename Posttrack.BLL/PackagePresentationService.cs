@@ -136,6 +136,13 @@ namespace Posttrack.BLL
 
         private void UpdatePackage(PackageDTO package)
         {
+            // In case package is already finished then just finish it.
+            if (PackageHelper.IsFinished(package))
+            {
+                SavePackageStatus(package, package.History);
+                return;
+            }
+
             var history = SearchPackageStatus(package);
             if (PackageHelper.IsStatusTheSame(history, package))
             {

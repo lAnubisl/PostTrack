@@ -10,6 +10,11 @@ namespace Posttrack.BLL
     {
         internal static bool IsFinished(PackageDTO package)
         {
+            if (IsEmpty(package.History))
+            {
+                return false;
+            }
+
             string historyAction = package.History.First().Action;
             return historyAction != null &&
                                      (historyAction.ToLowerInvariant().Contains("вручено") ||
