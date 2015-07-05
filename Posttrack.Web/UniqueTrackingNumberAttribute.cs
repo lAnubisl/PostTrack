@@ -1,10 +1,6 @@
-﻿using Posttrack.BLL.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using Posttrack.BLL.Interfaces;
 using Posttrack.DI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Posttrack.Web
 {
@@ -13,7 +9,7 @@ namespace Posttrack.Web
         public override bool IsValid(object value)
         {
             var validator = InversionOfControlContainer.Instance.Resolve<IPackageValidator>();
-            return !validator.Exists((string)value);
+            return !validator.Exists((string) value);
         }
     }
 }

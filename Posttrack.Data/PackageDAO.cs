@@ -1,12 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using Posttrack.Data.Entities;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Posttrack.Data
 {
@@ -27,7 +27,8 @@ namespace Posttrack.Data
         ICollection<PackageDTO> IPackageDAO.LoadComingPackets()
         {
             var result = new Collection<PackageDTO>();
-            var query = Query.Or(Query<Package>.NotExists(e => e.IsFinished), Query<Package>.EQ(e => e.IsFinished, false));
+            var query = Query.Or(Query<Package>.NotExists(e => e.IsFinished),
+                Query<Package>.EQ(e => e.IsFinished, false));
             var items = packages.Find(query).ToList();
             foreach (var item in items)
             {
@@ -40,7 +41,7 @@ namespace Posttrack.Data
         {
             var entity = package.Map();
             entity.CreateDate = DateTime.Now;
-            Save(entity); 
+            Save(entity);
         }
 
         bool IPackageDAO.Exists(string trackingNumber)

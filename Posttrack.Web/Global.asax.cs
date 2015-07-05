@@ -1,11 +1,7 @@
-﻿using Posttrack.DI;
-using Posttrack.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
+using Posttrack.DI;
+using Posttrack.Web.Controllers;
 
 namespace Posttrack.Web
 {
@@ -13,9 +9,11 @@ namespace Posttrack.Web
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configuration.Routes.MapHttpRoute("DefaultApi", "tracking", new { controller = "Tracking", action = "index" });
-            InversionOfControlContainer.Instance.RegisterController(typeof(TrackingController));
-            GlobalConfiguration.Configuration.DependencyResolver = new DependencyResolver(InversionOfControlContainer.Instance);
+            GlobalConfiguration.Configuration.Routes.MapHttpRoute("DefaultApi", "tracking",
+                new {controller = "Tracking", action = "index"});
+            InversionOfControlContainer.Instance.RegisterController(typeof (TrackingController));
+            GlobalConfiguration.Configuration.DependencyResolver =
+                new DependencyResolver(InversionOfControlContainer.Instance);
         }
     }
 }

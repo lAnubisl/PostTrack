@@ -1,8 +1,8 @@
-﻿using Posttrack.BLL.Properties;
-using Posttrack.Data.Interfaces.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Posttrack.BLL.Properties;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL
 {
@@ -15,10 +15,10 @@ namespace Posttrack.BLL
                 return false;
             }
 
-            string historyAction = package.History.First().Action;
+            var historyAction = package.History.First().Action;
             return historyAction != null &&
-                                     (historyAction.ToLowerInvariant().Contains("вручено") ||
-                                      historyAction == "Отправление доставлено");
+                   (historyAction.ToLowerInvariant().Contains("вручено") ||
+                    historyAction == "Отправление доставлено");
         }
 
         internal static bool IsInactivityPeriodElapsed(PackageDTO package)

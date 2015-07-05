@@ -24,8 +24,8 @@ namespace Posttrack.BLL.Helpers.Implementations
 
             input = Regex.Replace(input, "<!--.*?-->", string.Empty,
                 RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            input = Regex.Replace(input, @"<[^>]*>", String.Empty);
-            MatchCollection matches = Regex.Matches(input, Settings.Default.HistoryRegex);
+            input = Regex.Replace(input, @"<[^>]*>", string.Empty);
+            var matches = Regex.Matches(input, Settings.Default.HistoryRegex);
             if (matches.Count == 0)
             {
                 log.Error("Cannot parse response string: " + input);

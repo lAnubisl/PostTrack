@@ -1,23 +1,23 @@
-﻿using System.Configuration;
-using DryIoc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Posttrack.Data.Interfaces;
-using Posttrack.BLL.Interfaces;
-using Posttrack.BLL.Helpers.Interfaces;
+using System.Configuration;
+using DryIoc;
 using Posttrack.BLL;
 using Posttrack.BLL.Helpers.Implementations;
+using Posttrack.BLL.Helpers.Interfaces;
+using Posttrack.BLL.Interfaces;
 using Posttrack.Data;
-using System.Threading.Tasks;
+using Posttrack.Data.Interfaces;
 
 namespace Posttrack.DI
 {
     public sealed class InversionOfControlContainer : IInversionOfControlContainer
     {
-        private readonly Container container;
+        private static readonly Lazy<InversionOfControlContainer> Manager =
+            new Lazy<InversionOfControlContainer>(() => new InversionOfControlContainer(), true);
 
-        private static readonly Lazy<InversionOfControlContainer> Manager = new Lazy<InversionOfControlContainer>(() => new InversionOfControlContainer(), true);
+        private readonly Container container;
 
         private InversionOfControlContainer()
         {
@@ -37,11 +37,6 @@ namespace Posttrack.DI
             this.container = container;
         }
 
-        public void RegisterController(Type serviceType)
-        {
-            container.Register(serviceType, Reuse.Transient);
-        }
-
         public static InversionOfControlContainer Instance
         {
             get { return Manager.Value; }
@@ -49,16 +44,16 @@ namespace Posttrack.DI
 
         public T Resolve<T>() where T : class
         {
-            return (T)this.Resolve(typeof(T));
+            return (T) Resolve(typeof (T));
         }
 
         public object Resolve(Type serviceType)
         {
             if (container.IsRegistered(serviceType))
             {
-                 return container.Resolve(serviceType);
+                return container.Resolve(serviceType);
             }
-           
+
             return null;
         }
 
@@ -81,6 +76,11 @@ namespace Posttrack.DI
         void IDisposable.Dispose()
         {
             container.Dispose();
+        }
+
+        public void RegisterController(Type serviceType)
+        {
+            container.Register(serviceType, Reuse.Transient);
         }
     }
 }

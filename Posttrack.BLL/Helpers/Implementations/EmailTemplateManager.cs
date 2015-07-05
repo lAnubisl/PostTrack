@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Text;
+using System.Text.RegularExpressions;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
-using System;
-using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
@@ -14,7 +13,8 @@ namespace Posttrack.BLL.Helpers.Implementations
     {
         private static readonly Regex actionPattern = new Regex(@"^\d{2} ", RegexOptions.Compiled);
 
-        string IEmailTemplateManager.GetRegisteredEmailBody(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        string IEmailTemplateManager.GetRegisteredEmailBody(PackageDTO package,
+            IEnumerable<PackageHistoryItemDTO> update)
         {
             return LoadInnerHtml("TemplateInnerRegistered.html", package.Description, package.Tracking)
                 .Replace("{RegisterStatusMessage}", LoadRegisteredItemsUpdate(package, update));
@@ -25,7 +25,8 @@ namespace Posttrack.BLL.Helpers.Implementations
             return LoadInnerHtml("TemplateInnerInactivity.html", package.Description, package.Tracking);
         }
 
-        string IEmailTemplateManager.GetUpdateStatusEmailBody(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        string IEmailTemplateManager.GetUpdateStatusEmailBody(PackageDTO package,
+            IEnumerable<PackageHistoryItemDTO> update)
         {
             return LoadInnerHtml("TemplateInnerStatusChanged.html", package.Description, package.Tracking)
                 .Replace("{TemplateHistoryItems}", LoadHistoryTemplate(package.History, update));
@@ -37,10 +38,8 @@ namespace Posttrack.BLL.Helpers.Implementations
             {
                 return EmailMessages.RegisterStatusNotFoundMessage;
             }
-            else
-            {
-                return LoadHistoryTemplate(package.History, update);
-            }
+
+            return LoadHistoryTemplate(package.History, update);
         }
 
         private static string LoadInnerHtml(string templateName, string description, string tracking)

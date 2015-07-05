@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using log4net;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
@@ -7,8 +9,6 @@ using Posttrack.BLL.Interfaces.Models;
 using Posttrack.BLL.Properties;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace Posttrack.BLL
 {
@@ -22,21 +22,9 @@ namespace Posttrack.BLL
         private readonly IUpdateSearcher searcher;
         private TaskScheduler taskScheduler;
 
-        internal TaskScheduler TaskScheduler
-        {
-            get 
-            {
-                return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); 
-            }
-            set 
-            { 
-                taskScheduler = value; 
-            }
-        }
-
         public PackagePresentationService(
-            IPackageDAO packageDAO, 
-            IMessageSender messageSender, 
+            IPackageDAO packageDAO,
+            IMessageSender messageSender,
             IUpdateSearcher searcher,
             IResponseReader reader)
         {
@@ -46,9 +34,15 @@ namespace Posttrack.BLL
             this.reader = reader;
         }
 
+        internal TaskScheduler TaskScheduler
+        {
+            get { return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); }
+            set { taskScheduler = value; }
+        }
+
         void IPackagePresentationService.Register(RegisterTrackingModel model)
         {
-            RegisterPackageDTO dto = model.Map();
+            var dto = model.Map();
             log.InfoFormat("Registration {0}", dto.Tracking);
             packageDAO.Register(dto);
             SendRegistered(dto);
@@ -56,14 +50,14 @@ namespace Posttrack.BLL
 
         void IPackagePresentationService.UpdateComingPackages()
         {
-            ICollection<PackageDTO> packages = packageDAO.LoadComingPackets();
+            var packages = packageDAO.LoadComingPackets();
             if (packages == null)
             {
                 log.Fatal("PackageDAO returned null");
                 return;
             }
 
-            log.InfoFormat("Starting update {0} packages", packages.Count);       
+            log.InfoFormat("Starting update {0} packages", packages.Count);
             if (packages.Count == 0)
             {
                 return;
@@ -74,7 +68,7 @@ namespace Posttrack.BLL
 
             var task = new Task(() =>
             {
-                var options = new ParallelOptions { TaskScheduler = this.TaskScheduler, MaxDegreeOfParallelism = threadsCount };
+                var options = new ParallelOptions {TaskScheduler = TaskScheduler, MaxDegreeOfParallelism = threadsCount};
                 Parallel.ForEach(packages, options, p =>
                 {
                     try
@@ -113,7 +107,8 @@ namespace Posttrack.BLL
 
         private ICollection<PackageHistoryItemDTO> SearchPackageStatus(PackageDTO package)
         {
-            log.WarnFormat("Starting search package {0} in thread {1}", package.Tracking, Thread.CurrentThread.ManagedThreadId);
+            log.WarnFormat("Starting search package {0} in thread {1}", package.Tracking,
+                Thread.CurrentThread.ManagedThreadId);
 
             if (string.IsNullOrEmpty(package.Tracking))
             {
@@ -171,7 +166,8 @@ namespace Posttrack.BLL
 
         private void StopTracking(PackageDTO package)
         {
-            log.WarnFormat("The package {0} was inactive for {1} months. Stop tracking it.", package.Tracking, Settings.Default.InactivityPeriodInMonths);
+            log.WarnFormat("The package {0} was inactive for {1} months. Stop tracking it.", package.Tracking,
+                Settings.Default.InactivityPeriodInMonths);
             messageSender.SendInactivityEmail(package);
             package.IsFinished = true;
             packageDAO.Update(package);

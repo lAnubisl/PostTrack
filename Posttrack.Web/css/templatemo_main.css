@@ -3,255 +3,238 @@
 body, html { overflow-x: hidden; }
 
 body {
-    font-size: 1em;
-    line-height: 1.4;
-    font-family: sans-serif!important;
-    font-style: normal; 
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
+    font-family: sans-serif !important;
+    font-size: 1em;
+    font-style: normal;
+    line-height: 1.4;
 }
 
 hr {
-    display: block;
-    height: 1px;
     border: 0;
     border-top: 1px solid #ccc;
+    display: block;
+    height: 1px;
     margin: 1em 0;
     padding: 0;
 }
 
-img {
-    vertical-align: middle;
-}
+img { vertical-align: middle; }
 
 /* Preloader */
+
 #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: #fff; /* change if the mask should have another color then white */
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
     z-index: 99; /* makes sure it stays on top */
 }
 
 #status {
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    left: 50%; /* centers the loading animation horizontally one the screen */
-    top: 50%; /* centers the loading animation vertically one the screen */
     background-image: url(../images/status.gif); /* path to your loading animation */
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+    left: 50%; /* centers the loading animation horizontally one the screen */
     margin: -100px 0 0 -100px; /* is width and height divided by two */
+    position: absolute;
+    top: 50%; /* centers the loading animation vertically one the screen */
+    width: 200px;
 }
 
 /* General */
-#main-wrapper {
-     overflow: hidden;
-}
 
-.templatemo-site-title { 
-    color: #fff !important; 
+#main-wrapper { overflow: hidden; }
+
+.templatemo-site-title {
+    color: #fff !important;
+    font-size: 48px;
     text-shadow: 0px 2px 3px rgba(0, 0, 0, 1);
-	font-size: 48px;
 }
 
-.templatemo-site-title a, .templatemo-site-title a:hover { 
-	color: #fff;
-	text-decoration: none;
+.templatemo-site-title a, .templatemo-site-title a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
 img.slide {
-    width: 100%; 
-    z-index: -9999999; 
     position: absolute;
+    width: 100%;
+    z-index: -9999999;
 }
 
-.active {
-    display: block;
-}
+.active { display: block; }
 
 .inactive {
-    left: 703px;
     display: none;
+    left: 703px;
 }
 
-.image-section {
-    position: fixed;
-}
+.image-section { position: fixed; }
 
-.image-container {
-    position: relative;
-}
+.image-container { position: relative; }
 
-.image-container img {
-    position: absolute;
-}
+.image-container img { position: absolute; }
 
 .templatemo-content {
-    position: static;
-    overflow: hidden; 
     margin-top: 36%;
+    overflow: hidden;
+    position: static;
 }
 
 .templatemo-content section {
-    position: relative; 
-    overflow: hidden;
-    top: 0; 
-    background-color: rgba(255,255,255,0.75);
-    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.75);
     border-radius: 4px;
-}
-
-
-.templatemo-content-wrapper {
     overflow: hidden;
+    padding-bottom: 20px;
+    position: relative;
+    top: 0;
 }
 
-.templatemo-content h2 {
-    color: #000;
-}
+
+.templatemo-content-wrapper { overflow: hidden; }
+
+.templatemo-content h2 { color: #000; }
 
 .templatemo-content p {
     color: #000;
     font-size: 16px;
 }
+
 .inactive a.nolink,
-.inactive a.nolink:hover{ color: #000; text-decoration: none; cursor: text;}
+.inactive a.nolink:hover {
+    color: #000;
+    cursor: text;
+    text-decoration: none;
+}
 
 .menu {
-    position: fixed; 
-    width: 220px;
-    z-index: 1; 
+    position: fixed;
     top: 35px;
+    width: 220px;
+    z-index: 1;
 }
 
 #menu-list {
-    background-color: rgba(0, 0, 0,0.5);
-    font-size: 16px; 
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
     padding: 0;
 }
 
-#menu-list > li {
-    display: block;
-}
+#menu-list > li { display: block; }
 
 
 #menu-list > li > a {
-    padding: 10px 0 10px 30px; 
-    text-decoration: none; 
+    color: #fff;
     display: block;
-    color: #fff; 
+    padding: 10px 0 10px 30px;
+    text-decoration: none;
 }
 
 #menu-list > .active > a,
-#menu-list > li > a:hover { 
-    background-color: rgba(255,255,255,0.25);
-}
+#menu-list > li > a:hover { background-color: rgba(255, 255, 255, 0.25); }
 
 
 #responsive {
+    background-color: rgba(0, 0, 0, 0.5);
     font-size: 16px;
     padding: 0;
-    background-color: rgba(0,0,0,0.5);
 }
 
-#responsive li {
-    display: block;
-}
+#responsive li { display: block; }
 
 #responsive li a {
-    color: #fff; 
-    text-decoration: none; 
-    padding: 10px 0;
+    color: #fff;
     display: block;
+    padding: 10px 0;
+    text-decoration: none;
 }
 
 #responsive > .active > a,
-#responsive li a:hover {
-    background-color: rgba(0,0,0,0.5);
-}
+#responsive li a:hover { background-color: rgba(0, 0, 0, 0.5); }
 
 #map-canvas {
-	height: 256px;
-	margin-bottom: 10px;
-}
-.form-group{
-	position: relative;
-}
-.form-group a.nolink{
-	cursor: text;
-	position: absolute;
-	top: 7px;
-	right: 10px;	
+    height: 256px;
+    margin-bottom: 10px;
 }
 
-.templatemo-content {
-    padding-bottom: 6%;
+.form-group { position: relative; }
+
+.form-group a.nolink {
+    cursor: text;
+    position: absolute;
+    right: 10px;
+    top: 7px;
 }
+
+.templatemo-content { padding-bottom: 6%; }
 
 .footer {
-    overflow: hidden; 
-    position: fixed; 
     bottom: 10px;
+    overflow: hidden;
+    position: fixed;
 }
 
 .footer-text {
-    color: #fff; 
-    text-shadow: 0px 2px 3px rgba(0, 0, 0, 1);
-    margin-left: 30px;
+    color: #fff;
     font-size: 14px;
+    margin-left: 30px;
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 1);
 }
 
-.footer-text a, .footer-text a:hover { 
-	color: #fff;
-	text-decoration: none;
+.footer-text a, .footer-text a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
 @media (max-width: 991px) {
     .footer {
-        overflow:hidden; 
-        position:static;
-        text-align: center;
-        
+        overflow: hidden;
+        position: static;
+        text-align: center;        
     }
-    .footer-text {
-        margin-left: 0;
-    }
+
+    .footer-text { margin-left: 0; }
 }
 
 input.error {
-    border-color:red;
-    background-color:#FFDEEB;
+    background-color: #FFDEEB;
+    border-color: red;
 }
+
 label.error {
     color: red;
-    font-size:14px;
+    font-size: 14px;
 }
+
 input.valid {
-    border-color:green;
-    background-color:#EBF58E;
+    background-color: #EBF58E;
+    border-color: green;
 }
-label.valid {
-    display:none!important;
-}
+
+label.valid { display: none !important; }
+
 .alert-success {
     background-color: #EBF58E;
     border-color: #3c763d;
     color: #3c763d;
-    font-size:14px;
+    font-size: 14px;
 }
+
 .fb_iframe_widget {
     display: inline-block;
     position: relative;
     vertical-align: middle;
 }
+
 #vk_like {
-    height: 22px; 
-    width: 100px; 
-    clear: both; 
-    display: inline-block; 
+    clear: both;
+    display: inline-block;
+    height: 22px;
     vertical-align: middle;
+    width: 100px;
 }

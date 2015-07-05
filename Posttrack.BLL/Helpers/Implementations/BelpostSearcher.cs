@@ -12,7 +12,7 @@ namespace Posttrack.BLL.Helpers.Implementations
     public class BelpostSearcher : IUpdateSearcher
     {
         private static readonly Uri url = new Uri(Settings.Default.HttpSearchUrl);
-        private static readonly ILog log = LogManager.GetLogger(typeof(BelpostSearcher));
+        private static readonly ILog log = LogManager.GetLogger(typeof (BelpostSearcher));
 
         string IUpdateSearcher.Search(PackageDTO package)
         {
@@ -27,9 +27,10 @@ namespace Posttrack.BLL.Helpers.Implementations
                 webClient.Encoding = new UTF8Encoding();
                 webClient.Headers.Add("Accept", "text/html, */*");
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                var data = String.Format(CultureInfo.CurrentCulture, "item={0}&internal=2", package.Tracking);
+                var data = string.Format(CultureInfo.CurrentCulture, "item={0}&internal=2", package.Tracking);
                 log.DebugFormat("Start searching '{0}' at '{1}", package.Tracking, url);
-                try {
+                try
+                {
                     var response = webClient.UploadString(url, data);
                     log.DebugFormat("Complete searching '{0}'. The response is '{1}'", package.Tracking, response);
                     return response;
@@ -38,7 +39,7 @@ namespace Posttrack.BLL.Helpers.Implementations
                 {
                     log.ErrorFormat("Error checking '{0}': {1} \n {2}", package.Tracking, ex.Message, ex.StackTrace);
                     return null;
-                }     
+                }
             }
         }
     }

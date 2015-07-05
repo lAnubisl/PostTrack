@@ -1,11 +1,11 @@
-﻿using log4net;
-using log4net.Config;
-using Posttrack.BLL.Interfaces;
-using Posttrack.DI;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Xml;
+using log4net;
+using log4net.Config;
+using Posttrack.BLL.Interfaces;
+using Posttrack.DI;
 
 namespace Posttrack.Checker
 {
@@ -14,13 +14,13 @@ namespace Posttrack.Checker
         public static void Main()
         {
             ConfigureLog4Net();
-            var log = LogManager.GetLogger(typeof(Checker));
+            var log = LogManager.GetLogger(typeof (Checker));
             var service = InversionOfControlContainer.Instance.Resolve<IPackagePresentationService>();
             try
             {
                 service.UpdateComingPackages();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Fatal(ex.Message + ex.StackTrace);
             }

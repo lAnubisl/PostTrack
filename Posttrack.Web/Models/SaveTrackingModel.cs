@@ -4,8 +4,8 @@ namespace Posttrack.Web.Models
 {
     public class SaveTrackingModel
     {
-        [Required] 
-        [StringLength(256)] 
+        [Required]
+        [StringLength(256)]
         [RegularExpression(@".+@.+\..+")]
         public string Email { get; set; }
 
@@ -15,7 +15,7 @@ namespace Posttrack.Web.Models
         //[RegularExpression(@"^\w{2}\d{9}\w{2}$")]
         public string Tracking { get; set; }
 
-        [Required] 
+        [Required]
         [StringLength(256)]
         public string Description { get; set; }
     }

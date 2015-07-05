@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,18 +11,14 @@ namespace Posttrack.BLL
     public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     {
         // Indicates whether the current thread is processing work items.
-        [ThreadStatic]
-        private static bool _currentThreadIsProcessingItems;
-
-        // The list of tasks to be executed  
-        private readonly LinkedList<Task> _tasks = new LinkedList<Task>(); // protected by lock(_tasks) 
+        [ThreadStatic] private static bool _currentThreadIsProcessingItems;
 
         // The maximum concurrency level allowed by this scheduler.  
         private readonly int _maxDegreeOfParallelism;
-
+        // The list of tasks to be executed  
+        private readonly LinkedList<Task> _tasks = new LinkedList<Task>(); // protected by lock(_tasks) 
         // Indicates whether the scheduler is currently processing work items.  
-        private int _delegatesQueuedOrRunning = 0;
-
+        private int _delegatesQueuedOrRunning;
         // Creates a new instance with the specified degree of parallelism.  
         public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
         {
@@ -32,8 +26,14 @@ namespace Posttrack.BLL
             _maxDegreeOfParallelism = maxDegreeOfParallelism;
         }
 
+        // Gets the maximum concurrency level supported by this scheduler.  
+        public override sealed int MaximumConcurrencyLevel
+        {
+            get { return _maxDegreeOfParallelism; }
+        }
+
         // Queues a task to the scheduler.  
-        protected sealed override void QueueTask(Task task)
+        protected override sealed void QueueTask(Task task)
         {
             // Add the task to the list of tasks to be processed.  If there aren't enough  
             // delegates currently queued or running to process tasks, schedule another.  
@@ -78,16 +78,19 @@ namespace Posttrack.BLL
                         }
 
                         // Execute the task we pulled out of the queue 
-                        base.TryExecuteTask(item);
+                        TryExecuteTask(item);
                     }
                 }
-                // We're done processing items on the current thread 
-                finally { _currentThreadIsProcessingItems = false; }
+                    // We're done processing items on the current thread 
+                finally
+                {
+                    _currentThreadIsProcessingItems = false;
+                }
             }, null);
         }
 
         // Attempts to execute the specified task on the current thread.  
-        protected sealed override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+        protected override sealed bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
         {
             // If this thread isn't already processing a task, we don't support inlining 
             if (!_currentThreadIsProcessingItems) return false;
@@ -96,26 +99,22 @@ namespace Posttrack.BLL
             if (taskWasPreviouslyQueued)
                 // Try to run the task.  
                 if (TryDequeue(task))
-                    return base.TryExecuteTask(task);
+                    return TryExecuteTask(task);
                 else
                     return false;
-            else
-                return base.TryExecuteTask(task);
+            return TryExecuteTask(task);
         }
 
         // Attempt to remove a previously scheduled task from the scheduler.  
-        protected sealed override bool TryDequeue(Task task)
+        protected override sealed bool TryDequeue(Task task)
         {
             lock (_tasks) return _tasks.Remove(task);
         }
 
-        // Gets the maximum concurrency level supported by this scheduler.  
-        public sealed override int MaximumConcurrencyLevel { get { return _maxDegreeOfParallelism; } }
-
         // Gets an enumerable of the tasks currently scheduled on this scheduler.  
-        protected sealed override IEnumerable<Task> GetScheduledTasks()
+        protected override sealed IEnumerable<Task> GetScheduledTasks()
         {
-            bool lockTaken = false;
+            var lockTaken = false;
             try
             {
                 Monitor.TryEnter(_tasks, ref lockTaken);

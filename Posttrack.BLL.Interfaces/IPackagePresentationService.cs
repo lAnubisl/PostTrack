@@ -5,7 +5,6 @@ namespace Posttrack.BLL.Interfaces
     public interface IPackagePresentationService
     {
         void Register(RegisterTrackingModel model);
-
         void UpdateComingPackages();
     }
 }

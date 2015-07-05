@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Posttrack.Data.Entities;
 using Posttrack.Data.Interfaces.DTO;
-using System.Collections.Generic;
 
 namespace Posttrack.Data
 {
