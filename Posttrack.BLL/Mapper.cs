@@ -10,7 +10,7 @@ namespace Posttrack.BLL
             var dto = new RegisterPackageDTO();
             dto.Description = model.Description;
             dto.Email = model.Email;
-            dto.Tracking = model.Tracking;
+            dto.Tracking = model.Tracking.Trim();
             return dto;
         }
     }

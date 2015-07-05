@@ -1,12 +1,5 @@
 ﻿using Posttrack.Web.Models;
 using Posttrack.BLL.Interfaces;
-using Posttrack.DI;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Posttrack.Web.Controllers

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Configuration;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Posttrack.Web.Models
 {
@@ -15,8 +10,9 @@ namespace Posttrack.Web.Models
         public string Email { get; set; }
 
         [Required]
-        [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")] 
-        [RegularExpression(@"^\w{2}\d{9}\w{2}$")]
+        [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")]
+        // Validation is disabled because china started using tracking numbers like 44596888337 and WDG30865967CN
+        //[RegularExpression(@"^\w{2}\d{9}\w{2}$")]
         public string Tracking { get; set; }
 
         [Required] 

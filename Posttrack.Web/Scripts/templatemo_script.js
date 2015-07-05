@@ -1,6 +1,8 @@
 ﻿$.validator.addMethod(
         "tracking",
         function (value, element) {
+            return true;
+            // Validation is disabled because china started using tracking numbers like 44596888337 and WDG30865967CN
             var re = new RegExp("^\\D{2}\\d{9}\\D{2}$");
             return this.optional(element) || re.test(value);
         },
