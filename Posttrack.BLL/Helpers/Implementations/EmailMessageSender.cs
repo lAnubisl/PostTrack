@@ -10,70 +10,77 @@ namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailMessageSender : IMessageSender
     {
-        private readonly SmtpClient smtpClient;
         private readonly IEmailTemplateManager templateManager;
 
         public EmailMessageSender(IEmailTemplateManager templateManager)
         {
             this.templateManager = templateManager;
-            smtpClient = new SmtpClient(Settings.Default.SmtpHost, Settings.Default.SmtpPort);
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new NetworkCredential(Settings.Default.SmtpUser, Settings.Default.SmtpPassword);
-            smtpClient.EnableSsl = Settings.Default.SmtpSecure;
-            smtpClient.Timeout = 20000;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
         void IMessageSender.SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            using (var message = new MailMessage(Settings.Default.SmtpFrom, package.Email))
-            {
-                message.Subject = GetStatusUpdateEmailSubject(package);
-                message.Body = templateManager.GetUpdateStatusEmailBody(package, update);
-                message.IsBodyHtml = true;
-                smtpClient.Send(message);
-            }
+            SendEmail(
+                package.Email, 
+                StatusUpdatedSubject(package), 
+                templateManager.GetUpdateStatusEmailBody(package, update));
         }
 
         void IMessageSender.SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            using (var message = new MailMessage(Settings.Default.SmtpFrom, package.Email))
-            {
-                message.Subject = GetRegisteredEmailSubject(package);
-                message.Body = templateManager.GetRegisteredEmailBody(package, update);
-                message.IsBodyHtml = true;
-                smtpClient.Send(message);
-            }
+            SendEmail(
+                package.Email,
+                RegisteredSubject(package),
+                templateManager.GetRegisteredEmailBody(package, update));
         }
 
         void IMessageSender.SendInactivityEmail(PackageDTO package)
         {
-            using (var message = new MailMessage(Settings.Default.SmtpFrom, package.Email))
+            SendEmail(
+                package.Email,
+                InactivitySubject(package),
+                templateManager.GetInactivityEmailBody(package));
+        }
+
+        private static void SendEmail(string toEmail, string subject, string body)
+        {
+            using (var clinet = GetClient())
+            using (var message = new MailMessage(Settings.Default.SmtpFrom, toEmail))
             {
-                message.Subject = GetInactivityEmailSubject(package);
-                message.Body = templateManager.GetInactivityEmailBody(package);
+                message.Subject = subject;
+                message.Body = body;
                 message.IsBodyHtml = true;
                 message.Priority = MailPriority.High;
-                smtpClient.Send(message);
+                clinet.Send(message);
             }
         }
 
-        private static string GetInactivityEmailSubject(PackageDTO package)
+        private static string InactivitySubject(PackageDTO package)
         {
             return string.Format(CultureInfo.CurrentCulture, EmailMessages.InactivityEmailSubject, package.Description,
                 package.Tracking);
         }
 
-        private static string GetStatusUpdateEmailSubject(PackageDTO package)
+        private static string StatusUpdatedSubject(PackageDTO package)
         {
             return string.Format(CultureInfo.CurrentCulture, EmailMessages.StatusUpdateEmailSubject, package.Description,
                 package.Tracking);
         }
 
-        private static string GetRegisteredEmailSubject(PackageDTO package)
+        private static string RegisteredSubject(PackageDTO package)
         {
             return string.Format(CultureInfo.CurrentCulture, EmailMessages.RegisteredEmailSubject, package.Description,
                 package.Tracking);
+        }
+
+        private static SmtpClient GetClient()
+        {
+            var client = new SmtpClient(Settings.Default.SmtpHost, Settings.Default.SmtpPort);
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(Settings.Default.SmtpUser, Settings.Default.SmtpPassword);
+            client.EnableSsl = Settings.Default.SmtpSecure;
+            client.Timeout = 20000;       
+            return client;
         }
     }
 }

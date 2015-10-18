@@ -14,7 +14,7 @@ namespace Posttrack.BLL
 {
     public class PackagePresentationService : IPackagePresentationService
     {
-        private static readonly int threadsCount = 4;
+        private const int threadsCount = 4;
         private static readonly ILog log = LogManager.GetLogger(typeof (PackagePresentationService));
         private readonly IMessageSender messageSender;
         private readonly IPackageDAO packageDAO;
@@ -36,7 +36,7 @@ namespace Posttrack.BLL
 
         internal TaskScheduler TaskScheduler
         {
-            get { return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); }
+            private get { return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); }
             set { taskScheduler = value; }
         }
 
