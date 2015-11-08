@@ -11,8 +11,6 @@ namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailTemplateManager : IEmailTemplateManager
     {
-        private static readonly Regex actionPattern = new Regex(@"^\d{2} ", RegexOptions.Compiled);
-
         string IEmailTemplateManager.GetRegisteredEmailBody(PackageDTO package,
             IEnumerable<PackageHistoryItemDTO> update)
         {
@@ -51,6 +49,8 @@ namespace Posttrack.BLL.Helpers.Implementations
                 .Replace("{Tracking}", tracking);
         }
 
+		private static readonly Regex CleanActionRegex = new Regex("\\d{2}\\. ", RegexOptions.Compiled);
+
         private static string LoadHistoryTemplate(
             ICollection<PackageHistoryItemDTO> oldHistory,
             IEnumerable<PackageHistoryItemDTO> newHistory)
@@ -62,17 +62,12 @@ namespace Posttrack.BLL.Helpers.Implementations
                 var greenItem = oldHistory == null || !oldHistory.Contains(item);
                 renderedItems.Add(itemTemplate
                     .Replace("{Date}", item.Date.ToString("dd.MM HH:mm", CultureInfo.CurrentCulture))
-                    .Replace("{Action}", item.Action)
+                    .Replace("{Action}", CleanActionRegex.Replace(item.Action, string.Empty))
                     .Replace("{Place}", item.Place)
                     .Replace("{Style}", greenItem ? "color:green;font-weight:bold;" : string.Empty));
             }
 
             return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));
-        }
-
-        private static string ClearAction(string action)
-        {
-            return actionPattern.Replace(action, string.Empty);
         }
 
         private static string LoadTemplate(string templateName)
