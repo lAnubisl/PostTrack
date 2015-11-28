@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="Posttrack.BLL.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Posttrack.BLL.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="SmtpHost" Type="System.String" Scope="Application">
@@ -26,10 +24,10 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="HistoryRegex" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">[^\n](?&lt;date&gt;[^:\n]+:\d\d:\d\d)\n\s+(?&lt;action&gt;[^\n]+)\n(?&lt;place&gt;    [^\n]+)?</Value>
+      <Value Profile="(Default)">(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|\d{2}.\d{2}.\d{4} \d{2}:\d{2}:\d{2}).+?(?=Label1"&gt;)[^&gt;]+&gt;(.+?(?=&lt;/span&gt;))(.+?(?=size="4"&gt;)[^&gt;]+&gt;([^&lt;]+))?</Value>
     </Setting>
     <Setting Name="HttpSearchUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://search.belpost.by/ajax/search</Value>
+      <Value Profile="(Default)">http://declaration.belpost.by/searchRu.aspx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

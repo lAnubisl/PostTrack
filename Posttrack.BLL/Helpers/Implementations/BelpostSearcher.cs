@@ -14,7 +14,10 @@ namespace Posttrack.BLL.Helpers.Implementations
         private static readonly Uri url = new Uri(Settings.Default.HttpSearchUrl);
         private static readonly ILog log = LogManager.GetLogger(typeof (BelpostSearcher));
 
-        string IUpdateSearcher.Search(PackageDTO package)
+	    private static readonly string postDataTemplate =
+			"__VIEWSTATE=%2FwEPDwULLTE1NTQ1NzEwNDQPZBYCAgMPZBYCAgkPZBYEAgEPPCsADQBkAgUPPCsADQBkGAMFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBQlJQnRuQnVuZXIFCUdyaWRJbmZvMA9nZAUIR3JpZEluZm8PZ2TjE6IJun2R3lPK64PrAWINq8FGcA%3D%3D&__VIEWSTATEGENERATOR=F0F1CCD9&__EVENTVALIDATION=%2FwEWBAKKhMC%2FDQLJk%2B%2FTAwL2nKzBDgLFnfXuCmVLc4Vgdc2vuaQ%2FqFCvmC%2BlOQ%2FS&TxtNumPos={0}&BtnSearch=GO";
+
+		string IUpdateSearcher.Search(PackageDTO package)
         {
             if (package == null)
             {
@@ -25,9 +28,8 @@ namespace Posttrack.BLL.Helpers.Implementations
             using (var webClient = new WebClient())
             {
                 webClient.Encoding = new UTF8Encoding();
-                webClient.Headers.Add("Accept", "text/html, */*");
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                var data = string.Format(CultureInfo.CurrentCulture, "item={0}&internal=2", package.Tracking);
+                var data = string.Format(CultureInfo.CurrentCulture, postDataTemplate, package.Tracking);
                 log.DebugFormat("Start searching '{0}' at '{1}", package.Tracking, url);
                 try
                 {
