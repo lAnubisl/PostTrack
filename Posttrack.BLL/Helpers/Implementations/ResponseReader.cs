@@ -17,15 +17,12 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         ICollection<PackageHistoryItemDTO> IResponseReader.Read(string input)
         {
-            if (input.StartsWith("По вашему запросу ничего не найдено", StringComparison.InvariantCultureIgnoreCase))
+            if (input.Contains("По вашему запросу ничего не найдено"))
             {
                 return null;
             }
 
-            input = Regex.Replace(input, "<!--.*?-->", string.Empty,
-                RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            input = Regex.Replace(input, @"<[^>]*>", string.Empty);
-            var matches = Regex.Matches(input, Settings.Default.HistoryRegex);
+            var matches = Regex.Matches(input, Settings.Default.HistoryRegex, RegexOptions.Singleline);
             if (matches.Count == 0)
             {
                 log.Error("Cannot parse response string: " + input);
@@ -36,13 +33,24 @@ namespace Posttrack.BLL.Helpers.Implementations
             foreach (Match match in matches)
             {
                 var historyItem = new PackageHistoryItemDTO();
-                historyItem.Date = DateTime.Parse(match.Groups["date"].Value.Trim(), provider);
-                historyItem.Action = match.Groups["action"].Value.Trim();
-                historyItem.Place = match.Groups["place"].Value.Trim();
+                historyItem.Date = ParseDate(match);
+                historyItem.Action = match.Groups[2].Value.Trim();
+	            if (match.Groups.Count > 3)
+	            {
+					historyItem.Place = match.Groups[4].Value.Trim();
+				}
+                
                 history.Add(historyItem);
             }
 
             return history;
         }
+
+	    private static DateTime ParseDate(Match match)
+	    {
+		    return match.Groups[1].Value.Contains("-")
+			    ? DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd HH:mm:ss", provider)
+			    : DateTime.ParseExact(match.Groups[1].Value, "dd.MM.yyyy HH:mm:ss", provider);
+	    }
     }
 }
