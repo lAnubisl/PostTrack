@@ -17,7 +17,7 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         ICollection<PackageHistoryItemDTO> IResponseReader.Read(string input)
         {
-            if (input.Contains("По вашему запросу ничего не найдено"))
+            if (input.Contains("ничего не найдено"))
             {
                 return null;
             }
