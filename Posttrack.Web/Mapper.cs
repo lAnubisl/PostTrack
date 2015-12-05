@@ -7,11 +7,12 @@ namespace Posttrack.Web
     {
         internal static RegisterTrackingModel Map(this SaveTrackingModel model)
         {
-            var dto = new RegisterTrackingModel();
-            dto.Tracking = model.Tracking;
-            dto.Email = model.Email;
-            dto.Description = model.Description;
-            return dto;
+	        return new RegisterTrackingModel
+	        {
+		        Tracking = model.Tracking,
+		        Email = model.Email,
+		        Description = model.Description
+	        };
         }
     }
 }

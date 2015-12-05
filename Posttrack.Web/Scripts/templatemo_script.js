@@ -44,31 +44,25 @@ jQuery(function($) {
             rules: {
                 email: {
                     email: true,
-                    required: true,
-                    maxlength: 256
+                    required: true
                 },
                 tracking: {
-                    required: true,
-                    maxlength: 256
+                    required: true
                 },
                 description: {
-                    required: true,
-                    maxlength: 256
+                    required: true
                 }
             },
             messages: {
                 email: {
-                    required: "Пожалуйста, введите Email",
-                    email: "Пожалуйста, введите корректный Email",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: "Извините, вы забыли указать ваш адрес электронной почты. Без него мы не будем знать, куда высылать обновления статуса посылки.",
+                    email: "Извините, вы уверены, что правильно введи адрес электронной почты? Похоже, вы где-то ошиблись."
                 },
                 tracking: {
-                    required: "Пожалуйста, введите номер почтового отправления",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: "Извините, вы забыли указать номер вашего почтового отправления, без него мы не сможем отслеживать вашу посылку."
                 },
                 description: {
-                    required: "Пожалуйста, введите описание",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: ""
                 }
             },
             highlight: function(element) {
@@ -88,13 +82,18 @@ jQuery(function($) {
                     async: false,
                     type: "POST",
                     dataType: "json",
-                    data: { email: $("#email").val(), tracking: $("#tracking").val(), description: $("#description").val() },
+                    data: {
+                    	email: $.trim($("#email").val()),
+                    	tracking: $.trim($("#tracking").val()),
+                    	description: $.trim($("#description").val())
+                    },
                     success: function(data) {
                         if (data.Errors && data.Errors.length > 0) {
                             var validator = $("#tracking-form").validate();
                             validator.showErrors({ "tracking": data.Errors[0].Value[0] });
                         } else {
-                            createCookie("email", $("#email").val(), 365);
+                        	createCookie("email", $("#email").val(), 365);
+	                        $("#email-sent").text($("#email").val());
                             $(".alert-success").fadeIn();
                         }
                     }
