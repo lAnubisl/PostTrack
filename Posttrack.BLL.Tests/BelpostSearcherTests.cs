@@ -12,8 +12,9 @@ namespace Posttrack.BLL.Tests
 		public void Search_Should_Find()
 		{
 			IUpdateSearcher searcher = new BelpostSearcher();
-			var result = searcher.Search(new PackageDTO {Tracking = "RF109959764CN"});
+			var result = searcher.Search(new PackageDTO {Tracking = "RM611628067CN" });
             Assert.IsNotNull(result);
+			Assert.IsTrue(result.Contains("Доставлено, вручено"));
 		}
 	}
 }
