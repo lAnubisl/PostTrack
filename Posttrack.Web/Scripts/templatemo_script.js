@@ -1,12 +1,10 @@
 ﻿$.validator.addMethod(
     "tracking",
     function(value, element) {
-        return true;
-        // Validation is disabled because china started using tracking numbers like 44596888337 and WDG30865967CN
-        var re = new RegExp("^\\D{2}\\d{9}\\D{2}$");
+        var re = new RegExp("^\[a-zA-Z]{2}\\d{9}\[a-zA-Z]{2}$");
         return this.optional(element) || re.test(value);
     },
-    "Пожалуйста, введите корректный номер отправления (пример: RC464177591CN)");
+    "Изините, вам нужно ввести номер слежения вида 'AA123456789ZZ'. Другие номера слежения не отслеживаются сайтом belpost.by");
 
 jQuery(function($) {
     $(window).load(function() { // makes sure the whole site is loaded
@@ -44,31 +42,25 @@ jQuery(function($) {
             rules: {
                 email: {
                     email: true,
-                    required: true,
-                    maxlength: 256
+                    required: true
                 },
                 tracking: {
-                    required: true,
-                    maxlength: 256
+                    required: true
                 },
                 description: {
-                    required: true,
-                    maxlength: 256
+                    required: true
                 }
             },
             messages: {
                 email: {
-                    required: "Пожалуйста, введите Email",
-                    email: "Пожалуйста, введите корректный Email",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: "Извините, вы забыли указать ваш адрес электронной почты.",
+                    email: "Извините, похоже, вы где-то ошиблись."
                 },
                 tracking: {
-                    required: "Пожалуйста, введите номер почтового отправления",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: "Извините, вы забыли указать номер слежения вашей посылки."
                 },
                 description: {
-                    required: "Пожалуйста, введите описание",
-                    maxlength: "Разрешено ввести значение не длиннее 256 символов"
+                    required: "Извините, вы забыли указать подсказку для посылки."
                 }
             },
             highlight: function(element) {
@@ -88,13 +80,18 @@ jQuery(function($) {
                     async: false,
                     type: "POST",
                     dataType: "json",
-                    data: { email: $("#email").val(), tracking: $("#tracking").val(), description: $("#description").val() },
+                    data: {
+                    	email: $.trim($("#email").val()),
+                    	tracking: $.trim($("#tracking").val()),
+                    	description: $.trim($("#description").val())
+                    },
                     success: function(data) {
                         if (data.Errors && data.Errors.length > 0) {
                             var validator = $("#tracking-form").validate();
                             validator.showErrors({ "tracking": data.Errors[0].Value[0] });
                         } else {
-                            createCookie("email", $("#email").val(), 365);
+                        	createCookie("email", $("#email").val(), 365);
+	                        $("#email-sent").text($("#email").val());
                             $(".alert-success").fadeIn();
                         }
                     }
@@ -102,6 +99,11 @@ jQuery(function($) {
                 $(this).prop("disabled", false);
             }
         });
+
+    	// select all desired input fields and attach tooltips to them
+	    $('.hint').tooltipster({
+		    theme: 'tooltipster-punk'
+		});
     });
 });
 
