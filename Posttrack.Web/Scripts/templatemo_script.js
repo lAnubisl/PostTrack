@@ -1,12 +1,10 @@
 ﻿$.validator.addMethod(
     "tracking",
     function(value, element) {
-        return true;
-        // Validation is disabled because china started using tracking numbers like 44596888337 and WDG30865967CN
-        var re = new RegExp("^\\D{2}\\d{9}\\D{2}$");
+        var re = new RegExp("^\[a-zA-Z]{2}\\d{9}\[a-zA-Z]{2}$");
         return this.optional(element) || re.test(value);
     },
-    "Пожалуйста, введите корректный номер отправления (пример: RC464177591CN)");
+    "Изините, вам нужно ввести номер слежения вида 'AA123456789ZZ'. Другие номера слежения не отслеживаются сайтом belpost.by");
 
 jQuery(function($) {
     $(window).load(function() { // makes sure the whole site is loaded
@@ -55,14 +53,14 @@ jQuery(function($) {
             },
             messages: {
                 email: {
-                    required: "Извините, вы забыли указать ваш адрес электронной почты. Без него мы не будем знать, куда высылать обновления статуса посылки.",
-                    email: "Извините, вы уверены, что правильно введи адрес электронной почты? Похоже, вы где-то ошиблись."
+                    required: "Извините, вы забыли указать ваш адрес электронной почты.",
+                    email: "Извините, похоже, вы где-то ошиблись."
                 },
                 tracking: {
-                    required: "Извините, вы забыли указать номер вашего почтового отправления, без него мы не сможем отслеживать вашу посылку."
+                    required: "Извините, вы забыли указать номер слежения вашей посылки."
                 },
                 description: {
-                    required: ""
+                    required: "Извините, вы забыли указать подсказку для посылки."
                 }
             },
             highlight: function(element) {
@@ -101,6 +99,11 @@ jQuery(function($) {
                 $(this).prop("disabled", false);
             }
         });
+
+    	// select all desired input fields and attach tooltips to them
+	    $('.hint').tooltipster({
+		    theme: 'tooltipster-punk'
+		});
     });
 });
 
