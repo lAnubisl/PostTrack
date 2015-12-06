@@ -64,6 +64,7 @@
   <ItemGroup>
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\templatemo_main.css" />
+    <Content Include="css\tooltipster.css" />
     <Content Include="EmailTemplates\TemplateInnerInactivity.html" />
     <Content Include="EmailTemplates\TemplateInnerRegistered.html" />
     <Content Include="EmailTemplates\TemplateInnerStatusChanged.html" />
@@ -74,6 +75,7 @@
     <Content Include="images\status.gif" />
     <Content Include="index.html" />
     <Content Include="Scripts\jquery.backstretch.min.js" />
+    <Content Include="Scripts\jquery.tooltipster.min.js" />
     <Content Include="Scripts\templatemo_script.js" />
     <None Include="ApplicationSettings.config" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
@@ -99,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\belpost-tracker.pubxml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

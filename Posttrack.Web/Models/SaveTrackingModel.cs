@@ -1,22 +1,35 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Posttrack.Web.Models
 {
     public class SaveTrackingModel
     {
-        [Required]
-        [StringLength(256)]
-        [RegularExpression(@".+@.+\..+")]
-        public string Email { get; set; }
+	    private string tracking;
+	    private string email;
+	    private string description;
 
-        [Required]
-        [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")]
-        // Validation is disabled because china started using tracking numbers like 44596888337 and WDG30865967CN
-        //[RegularExpression(@"^\w{2}\d{9}\w{2}$")]
-        public string Tracking { get; set; }
+	    [Required]
+	    [RegularExpression(@".+@.+\..+")]
+	    public string Email
+	    {
+		    get { return email;}
+		    set { email = value.ToLower(CultureInfo.InvariantCulture); }
+	    }
 
-        [Required]
-        [StringLength(256)]
-        public string Description { get; set; }
+	    [Required]
+	    [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")]
+	    public string Tracking
+	    {
+		    get { return tracking; }
+			set { tracking = value.ToUpper(CultureInfo.InvariantCulture); }
+	    }
+
+	    [Required]
+	    public string Description
+	    {
+		    get { return description; }
+			set { description = value.Trim(); }
+	    }
     }
 }
