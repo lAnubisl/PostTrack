@@ -16,5 +16,14 @@ namespace Posttrack.BLL.Tests
             Assert.IsNotNull(result);
 			Assert.IsTrue(result.Contains("Доставлено, вручено"));
 		}
+
+        [TestMethod]
+        public void Search_Should_Find_2()
+        {
+            IUpdateSearcher searcher = new BelpostSearcher();
+            var result = searcher.Search(new PackageDTO { Tracking = "RA133251313FI" });
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Contains("ничего не найдено"));
+        }
 	}
 }
