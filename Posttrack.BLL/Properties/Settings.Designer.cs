@@ -88,8 +88,8 @@ namespace Posttrack.BLL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(\\d{4}-\\d{2}-\\d{2}|\\d{2}.\\d{2}.\\d{4}).+?(?=Label1\">)[^>]+>(.+?(?=</span>))(.+?(?=" +
-            "size=\"4\">)[^>]+>([^<]+))?")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(\\d{4}-\\d{2}-\\d{2}|\\d{2}.\\d{2}.\\d{4}).+?(?>Label1\">)(.+?(?=</span>))(.+?(?>size=\"" +
+            "4\">)([^<]+)</font></td>\\r\\n\\t\\t\\t\\t</tr>)?")]
         public string HistoryRegex {
             get {
                 return ((string)(this["HistoryRegex"]));
