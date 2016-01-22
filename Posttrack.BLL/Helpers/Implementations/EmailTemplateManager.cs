@@ -61,7 +61,7 @@ namespace Posttrack.BLL.Helpers.Implementations
             {
                 var greenItem = oldHistory == null || !oldHistory.Contains(item);
                 renderedItems.Add(itemTemplate
-                    .Replace("{Date}", item.Date.ToString("dd.MM HH:mm", CultureInfo.CurrentCulture))
+                    .Replace("{Date}", item.Date.ToString("dd.MM", CultureInfo.CurrentCulture))
                     .Replace("{Action}", CleanActionRegex.Replace(item.Action, string.Empty))
                     .Replace("{Place}", item.Place)
                     .Replace("{Style}", greenItem ? "color:green;font-weight:bold;" : string.Empty));

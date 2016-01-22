@@ -49,8 +49,8 @@ namespace Posttrack.BLL.Helpers.Implementations
 	    private static DateTime ParseDate(Match match)
 	    {
 		    return match.Groups[1].Value.Contains("-")
-			    ? DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd HH:mm:ss", provider)
-			    : DateTime.ParseExact(match.Groups[1].Value, "dd.MM.yyyy HH:mm:ss", provider);
+			    ? DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd", provider)
+			    : DateTime.ParseExact(match.Groups[1].Value, "dd.MM.yyyy", provider);
 	    }
     }
 }
