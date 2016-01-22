@@ -9,6 +9,7 @@ namespace Posttrack.BLL
         {
             if (x == null) return 1;
             if (y == null) return -1;
+            if (x.Date == y.Date) return string.CompareOrdinal(x.Action, y.Action) * -1;
             return x.Date > y.Date ? -1 : 1;
         }
     }

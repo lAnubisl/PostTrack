@@ -18,14 +18,40 @@ body {
     background: #FFF url("/Resources/bgr.png") repeat-x;
 }
 
-    &lt;/style&gt;
+        .style7
+        {
+            width: 418px;
+        }
+        .style8
+        {
+            width: 150px;
+        }
+        .style10
+        {
+            width: 223px;
+        }
+        .style11
+        {
+            width: 350px;
+        }
+
+        &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;form name="form1" method="post" action="searchRu.aspx" id="form1"&gt;
-&lt;input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" /&gt;
+    &lt;form name="form1" method="post" action="searchRu.aspx?search=RA133251313FI" id="form1"&gt;
+&lt;input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" /&gt;
+
+
+&lt;script src="/ScriptResource.axd?d=ejIU2cL6n_VEgf4o15YEoQMZE6jbRYOiAImbnH6Ou9-2HbXbjAX0qMPCnejZbEPERmmIM9Rh27Hbfdv4Effj4aaJZUzbgYotFxB1iRhi-hDLRFd-qQTXqWd9lb8PUATbb_KndSh4bsTspa-idbS0lVPQDYCxx6DiDOgH7J6IGSYAD1Ga0&amp;amp;t=9bdc98c" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]&gt;
+&lt;/script&gt;
 
 &lt;input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="F0F1CCD9" /&gt;
-&lt;input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBALmx5VpAsmT79MDAvacrMEOAsWd9e4KxfszZZ1fhBP2Q6t2TnpAarXKLvU=" /&gt;
+&lt;input type="hidden" name="__PREVIOUSPAGE" id="__PREVIOUSPAGE" value="KA8qOwS1PH-XF0TopZfKO3g8l4_7ex9WAow29xdAB9Jol2yAJpYbBx3mYRJabSEsOuPluyFOR8mRKQw462LiSWV3uaQ1" /&gt;
+&lt;input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCQKckOToDALJk+/TAwL2nKzBDgLFnfXuCgLSwsGJCgLSwv2aBALSwpH2DALSwum/CwLSwqXRBTyq+XNN+JZiK9Foq6XK5R3KOw9E" /&gt;
     &lt;div&gt;
     
     &lt;p style="margin-left: 250px"&gt;
@@ -33,157 +59,153 @@ body {
     
         &lt;br /&gt;
         &lt;p style="margin-left: 250px"&gt;
-        
+            
 		&lt;br /&gt;
             &lt;font  style="font-size:18pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt;Слежение за почтовыми отправлениями&lt;/b&gt;&lt;/font&gt;
+                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt;Слежение за почтовыми отправлениями&lt;/b&gt;&lt;/font&gt;                
                 
-        &lt;p style="margin-left: 250px; width: 817px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; По вопросам таможенных операций и начислениям таможенных платежей обращаться на официальный сайт Минской региональной таможни &lt;a href="http://mrt.customs.gov.by/" target="_blank"&gt;mrt.customs.gov.by&lt;/a&gt; &lt;/font&gt;
-                        
-        &lt;p style="margin-left: 250px; width: 817px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Посмотреть информацию о статусах почтовых отправлений вы можете &lt;a href="http://www.belpost.by/info/statusy/" target="_blank"&gt;
-            &lt;b&gt;здесь&lt;/b&gt;&lt;/a&gt; &lt;/font&gt;
-                                
-        &lt;p style="margin-left: 250px; width: 817px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt;Уважаемые клиенты!&lt;/b&gt;
-Вы можете оформить перенаправление международного регистрируемого почтового отправления для получения его в пункте почтовой связи по приему и выдаче почтовых отправлений. Перенаправление можно оформить &lt;a href="http://declaration.belpost.by/redirection.aspx" target="_blank"&gt;
-            &lt;b&gt;здесь&lt;/b&gt;&lt;/a&gt; . Услуга по перенаправлению доступна только до момента поступления почтового отправления на таможенный контроль в учреждение международного почтового обмена.&lt;/font&gt;
-        &lt;p style="margin-left: 250px; width: 817px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt;Уважаемые клиенты!&lt;/b&gt;
-В случае получения записи по Вашему отправлению: «&lt;b&gt;Для передачи в таможню необходимо уточнить данные&lt;/b&gt;» требуется заполнить прилагаемую форму - «Форма для заполнения», в противном случае отправление будет возвращено. &lt;/font&gt;
-                        
-        &lt;p style="margin-left: 250px; width: 817px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Данные необходимо вносить ТОЛЬКО один раз. Неоднократно введенные данные замедляют процесс обработки. Статус посылки изменяется после обработки информации сотрудниками таможенного отдела.&lt;/font&gt;
-                        
-        &lt;p style="margin-left: 250px"&gt;
-        
-		    &lt;font  style="font-size:16pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&lt;/font&gt;&lt;p style="margin-left: 250px"&gt;
-        
-		    &lt;span id="Label1" color="Black" style="display:inline-block;font-size:13.5pt;line-height:115%;font-family:"Times New Roman""&gt;&lt;font size="5"&gt;Введите номер отправления:&lt;/font&gt;&lt;/span&gt;
-            &lt;input name="TxtNumPos" type="text" value="RF109959764CN" id="TxtNumPos" style="margin-top: 0px" /&gt;
-            &lt;input type="submit" name="BtnSearch" value="Поиск" id="BtnSearch" /&gt;
-            
-            &lt;p style="margin-left: 250px"&gt;
-        
-		        &amp;nbsp;&lt;div id="Panel2" style="margin-left: 250px"&gt;
+            &lt;div id="UpdatePanel1"&gt;
 	
-                &lt;div&gt;
-		&lt;table class="margin-left: 250px'" cellspacing="0" cellpadding="4" rules="cols" bordercolor="#DEDFDE" border="1" id="GridInfo" width="754" bgcolor="White"&gt;
-			&lt;tr bgcolor="White"&gt;
-				&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Дата&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Событие&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Офис&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl02_Label2" style="display:inline-block;"&gt;2015-11-07 14:40:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl02_Label1"&gt;Получение отправления от отправителя&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;518103*&lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl03_Label2" style="display:inline-block;"&gt;2015-11-24 15:35:11&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl03_Label1"&gt;Поступило в участок обработки почты&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK PI 2&lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl04_Label2" style="display:inline-block;"&gt;2015-11-24 20:11:44&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl04_Label1"&gt;Прохождение по таможенной зоне (см. &lt;a href="http://declaration.belpost.by/search.aspx?search=RF109959764CN"&gt;http://declaration.belpost.by&lt;/a&gt;)&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK PI 2&lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl05_Label2" style="display:inline-block;"&gt;2015-11-27 13:05:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl05_Label1"&gt;Попытка вручения&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK - 34&lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl06_Label2" style="display:inline-block;"&gt;2015-11-27 22:27:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo_ctl06_Label1"&gt;Вручено&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK - 34&lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;
-		&lt;/table&gt;
+                    &lt;p style="margin-left: 250px"&gt;
+                        &lt;font  
+        style="font-size:16pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;"&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
+                    &lt;p style="margin-left: 250px"&gt;
+                        &lt;font color="Black" 
+                            style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;"&gt;
+                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Номер отправления вводится - латинским шрифтом, без пробелов.
+                        &lt;/font&gt;&lt;/p&gt;
+                    &lt;p style="margin-left: 250px; width: 817px;"&gt;
+                        &lt;span id="Label50" color="Black" style="display:inline-block;font-size:13.5pt;line-height:115%;font-family:"Times New Roman""&gt;&lt;font size="5"&gt;Введите номер отправления:&lt;/font&gt;&lt;/span&gt;
+                        &lt;input name="TxtNumPos" type="text" value="RA133251313FI" id="TxtNumPos" style="margin-top: 0px" /&gt;
+                        &lt;input type="submit" name="BtnSearch" value="Поиск" id="BtnSearch" /&gt;
+                    &lt;/p&gt;
+                    &lt;p style="margin-left: 250px; width: 817px;"&gt;
+                        
+                        &amp;nbsp;&lt;div id="Panel2" style="margin-left: 250px"&gt;
+		
+                            &lt;font color="Black" 
+                            style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;"&gt;
+                        &amp;nbsp;&amp;nbsp;&amp;nbsp; Отображаемые сведения на сайте РУП «Белпочта» носят 
+                            информационный характер.&lt;/font&gt;
+                            &amp;nbsp;&lt;div&gt;
+			&lt;table class="margin-left: 250px'" cellspacing="0" cellpadding="4" rules="cols" bordercolor="#DEDFDE" border="1" id="GridInfo" width="754" bgcolor="White"&gt;
+				&lt;tr bgcolor="White"&gt;
+					&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Дата&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Событие&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Офис&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;2016-01-05&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo_ctl02_Label1"&gt;Отправка отправления из учреждения обмена&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;HELSINKI&lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;2016-01-10&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo_ctl03_Label1"&gt;Поступило в участок обработки почты&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK PI 2&lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;2016-01-12&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo_ctl04_Label1"&gt;Прохождение по таможенной зоне (см. &lt;a href="http://declaration.belpost.by/search.aspx?search=RA133251313FI"&gt;http://declaration.belpost.by&lt;/a&gt;)&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK PI 2&lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;2016-01-18&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo_ctl05_Label1"&gt;Вручено&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;MINSK - 34&lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/table&gt;
+		&lt;/div&gt;
+                            &lt;br /&gt;
+                            &lt;span id="Label49" style="font-size:16pt;line-height:115%;font-family:"Times New Roman""&gt;&lt;font size="6"&gt;Прохождение по стране:&lt;/font&gt;&lt;/span&gt;
+                            &lt;div&gt;
+			&lt;table class="margin-left: 250px'" cellspacing="0" cellpadding="4" rules="cols" bordercolor="#DEDFDE" border="1" id="GridInfo0" width="754" bgcolor="White"&gt;
+				&lt;tr bgcolor="White"&gt;
+					&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Дата&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Событие&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;16.01.2016&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo0_ctl02_Label1"&gt;08. Передано из (&lt;a href="http://zip.belpost.by/zip_code/200400"&gt;200400&lt;/a&gt;)  в (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;16.01.2016&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo0_ctl03_Label1"&gt;06. Поступило в участок обработки почты (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;16.01.2016&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo0_ctl04_Label1"&gt;09. Попытка доставки (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
+					&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;18.01.2016&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
+                                            &lt;span id="GridInfo0_ctl05_Label1"&gt;10. Доставлено, вручено (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
+                                        &lt;/font&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/table&gt;
+		&lt;/div&gt;
+                            &lt;br /&gt;
+                            
+                        
 	&lt;/div&gt;
-            
-                &lt;br /&gt;
-                &lt;span id="Label49" style="font-size:16pt;line-height:115%;font-family:"Times New Roman""&gt;&lt;font size="6"&gt;Прохождение по стране:&lt;/font&gt;&lt;/span&gt;
-            
-                &lt;div&gt;
-		&lt;table class="margin-left: 250px'" cellspacing="0" cellpadding="4" rules="cols" bordercolor="#DEDFDE" border="1" id="GridInfo0" width="754" bgcolor="White"&gt;
-			&lt;tr bgcolor="White"&gt;
-				&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Дата&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;&lt;th scope="col"&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;&lt;b&gt;Событие&lt;/b&gt;&lt;/font&gt;&lt;/th&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl02_Label2" style="display:inline-block;"&gt;27.11.2015 06:32:17&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl02_Label1"&gt;08. Передано из (&lt;a href="http://zip.belpost.by/zip_code/200400"&gt;200400&lt;/a&gt;)  в (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl03_Label2" style="display:inline-block;"&gt;27.11.2015 09:24:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl03_Label1"&gt;06. Поступило в участок обработки почты (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="#8BE3FF"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl04_Label2" style="display:inline-block;"&gt;27.11.2015 10:05:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl04_Label1"&gt;09. Попытка доставки (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;&lt;tr bgcolor="White"&gt;
-				&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl05_Label2" style="display:inline-block;"&gt;27.11.2015 19:27:00&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font face="Times New Roman" color="Black" size="4"&gt;
-                                &lt;span id="GridInfo0_ctl05_Label1"&gt;10. Доставлено, вручено (&lt;a href="http://zip.belpost.by/zip_code/220034"&gt;220034&lt;/a&gt;) Минск - 34&lt;/span&gt;
-                            &lt;/font&gt;&lt;/td&gt;
-			&lt;/tr&gt;
-		&lt;/table&gt;
-	&lt;/div&gt;
-            
-                &lt;br /&gt;
+                        
+                        
+                        
+                        
+                        &lt;p&gt;
+                        &lt;/p&gt;
+                        &lt;p&gt;
+                        &lt;/p&gt;
+                        &lt;p&gt;
+                        &lt;/p&gt;
+                    &lt;/p&gt;
                 
-            
-            
 &lt;/div&gt;
         
+		        
+        
     &lt;/div&gt;
-    &lt;/form&gt;
+    &lt;table  style="margin-left: 200px; text-align: center;"&gt;
+        &lt;tr &gt;
+            &lt;td class="style7"&gt;
+        
+		    &lt;span id="Label53"&gt;&lt;b&gt;«Уточнение данных для передачи&lt;br&gt; на таможенный контроль»&lt;/b&gt;&lt;/span&gt;
+            &lt;br&gt;&lt;input type="image" name="ImageButton3" id="ImageButton3" src="Resources/%D0%A3%D1%82%D0%BE%D1%87%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&amp;quot;ImageButton3&amp;quot;, &amp;quot;&amp;quot;, false, &amp;quot;&amp;quot;, &amp;quot;Matters/Clarification.aspx&amp;quot;, false, false))" border="0" /&gt;
+            &lt;/td&gt;
+            &lt;td class="style8"&gt;
+        
+		        &lt;br /&gt;
+        
+		    &lt;span id="Label54"&gt;&lt;b&gt;«Доставка»&lt;/b&gt;&lt;/span&gt;
+            &lt;br&gt;
+            &lt;input type="image" name="ImageButton4" id="ImageButton4" src="Resources/%D0%94%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&amp;quot;ImageButton4&amp;quot;, &amp;quot;&amp;quot;, false, &amp;quot;&amp;quot;, &amp;quot;Matters/Delivery.aspx&amp;quot;, false, false))" border="0" /&gt;
+            &lt;/td&gt;
+            &lt;td class="style7"&gt;
+        
+		    &lt;span id="Label57"&gt;&lt;b&gt;«Оформление перенаправления международного&lt;br&gt; регистрируемого почтового отправления»&lt;/b&gt;&lt;/span&gt;
+            &lt;br&gt;&amp;nbsp;&lt;input type="image" name="ImageButton7" id="ImageButton7" src="Resources/%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&amp;quot;ImageButton7&amp;quot;, &amp;quot;&amp;quot;, false, &amp;quot;&amp;quot;, &amp;quot;Matters/Redirections.aspx&amp;quot;, false, false))" border="0" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;table style="margin-left: 380px; text-align: center;"&gt;
+        &lt;tr&gt;
+            &lt;td class="style11"&gt;
+        
+		    &lt;span id="Label55"&gt;&lt;b&gt;«Статусы/События&lt;br&gt; почтовых отправлений»&lt;/b&gt;&lt;/span&gt;
+            &lt;br&gt;&lt;input type="image" name="ImageButton5" id="ImageButton5" src="Resources/%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D1%8B.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&amp;quot;ImageButton5&amp;quot;, &amp;quot;&amp;quot;, false, &amp;quot;&amp;quot;, &amp;quot;Matters/Status.aspx&amp;quot;, false, false))" border="0" /&gt;
+            &lt;/td&gt;
+            &lt;td class="style10"&gt;
+        
+		        &lt;br /&gt;
+        
+		    &lt;span id="Label56"&gt;&lt;b&gt;«Таможенные вопросы»&lt;/b&gt;&lt;/span&gt;
+            &lt;br&gt;&amp;nbsp;&lt;input type="image" name="ImageButton6" id="ImageButton6" src="Resources/%D0%A2%D0%B0%D0%BC%D0%BE%D0%B6%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&amp;quot;ImageButton6&amp;quot;, &amp;quot;&amp;quot;, false, &amp;quot;&amp;quot;, &amp;quot;Matters/Customs.aspx&amp;quot;, false, false))" border="0" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
     &lt;p style="margin-left: 250px"&gt;
         
-		    &lt;font  style="font-size:16pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Внимание! &lt;/font&gt;
-&lt;p style="margin-left: 250px; width: 811px;"&gt;
+		    &amp;nbsp;&lt;p style="margin-left: 250px"&gt;
         
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbspНомер отправления вводится - латинским шрифтом, без пробелов. &lt;p style="margin-left: 250px; width: 811px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;Обращаем Ваше внимание, что все международные посылки доставляются по адресу получателя. В случае отсутствия адресата, в почтовом ящике оставляется извещение о поступлении международного отправления. &lt;/font&gt;
-    &lt;p style="margin-left: 250px; width: 811px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;Посылки (кроме EMS) с начисленными таможенными платежами будут вручаться в отделениях почтовой связи зоны обслуживания после уплаты начисленных платежей. &lt;/font&gt;
-    &lt;p style="margin-left: 250px; width: 811px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;Отправления международной ускоренной почты EMS недоставленные, а так же с начисленными таможенными платежами, вручаются централизованно в выделенных объектах почтовой связи. &lt;/font&gt;
-    &lt;p style="margin-left: 250px; width: 811px;"&gt;
-        
-		    &lt;font  style="font-size:13.5pt;line-height:115%;font-family:&amp;quot;Times New Roman&amp;quot;" 
-                color="Black"&gt;&amp;nbsp;Информируем Вас, что в разделе «Слежение за почтовыми отправлениями» отображается прохождение (обмен) электронной информации по регистрируемым почтовым отправлениям между объектами почтовой связи. Отображаемые сведения на сайте РУП «Белпочта» носят информационный характер. &lt;/font&gt;
-    
+		    &amp;nbsp;
+
+&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
+Sys.Application.initialize();
+//]]&gt;
+&lt;/script&gt;
+&lt;/form&gt;
     
     &lt;!-- Yandex.Metrika counter --&gt;
 &lt;script type="text/javascript"&gt;

@@ -12,7 +12,7 @@ namespace Posttrack.BLL.Tests.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -29,211 +29,196 @@ namespace Posttrack.BLL.Tests.Properties {
             ".org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n\r\n<html xmlns=\"http://www.w3.org/1" +
             "999/xhtml\" >\r\n<head><title>\r\n\tПоиск отправлений\r\n</title><link rel=\"icon\" href=\"" +
             "Resources/favicon.ico\" type=\"image/x-icon\" />\r\n    <style type=\"text/css\">\r\n\r\n\r\n" +
-            "body {\r\n    background: #FFF url(\"/Resources/bgr.png\") repeat-x;\r\n}\r\n\r\n    </sty" +
-            "le>\r\n</head>\r\n<body>\r\n    <form name=\"form1\" method=\"post\" action=\"searchRu.aspx" +
-            "\" id=\"form1\">\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/" +
-            "wEPDwULLTE1NTQ1NzEwNDQPZBYCAgMPZBYCAgkPDxYCHgdWaXNpYmxlZ2QWBgIBDzwrAA0BAA8WBB4LX" +
-            "yFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIFZBYCZg9kFgwCAQ9kFgZmD2QWAgIBDw8WAh4EVGV4dAUTM" +
-            "jAxNS0xMS0wNyAxNDo0MDowMGRkAgEPZBYCAgEPDxYCHwMFRdCf0L7Qu9GD0YfQtdC90LjQtSDQvtGC0" +
-            "L/RgNCw0LLQu9C10L3QuNGPINC+0YIg0L7RgtC/0YDQsNCy0LjRgtC10LvRj2RkAgIPDxYCHwMFBzUxO" +
-            "DEwMypkZAICD2QWBmYPZBYCAgEPDxYCHwMFEzIwMTUtMTEtMjQgMTU6MzU6MTFkZAIBD2QWAgIBDw8WA" +
-            "h8DBULQn9C+0YHRgtGD0L/QuNC70L4g0LIg0YPRh9Cw0YHRgtC+0Log0L7QsdGA0LDQsdC+0YLQutC4I" +
-            "NC/0L7Rh9GC0YtkZAICDw8WAh8DBQpNSU5TSyBQSSAyZGQCAw9kFgZmD2QWAgIBDw8WAh8DBRMyMDE1L" +
-            "TExLTI0IDIwOjExOjQ0ZGQCAQ9kFgICAQ8PFgIfAwWsAdCf0YDQvtGF0L7QttC00LXQvdC40LUg0L/Qv" +
-            "iDRgtCw0LzQvtC20LXQvdC90L7QuSDQt9C+0L3QtSAo0YHQvC4gPGEgaHJlZj0iaHR0cDovL2RlY2xhc" +
-            "mF0aW9uLmJlbHBvc3QuYnkvc2VhcmNoLmFzcHg/c2VhcmNoPVJGMTA5OTU5NzY0Q04iPmh0dHA6Ly9kZ" +
-            "WNsYXJhdGlvbi5iZWxwb3N0LmJ5PC9hPilkZAICDw8WAh8DBQpNSU5TSyBQSSAyZGQCBA9kFgZmD2QWA" +
-            "gIBDw8WAh8DBRMyMDE1LTExLTI3IDEzOjA1OjAwZGQCAQ9kFgICAQ8PFgIfAwUf0J/QvtC/0YvRgtC60" +
-            "LAg0LLRgNGD0YfQtdC90LjRj2RkAgIPDxYCHwMFCk1JTlNLIC0gMzRkZAIFD2QWBmYPZBYCAgEPDxYCH" +
-            "wMFEzIwMTUtMTEtMjcgMjI6Mjc6MDBkZAIBD2QWAgIBDw8WAh8DBQ7QktGA0YPRh9C10L3QvmRkAgIPD" +
-            "xYCHwMFCk1JTlNLIC0gMzRkZAIGDw8WAh8AaGRkAgMPDxYCHwBnZGQCBQ88KwANAQAPFgQfAWcfAgIEZ" +
-            "BYCZg9kFgoCAQ9kFgRmD2QWAgIBDw8WAh8DBRMyNy4xMS4yMDE1IDA2OjMyOjE3ZGQCAQ9kFgICAQ8PF" +
-            "gIfAwWnATA4LiDQn9C10YDQtdC00LDQvdC+INC40LcgKDxhIGhyZWY9Imh0dHA6Ly96aXAuYmVscG9zd" +
-            "C5ieS96aXBfY29kZS8yMDA0MDAiPjIwMDQwMDwvYT4pICDQsiAoPGEgaHJlZj0iaHR0cDovL3ppcC5iZ" +
-            "Wxwb3N0LmJ5L3ppcF9jb2RlLzIyMDAzNCI+MjIwMDM0PC9hPikg0JzQuNC90YHQuiAtIDM0ZGQCAg9kF" +
-            "gRmD2QWAgIBDw8WAh8DBRMyNy4xMS4yMDE1IDA5OjI0OjAwZGQCAQ9kFgICAQ8PFgIfAwWTATA2LiDQn" +
-            "9C+0YHRgtGD0L/QuNC70L4g0LIg0YPRh9Cw0YHRgtC+0Log0L7QsdGA0LDQsdC+0YLQutC4INC/0L7Rh" +
-            "9GC0YsgKDxhIGhyZWY9Imh0dHA6Ly96aXAuYmVscG9zdC5ieS96aXBfY29kZS8yMjAwMzQiPjIyMDAzN" +
-            "DwvYT4pINCc0LjQvdGB0LogLSAzNGRkAgMPZBYEZg9kFgICAQ8PFgIfAwUTMjcuMTEuMjAxNSAxMDowN" +
-            "TowMGRkAgEPZBYCAgEPDxYCHwMFcDA5LiDQn9C+0L/Ri9GC0LrQsCDQtNC+0YHRgtCw0LLQutC4ICg8Y" +
-            "SBocmVmPSJodHRwOi8vemlwLmJlbHBvc3QuYnkvemlwX2NvZGUvMjIwMDM0Ij4yMjAwMzQ8L2E+KSDQn" +
-            "NC40L3RgdC6IC0gMzRkZAIED2QWBGYPZBYCAgEPDxYCHwMFEzI3LjExLjIwMTUgMTk6Mjc6MDBkZAIBD" +
-            "2QWAgIBDw8WAh8DBXUxMC4g0JTQvtGB0YLQsNCy0LvQtdC90L4sINCy0YDRg9GH0LXQvdC+ICg8YSBoc" +
-            "mVmPSJodHRwOi8vemlwLmJlbHBvc3QuYnkvemlwX2NvZGUvMjIwMDM0Ij4yMjAwMzQ8L2E+KSDQnNC40" +
-            "L3RgdC6IC0gMzRkZAIFDw8WAh8AaGRkGAMFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBB" +
-            "QlJQnRuQnVuZXIFCUdyaWRJbmZvMA88KwAKAQgCAWQFCEdyaWRJbmZvDzwrAAoBCAIBZIG3RJ4elpV/b" +
-            "YcBHIisdC9v4WkJ\" />\r\n\r\n<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VI" +
-            "EWSTATEGENERATOR\" value=\"F0F1CCD9\" />\r\n<input type=\"hidden\" name=\"__EVENTVALIDAT" +
-            "ION\" id=\"__EVENTVALIDATION\" value=\"/wEWBALmx5VpAsmT79MDAvacrMEOAsWd9e4KxfszZZ1fh" +
-            "BP2Q6t2TnpAarXKLvU=\" />\r\n    <div>\r\n    \r\n    <p style=\"margin-left: 250px\">\r\n  " +
-            "  <input type=\"image\" name=\"IBtnBuner\" id=\"IBtnBuner\" src=\"Resources/ban.png\" bo" +
-            "rder=\"0\" />\r\n    \r\n        <br />\r\n        <p style=\"margin-left: 250px\">\r\n     " +
-            "   \r\n\t\t<br />\r\n            <font  style=\"font-size:18pt;line-height:115%;font-fa" +
-            "mily:&quot;Times New Roman&quot;\" \r\n                color=\"Black\">&nbsp;&nbsp;&n" +
-            "bsp; <b>Слежение за почтовыми отправлениями</b></font>\r\n                \r\n      " +
-            "  <p style=\"margin-left: 250px; width: 817px;\">\r\n        \r\n\t\t    <font  style=\"f" +
-            "ont-size:13.5pt;line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n    " +
-            "            color=\"Black\">&nbsp;&nbsp;&nbsp; По вопросам таможенных операций и н" +
-            "ачислениям таможенных платежей обращаться на официальный сайт Минской региональн" +
-            "ой таможни <a href=\"http://mrt.customs.gov.by/\" target=\"_blank\">mrt.customs.gov." +
-            "by</a> </font>\r\n                        \r\n        <p style=\"margin-left: 250px; " +
-            "width: 817px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5pt;line-height:115%" +
-            ";font-family:&quot;Times New Roman&quot;\" \r\n                color=\"Black\">&nbsp;" +
-            "&nbsp;&nbsp; Посмотреть информацию о статусах почтовых отправлений вы можете <a " +
-            "href=\"http://www.belpost.by/info/statusy/\" target=\"_blank\">\r\n            <b>здес" +
-            "ь</b></a> </font>\r\n                                \r\n        <p style=\"margin-le" +
-            "ft: 250px; width: 817px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5pt;line-" +
-            "height:115%;font-family:&quot;Times New Roman&quot;\" \r\n                color=\"Bl" +
-            "ack\">&nbsp;&nbsp;&nbsp; <b>Уважаемые клиенты!</b>\r\nВы можете оформить перенаправ" +
-            "ление международного регистрируемого почтового отправления для получения его в п" +
-            "ункте почтовой связи по приему и выдаче почтовых отправлений. Перенаправление мо" +
-            "жно оформить <a href=\"http://declaration.belpost.by/redirection.aspx\" target=\"_b" +
-            "lank\">\r\n            <b>здесь</b></a> . Услуга по перенаправлению доступна только" +
-            " до момента поступления почтового отправления на таможенный контроль в учреждени" +
-            "е международного почтового обмена.</font>\r\n        <p style=\"margin-left: 250px;" +
-            " width: 817px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5pt;line-height:115" +
-            "%;font-family:&quot;Times New Roman&quot;\" \r\n                color=\"Black\">&nbsp" +
-            ";&nbsp;&nbsp; <b>Уважаемые клиенты!</b>\r\nВ случае получения записи по Вашему отп" +
-            "равлению: «<b>Для передачи в таможню необходимо уточнить данные</b>» требуется з" +
-            "аполнить прилагаемую форму - «Форма для заполнения», в противном случае отправле" +
-            "ние будет возвращено. </font>\r\n                        \r\n        <p style=\"margi" +
-            "n-left: 250px; width: 817px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5pt;l" +
-            "ine-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n                color" +
-            "=\"Black\">&nbsp;&nbsp;&nbsp; Данные необходимо вносить ТОЛЬКО один раз. Неоднокра" +
-            "тно введенные данные замедляют процесс обработки. Статус посылки изменяется посл" +
-            "е обработки информации сотрудниками таможенного отдела.</font>\r\n                " +
-            "        \r\n        <p style=\"margin-left: 250px\">\r\n        \r\n\t\t    <font  style=\"" +
-            "font-size:16pt;line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n     " +
-            "           color=\"Black\">&nbsp;</font><p style=\"margin-left: 250px\">\r\n        \r\n" +
-            "\t\t    <span id=\"Label1\" color=\"Black\" style=\"display:inline-block;font-size:13.5" +
-            "pt;line-height:115%;font-family:\"Times New Roman\"\"><font size=\"5\">Введите номер " +
-            "отправления:</font></span>\r\n            <input name=\"TxtNumPos\" type=\"text\" valu" +
-            "e=\"RF109959764CN\" id=\"TxtNumPos\" style=\"margin-top: 0px\" />\r\n            <input " +
-            "type=\"submit\" name=\"BtnSearch\" value=\"Поиск\" id=\"BtnSearch\" />\r\n            \r\n  " +
-            "          <p style=\"margin-left: 250px\">\r\n        \r\n\t\t        &nbsp;<div id=\"Pan" +
-            "el2\" style=\"margin-left: 250px\">\r\n\t\r\n                <div>\r\n\t\t<table class=\"marg" +
-            "in-left: 250px\'\" cellspacing=\"0\" cellpadding=\"4\" rules=\"cols\" bordercolor=\"#DEDF" +
-            "DE\" border=\"1\" id=\"GridInfo\" width=\"754\" bgcolor=\"White\">\r\n\t\t\t<tr bgcolor=\"White" +
-            "\">\r\n\t\t\t\t<th scope=\"col\"><font face=\"Times New Roman\" color=\"Black\" size=\"4\"><b>Д" +
-            "ата</b></font></th><th scope=\"col\"><font face=\"Times New Roman\" color=\"Black\" si" +
-            "ze=\"4\"><b>Событие</b></font></th><th scope=\"col\"><font face=\"Times New Roman\" co" +
-            "lor=\"Black\" size=\"4\"><b>Офис</b></font></th>\r\n\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t" +
-            "\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                    " +
-            "            <span id=\"GridInfo_ctl02_Label2\" style=\"display:inline-block;\">2015-" +
-            "11-07 14:40:00</span>\r\n                            </font></td><td><font face=\"T" +
-            "imes New Roman\" color=\"Black\" size=\"4\">\r\n                                <span i" +
-            "d=\"GridInfo_ctl02_Label1\">Получение отправления от отправителя</span>\r\n         " +
-            "                   </font></td><td><font face=\"Times New Roman\" color=\"Black\" si" +
-            "ze=\"4\">518103*</font></td>\r\n\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t<td><font face=\"Ti" +
-            "mes New Roman\" color=\"Black\" size=\"4\">\r\n                                <span id" +
-            "=\"GridInfo_ctl03_Label2\" style=\"display:inline-block;\">2015-11-24 15:35:11</span" +
-            ">\r\n                            </font></td><td><font face=\"Times New Roman\" colo" +
-            "r=\"Black\" size=\"4\">\r\n                                <span id=\"GridInfo_ctl03_La" +
-            "bel1\">Поступило в участок обработки почты</span>\r\n                            </" +
-            "font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">MINSK PI 2</fo" +
-            "nt></td>\r\n\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t\t<td><font face=\"Times New Roman\" c" +
-            "olor=\"Black\" size=\"4\">\r\n                                <span id=\"GridInfo_ctl04" +
-            "_Label2\" style=\"display:inline-block;\">2015-11-24 20:11:44</span>\r\n             " +
-            "               </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"" +
-            "4\">\r\n                                <span id=\"GridInfo_ctl04_Label1\">Прохождени" +
-            "е по таможенной зоне (см. <a href=\"http://declaration.belpost.by/search.aspx?sea" +
-            "rch=RF109959764CN\">http://declaration.belpost.by</a>)</span>\r\n                  " +
-            "          </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">MI" +
-            "NSK PI 2</font></td>\r\n\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t<td><font face=\"Times Ne" +
-            "w Roman\" color=\"Black\" size=\"4\">\r\n                                <span id=\"Grid" +
-            "Info_ctl05_Label2\" style=\"display:inline-block;\">2015-11-27 13:05:00</span>\r\n   " +
-            "                         </font></td><td><font face=\"Times New Roman\" color=\"Bla" +
-            "ck\" size=\"4\">\r\n                                <span id=\"GridInfo_ctl05_Label1\">" +
-            "Попытка вручения</span>\r\n                            </font></td><td><font face=" +
-            "\"Times New Roman\" color=\"Black\" size=\"4\">MINSK - 34</font></td>\r\n\t\t\t</tr><tr bgc" +
-            "olor=\"#8BE3FF\">\r\n\t\t\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n " +
-            "                               <span id=\"GridInfo_ctl06_Label2\" style=\"display:i" +
-            "nline-block;\">2015-11-27 22:27:00</span>\r\n                            </font></t" +
-            "d><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                    " +
-            "            <span id=\"GridInfo_ctl06_Label1\">Вручено</span>\r\n                   " +
-            "         </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">MIN" +
-            "SK - 34</font></td>\r\n\t\t\t</tr>\r\n\t\t</table>\r\n\t</div>\r\n            \r\n              " +
-            "  <br />\r\n                <span id=\"Label49\" style=\"font-size:16pt;line-height:1" +
-            "15%;font-family:\"Times New Roman\"\"><font size=\"6\">Прохождение по стране:</font><" +
-            "/span>\r\n            \r\n                <div>\r\n\t\t<table class=\"margin-left: 250px\'" +
-            "\" cellspacing=\"0\" cellpadding=\"4\" rules=\"cols\" bordercolor=\"#DEDFDE\" border=\"1\" " +
-            "id=\"GridInfo0\" width=\"754\" bgcolor=\"White\">\r\n\t\t\t<tr bgcolor=\"White\">\r\n\t\t\t\t<th sc" +
-            "ope=\"col\"><font face=\"Times New Roman\" color=\"Black\" size=\"4\"><b>Дата</b></font>" +
-            "</th><th scope=\"col\"><font face=\"Times New Roman\" color=\"Black\" size=\"4\"><b>Собы" +
-            "тие</b></font></th>\r\n\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t\t<td><font face=\"Times N" +
-            "ew Roman\" color=\"Black\" size=\"4\">\r\n                                <span id=\"Gri" +
-            "dInfo0_ctl02_Label2\" style=\"display:inline-block;\">27.11.2015 06:32:17</span>\r\n " +
-            "                           </font></td><td><font face=\"Times New Roman\" color=\"B" +
-            "lack\" size=\"4\">\r\n                                <span id=\"GridInfo0_ctl02_Label" +
-            "1\">08. Передано из (<a href=\"http://zip.belpost.by/zip_code/200400\">200400</a>) " +
-            " в (<a href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span" +
-            ">\r\n                            </font></td>\r\n\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t<" +
-            "td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                       " +
-            "         <span id=\"GridInfo0_ctl03_Label2\" style=\"display:inline-block;\">27.11.2" +
-            "015 09:24:00</span>\r\n                            </font></td><td><font face=\"Tim" +
-            "es New Roman\" color=\"Black\" size=\"4\">\r\n                                <span id=" +
-            "\"GridInfo0_ctl03_Label1\">06. Поступило в участок обработки почты (<a href=\"http:" +
-            "//zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span>\r\n               " +
-            "             </font></td>\r\n\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t\t<td><font face=\"T" +
-            "imes New Roman\" color=\"Black\" size=\"4\">\r\n                                <span i" +
-            "d=\"GridInfo0_ctl04_Label2\" style=\"display:inline-block;\">27.11.2015 10:05:00</sp" +
-            "an>\r\n                            </font></td><td><font face=\"Times New Roman\" co" +
-            "lor=\"Black\" size=\"4\">\r\n                                <span id=\"GridInfo0_ctl04" +
-            "_Label1\">09. Попытка доставки (<a href=\"http://zip.belpost.by/zip_code/220034\">2" +
-            "20034</a>) Минск - 34</span>\r\n                            </font></td>\r\n\t\t\t</tr>" +
-            "<tr bgcolor=\"White\">\r\n\t\t\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4" +
-            "\">\r\n                                <span id=\"GridInfo0_ctl05_Label2\" style=\"dis" +
-            "play:inline-block;\">27.11.2015 19:27:00</span>\r\n                            </fo" +
-            "nt></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n              " +
-            "                  <span id=\"GridInfo0_ctl05_Label1\">10. Доставлено, вручено (<a " +
-            "href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span>\r\n    " +
-            "                        </font></td>\r\n\t\t\t</tr>\r\n\t\t</table>\r\n\t</div>\r\n           " +
-            " \r\n                <br />\r\n                \r\n            \r\n            \r\n</div>\r" +
-            "\n        \r\n    </div>\r\n    </form>\r\n    <p style=\"margin-left: 250px\">\r\n        " +
-            "\r\n\t\t    <font  style=\"font-size:16pt;line-height:115%;font-family:&quot;Times Ne" +
-            "w Roman&quot;\" \r\n                color=\"Black\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb" +
-            "sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp" +
-            ";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&" +
-            "nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb" +
-            "sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp" +
-            ";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Внимание! </font>\r\n<p style=\"margin-left: " +
-            "250px; width: 811px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5pt;line-heig" +
-            "ht:115%;font-family:&quot;Times New Roman&quot;\" \r\n                color=\"Black\"" +
-            ">&nbspНомер отправления вводится - латинским шрифтом, без пробелов. <p style=\"ma" +
-            "rgin-left: 250px; width: 811px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13.5p" +
-            "t;line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n                co" +
-            "lor=\"Black\">&nbsp;Обращаем Ваше внимание, что все международные посылки доставля" +
-            "ются по адресу получателя. В случае отсутствия адресата, в почтовом ящике оставл" +
-            "яется извещение о поступлении международного отправления. </font>\r\n    <p style=" +
-            "\"margin-left: 250px; width: 811px;\">\r\n        \r\n\t\t    <font  style=\"font-size:13" +
-            ".5pt;line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n               " +
-            " color=\"Black\">&nbsp;Посылки (кроме EMS) с начисленными таможенными платежами бу" +
-            "дут вручаться в отделениях почтовой связи зоны обслуживания после уплаты начисле" +
-            "нных платежей. </font>\r\n    <p style=\"margin-left: 250px; width: 811px;\">\r\n     " +
-            "   \r\n\t\t    <font  style=\"font-size:13.5pt;line-height:115%;font-family:&quot;Tim" +
-            "es New Roman&quot;\" \r\n                color=\"Black\">&nbsp;Отправления международ" +
-            "ной ускоренной почты EMS недоставленные, а так же с начисленными таможенными пла" +
-            "тежами, вручаются централизованно в выделенных объектах почтовой связи. </font>\r" +
-            "\n    <p style=\"margin-left: 250px; width: 811px;\">\r\n        \r\n\t\t    <font  style" +
-            "=\"font-size:13.5pt;line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n " +
-            "               color=\"Black\">&nbsp;Информируем Вас, что в разделе «Слежение за п" +
-            "очтовыми отправлениями» отображается прохождение (обмен) электронной информации " +
-            "по регистрируемым почтовым отправлениям между объектами почтовой связи. Отобража" +
-            "емые сведения на сайте РУП «Белпочта» носят информационный характер. </font>\r\n  " +
-            "  \r\n    \r\n    <!-- Yandex.Metrika counter -->\r\n<script type=\"text/javascript\">\r\n" +
-            "    (function (d, w, c) {\r\n        (w[c] = w[c] || []).push(function() {\r\n      " +
-            "      try {\r\n                w.yaCounter33628179 = new Ya.Metrika({\r\n           " +
-            "         id:33628179,\r\n                    clickmap:true,\r\n                    t" +
-            "rackLinks:true,\r\n                    accurateTrackBounce:true\r\n                }" +
-            ");\r\n            } catch(e) { }\r\n        });\r\n\r\n        var n = d.getElementsByTa" +
-            "gName(\"script\")[0],\r\n            s = d.createElement(\"script\"),\r\n            f =" +
-            " function () { n.parentNode.insertBefore(s, n); };\r\n        s.type = \"text/javas" +
-            "cript\";\r\n        s.async = true;\r\n        s.src = \"https://mc.yandex.ru/metrika/" +
-            "watch.js\";\r\n\r\n        if (w.opera == \"[object Opera]\") {\r\n            d.addEvent" +
-            "Listener(\"DOMContentLoaded\", f, false);\r\n        } else { f(); }\r\n    })(documen" +
-            "t, window, \"yandex_metrika_callbacks\");\r\n</script>\r\n<noscript><div><img src=\"htt" +
-            "ps://mc.yandex.ru/watch/33628179\" style=\"position:absolute; left:-9999px;\" alt=\"" +
-            "\" /></div></noscript>\r\n<!-- /Yandex.Metrika counter -->\r\n\r\n</body>\r\n</html>\r\n")]
+            "body {\r\n    background: #FFF url(\"/Resources/bgr.png\") repeat-x;\r\n}\r\n\r\n        ." +
+            "style7\r\n        {\r\n            width: 418px;\r\n        }\r\n        .style8\r\n      " +
+            "  {\r\n            width: 150px;\r\n        }\r\n        .style10\r\n        {\r\n        " +
+            "    width: 223px;\r\n        }\r\n        .style11\r\n        {\r\n            width: 35" +
+            "0px;\r\n        }\r\n\r\n        </style>\r\n</head>\r\n<body>\r\n    <form name=\"form1\" met" +
+            "hod=\"post\" action=\"searchRu.aspx?search=RA133251313FI\" id=\"form1\">\r\n<input type=" +
+            "\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE3NDg5MTM4NjcPZBYC" +
+            "AgMPZBYCAgUPZBYCZg9kFgICBw9kFgYCAQ88KwANAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291" +
+            "bnQCBGQWAmYPZBYKAgEPZBYGZg8PFgIeBFRleHQFCjIwMTYtMDEtMDVkZAIBD2QWAgIBDw8WAh8CBU7Q" +
+            "ntGC0L/RgNCw0LLQutCwINC+0YLQv9GA0LDQstC70LXQvdC40Y8g0LjQtyDRg9GH0YDQtdC20LTQtdC9" +
+            "0LjRjyDQvtCx0LzQtdC90LBkZAICDw8WAh8CBQhIRUxTSU5LSWRkAgIPZBYGZg8PFgIfAgUKMjAxNi0w" +
+            "MS0xMGRkAgEPZBYCAgEPDxYCHwIFQtCf0L7RgdGC0YPQv9C40LvQviDQsiDRg9GH0LDRgdGC0L7QuiDQ" +
+            "vtCx0YDQsNCx0L7RgtC60Lgg0L/QvtGH0YLRi2RkAgIPDxYCHwIFCk1JTlNLIFBJIDJkZAIDD2QWBmYP" +
+            "DxYCHwIFCjIwMTYtMDEtMTJkZAIBD2QWAgIBDw8WAh8CBawB0J/RgNC+0YXQvtC20LTQtdC90LjQtSDQ" +
+            "v9C+INGC0LDQvNC+0LbQtdC90L3QvtC5INC30L7QvdC1ICjRgdC8LiA8YSBocmVmPSJodHRwOi8vZGVj" +
+            "bGFyYXRpb24uYmVscG9zdC5ieS9zZWFyY2guYXNweD9zZWFyY2g9UkExMzMyNTEzMTNGSSI+aHR0cDov" +
+            "L2RlY2xhcmF0aW9uLmJlbHBvc3QuYnk8L2E+KWRkAgIPDxYCHwIFCk1JTlNLIFBJIDJkZAIED2QWBmYP" +
+            "DxYCHwIFCjIwMTYtMDEtMThkZAIBD2QWAgIBDw8WAh8CBQ7QktGA0YPRh9C10L3QvmRkAgIPDxYCHwIF" +
+            "Ck1JTlNLIC0gMzRkZAIFDw8WAh4HVmlzaWJsZWhkZAIDDw8WAh8DZ2RkAgUPPCsADQEADxYEHwBnHwEC" +
+            "BGQWAmYPZBYKAgEPZBYEZg8PFgIfAgUKMTYuMDEuMjAxNmRkAgEPZBYCAgEPDxYCHwIFpwEwOC4g0J/Q" +
+            "tdGA0LXQtNCw0L3QviDQuNC3ICg8YSBocmVmPSJodHRwOi8vemlwLmJlbHBvc3QuYnkvemlwX2NvZGUv" +
+            "MjAwNDAwIj4yMDA0MDA8L2E+KSAg0LIgKDxhIGhyZWY9Imh0dHA6Ly96aXAuYmVscG9zdC5ieS96aXBf" +
+            "Y29kZS8yMjAwMzQiPjIyMDAzNDwvYT4pINCc0LjQvdGB0LogLSAzNGRkAgIPZBYEZg8PFgIfAgUKMTYu" +
+            "MDEuMjAxNmRkAgEPZBYCAgEPDxYCHwIFkwEwNi4g0J/QvtGB0YLRg9C/0LjQu9C+INCyINGD0YfQsNGB" +
+            "0YLQvtC6INC+0LHRgNCw0LHQvtGC0LrQuCDQv9C+0YfRgtGLICg8YSBocmVmPSJodHRwOi8vemlwLmJl" +
+            "bHBvc3QuYnkvemlwX2NvZGUvMjIwMDM0Ij4yMjAwMzQ8L2E+KSDQnNC40L3RgdC6IC0gMzRkZAIDD2QW" +
+            "BGYPDxYCHwIFCjE2LjAxLjIwMTZkZAIBD2QWAgIBDw8WAh8CBXAwOS4g0J/QvtC/0YvRgtC60LAg0LTQ" +
+            "vtGB0YLQsNCy0LrQuCAoPGEgaHJlZj0iaHR0cDovL3ppcC5iZWxwb3N0LmJ5L3ppcF9jb2RlLzIyMDAz" +
+            "NCI+MjIwMDM0PC9hPikg0JzQuNC90YHQuiAtIDM0ZGQCBA9kFgRmDw8WAh8CBQoxOC4wMS4yMDE2ZGQC" +
+            "AQ9kFgICAQ8PFgIfAgV1MTAuINCU0L7RgdGC0LDQstC70LXQvdC+LCDQstGA0YPRh9C10L3QviAoPGEg" +
+            "aHJlZj0iaHR0cDovL3ppcC5iZWxwb3N0LmJ5L3ppcF9jb2RlLzIyMDAzNCI+MjIwMDM0PC9hPikg0JzQ" +
+            "uNC90YHQuiAtIDM0ZGQCBQ8PFgIfA2hkZBgDBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18W" +
+            "BgUJSUJ0bkJ1bmVyBQxJbWFnZUJ1dHRvbjMFDEltYWdlQnV0dG9uNAUMSW1hZ2VCdXR0b243BQxJbWFn" +
+            "ZUJ1dHRvbjUFDEltYWdlQnV0dG9uNgUJR3JpZEluZm8wDzwrAAoBCAIBZAUIR3JpZEluZm8PPCsACgEI" +
+            "AgFkVA6HLUZvP3c05oqa5UhH6nV8nLg=\" />\r\n\r\n\r\n<script src=\"/ScriptResource.axd?d=ejI" +
+            "U2cL6n_VEgf4o15YEoQMZE6jbRYOiAImbnH6Ou9-2HbXbjAX0qMPCnejZbEPERmmIM9Rh27Hbfdv4Eff" +
+            "j4aaJZUzbgYotFxB1iRhi-hDLRFd-qQTXqWd9lb8PUATbb_KndSh4bsTspa-idbS0lVPQDYCxx6DiDOg" +
+            "H7J6IGSYAD1Ga0&amp;t=9bdc98c\" type=\"text/javascript\"></script>\r\n<script type=\"te" +
+            "xt/javascript\">\r\n//<![CDATA[\r\nif (typeof(Sys) === \'undefined\') throw new Error(\'" +
+            "ASP.NET Ajax client-side framework failed to load.\');\r\n//]]>\r\n</script>\r\n\r\n<inpu" +
+            "t type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"F0F" +
+            "1CCD9\" />\r\n<input type=\"hidden\" name=\"__PREVIOUSPAGE\" id=\"__PREVIOUSPAGE\" value=" +
+            "\"KA8qOwS1PH-XF0TopZfKO3g8l4_7ex9WAow29xdAB9Jol2yAJpYbBx3mYRJabSEsOuPluyFOR8mRKQw" +
+            "462LiSWV3uaQ1\" />\r\n<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALI" +
+            "DATION\" value=\"/wEWCQKckOToDALJk+/TAwL2nKzBDgLFnfXuCgLSwsGJCgLSwv2aBALSwpH2DALSw" +
+            "um/CwLSwqXRBTyq+XNN+JZiK9Foq6XK5R3KOw9E\" />\r\n    <div>\r\n    \r\n    <p style=\"marg" +
+            "in-left: 250px\">\r\n    <input type=\"image\" name=\"IBtnBuner\" id=\"IBtnBuner\" src=\"R" +
+            "esources/ban.png\" border=\"0\" />\r\n    \r\n        <br />\r\n        <p style=\"margin-" +
+            "left: 250px\">\r\n            \r\n\t\t<br />\r\n            <font  style=\"font-size:18pt;" +
+            "line-height:115%;font-family:&quot;Times New Roman&quot;\" \r\n                colo" +
+            "r=\"Black\">&nbsp;&nbsp;&nbsp; <b>Слежение за почтовыми отправлениями</b></font>  " +
+            "              \r\n                \r\n            <div id=\"UpdatePanel1\">\r\n\t\r\n      " +
+            "              <p style=\"margin-left: 250px\">\r\n                        <font  \r\n " +
+            "       style=\"font-size:16pt;line-height:115%;font-family:&quot;Times New Roman&" +
+            "quot;\">&nbsp;</font></p>\r\n                    <p style=\"margin-left: 250px\">\r\n  " +
+            "                      <font color=\"Black\" \r\n                            style=\"f" +
+            "ont-size:13.5pt;line-height:115%;font-family:&quot;Times New Roman&quot;\">\r\n    " +
+            "                    &nbsp;&nbsp;&nbsp;&nbsp; Номер отправления вводится - латинс" +
+            "ким шрифтом, без пробелов.\r\n                        </font></p>\r\n               " +
+            "     <p style=\"margin-left: 250px; width: 817px;\">\r\n                        <spa" +
+            "n id=\"Label50\" color=\"Black\" style=\"display:inline-block;font-size:13.5pt;line-h" +
+            "eight:115%;font-family:\"Times New Roman\"\"><font size=\"5\">Введите номер отправлен" +
+            "ия:</font></span>\r\n                        <input name=\"TxtNumPos\" type=\"text\" v" +
+            "alue=\"RA133251313FI\" id=\"TxtNumPos\" style=\"margin-top: 0px\" />\r\n                " +
+            "        <input type=\"submit\" name=\"BtnSearch\" value=\"Поиск\" id=\"BtnSearch\" />\r\n " +
+            "                   </p>\r\n                    <p style=\"margin-left: 250px; width" +
+            ": 817px;\">\r\n                        \r\n                        &nbsp;<div id=\"Pan" +
+            "el2\" style=\"margin-left: 250px\">\r\n\t\t\r\n                            <font color=\"B" +
+            "lack\" \r\n                            style=\"font-size:13.5pt;line-height:115%;fon" +
+            "t-family:&quot;Times New Roman&quot;\">\r\n                        &nbsp;&nbsp;&nbs" +
+            "p; Отображаемые сведения на сайте РУП «Белпочта» носят \r\n                       " +
+            "     информационный характер.</font>\r\n                            &nbsp;<div>\r\n\t" +
+            "\t\t<table class=\"margin-left: 250px\'\" cellspacing=\"0\" cellpadding=\"4\" rules=\"cols" +
+            "\" bordercolor=\"#DEDFDE\" border=\"1\" id=\"GridInfo\" width=\"754\" bgcolor=\"White\">\r\n\t" +
+            "\t\t\t<tr bgcolor=\"White\">\r\n\t\t\t\t\t<th scope=\"col\"><font face=\"Times New Roman\" color" +
+            "=\"Black\" size=\"4\"><b>Дата</b></font></th><th scope=\"col\"><font face=\"Times New R" +
+            "oman\" color=\"Black\" size=\"4\"><b>Событие</b></font></th><th scope=\"col\"><font fac" +
+            "e=\"Times New Roman\" color=\"Black\" size=\"4\"><b>Офис</b></font></th>\r\n\t\t\t\t</tr><tr" +
+            " bgcolor=\"#8BE3FF\">\r\n\t\t\t\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4" +
+            "\">2016-01-05</font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">" +
+            "\r\n                                            <span id=\"GridInfo_ctl02_Label1\">О" +
+            "тправка отправления из учреждения обмена</span>\r\n                               " +
+            "         </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">HEL" +
+            "SINKI</font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t\t<td><font face=\"Times New" +
+            " Roman\" color=\"Black\" size=\"4\">2016-01-10</font></td><td><font face=\"Times New R" +
+            "oman\" color=\"Black\" size=\"4\">\r\n                                            <span" +
+            " id=\"GridInfo_ctl03_Label1\">Поступило в участок обработки почты</span>\r\n        " +
+            "                                </font></td><td><font face=\"Times New Roman\" col" +
+            "or=\"Black\" size=\"4\">MINSK PI 2</font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t" +
+            "\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">2016-01-12</font></td>" +
+            "<td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                      " +
+            "                      <span id=\"GridInfo_ctl04_Label1\">Прохождение по таможенной" +
+            " зоне (см. <a href=\"http://declaration.belpost.by/search.aspx?search=RA133251313" +
+            "FI\">http://declaration.belpost.by</a>)</span>\r\n                                 " +
+            "       </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">MINSK" +
+            " PI 2</font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t\t<td><font face=\"Times New" +
+            " Roman\" color=\"Black\" size=\"4\">2016-01-18</font></td><td><font face=\"Times New R" +
+            "oman\" color=\"Black\" size=\"4\">\r\n                                            <span" +
+            " id=\"GridInfo_ctl05_Label1\">Вручено</span>\r\n                                    " +
+            "    </font></td><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">MINSK - " +
+            "34</font></td>\r\n\t\t\t\t</tr>\r\n\t\t\t</table>\r\n\t\t</div>\r\n                            <b" +
+            "r />\r\n                            <span id=\"Label49\" style=\"font-size:16pt;line-" +
+            "height:115%;font-family:\"Times New Roman\"\"><font size=\"6\">Прохождение по стране:" +
+            "</font></span>\r\n                            <div>\r\n\t\t\t<table class=\"margin-left:" +
+            " 250px\'\" cellspacing=\"0\" cellpadding=\"4\" rules=\"cols\" bordercolor=\"#DEDFDE\" bord" +
+            "er=\"1\" id=\"GridInfo0\" width=\"754\" bgcolor=\"White\">\r\n\t\t\t\t<tr bgcolor=\"White\">\r\n\t\t" +
+            "\t\t\t<th scope=\"col\"><font face=\"Times New Roman\" color=\"Black\" size=\"4\"><b>Дата</" +
+            "b></font></th><th scope=\"col\"><font face=\"Times New Roman\" color=\"Black\" size=\"4" +
+            "\"><b>Событие</b></font></th>\r\n\t\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t\t\t<td><font fa" +
+            "ce=\"Times New Roman\" color=\"Black\" size=\"4\">16.01.2016</font></td><td><font face" +
+            "=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                                    " +
+            "        <span id=\"GridInfo0_ctl02_Label1\">08. Передано из (<a href=\"http://zip.b" +
+            "elpost.by/zip_code/200400\">200400</a>)  в (<a href=\"http://zip.belpost.by/zip_co" +
+            "de/220034\">220034</a>) Минск - 34</span>\r\n                                      " +
+            "  </font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t\t\t\t<td><font face=\"Times New Ro" +
+            "man\" color=\"Black\" size=\"4\">16.01.2016</font></td><td><font face=\"Times New Roma" +
+            "n\" color=\"Black\" size=\"4\">\r\n                                            <span id" +
+            "=\"GridInfo0_ctl03_Label1\">06. Поступило в участок обработки почты (<a href=\"http" +
+            "://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span>\r\n              " +
+            "                          </font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"#8BE3FF\">\r\n\t\t\t\t\t<t" +
+            "d><font face=\"Times New Roman\" color=\"Black\" size=\"4\">16.01.2016</font></td><td>" +
+            "<font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                          " +
+            "                  <span id=\"GridInfo0_ctl04_Label1\">09. Попытка доставки (<a hre" +
+            "f=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span>\r\n       " +
+            "                                 </font></td>\r\n\t\t\t\t</tr><tr bgcolor=\"White\">\r\n\t\t" +
+            "\t\t\t<td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">18.01.2016</font></td" +
+            "><td><font face=\"Times New Roman\" color=\"Black\" size=\"4\">\r\n                     " +
+            "                       <span id=\"GridInfo0_ctl05_Label1\">10. Доставлено, вручено" +
+            " (<a href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34</span>\r" +
+            "\n                                        </font></td>\r\n\t\t\t\t</tr>\r\n\t\t\t</table>\r\n\t" +
+            "\t</div>\r\n                            <br />\r\n                            \r\n     " +
+            "                   \r\n\t</div>\r\n                        \r\n                        " +
+            "\r\n                        \r\n                        \r\n                        <p" +
+            ">\r\n                        </p>\r\n                        <p>\r\n                  " +
+            "      </p>\r\n                        <p>\r\n                        </p>\r\n         " +
+            "           </p>\r\n                \r\n</div>\r\n        \r\n\t\t        \r\n        \r\n    <" +
+            "/div>\r\n    <table  style=\"margin-left: 200px; text-align: center;\">\r\n        <tr" +
+            " >\r\n            <td class=\"style7\">\r\n        \r\n\t\t    <span id=\"Label53\"><b>«Уточ" +
+            "нение данных для передачи<br> на таможенный контроль»</b></span>\r\n            <b" +
+            "r><input type=\"image\" name=\"ImageButton3\" id=\"ImageButton3\" src=\"Resources/%D0%A" +
+            "3%D1%82%D0%BE%D1%87%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%" +
+            "8B%D1%85%20.jpg\" onclick=\"javascript:WebForm_DoPostBackWithOptions(new WebForm_P" +
+            "ostBackOptions(&quot;ImageButton3&quot;, &quot;&quot;, false, &quot;&quot;, &quo" +
+            "t;Matters/Clarification.aspx&quot;, false, false))\" border=\"0\" />\r\n            <" +
+            "/td>\r\n            <td class=\"style8\">\r\n        \r\n\t\t        <br />\r\n        \r\n\t\t " +
+            "   <span id=\"Label54\"><b>«Доставка»</b></span>\r\n            <br>\r\n            <i" +
+            "nput type=\"image\" name=\"ImageButton4\" id=\"ImageButton4\" src=\"Resources/%D0%94%D0" +
+            "%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0.jpg\" onclick=\"javascript:WebForm_DoPostB" +
+            "ackWithOptions(new WebForm_PostBackOptions(&quot;ImageButton4&quot;, &quot;&quot" +
+            ";, false, &quot;&quot;, &quot;Matters/Delivery.aspx&quot;, false, false))\" borde" +
+            "r=\"0\" />\r\n            </td>\r\n            <td class=\"style7\">\r\n        \r\n\t\t    <s" +
+            "pan id=\"Label57\"><b>«Оформление перенаправления международного<br> регистрируемо" +
+            "го почтового отправления»</b></span>\r\n            <br>&nbsp;<input type=\"image\" " +
+            "name=\"ImageButton7\" id=\"ImageButton7\" src=\"Resources/%D0%BF%D0%B5%D1%80%D0%B5%D0" +
+            "%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.jpg\" onclick=\"ja" +
+            "vascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ImageBu" +
+            "tton7&quot;, &quot;&quot;, false, &quot;&quot;, &quot;Matters/Redirections.aspx&" +
+            "quot;, false, false))\" border=\"0\" />\r\n            </td>\r\n        </tr>\r\n    </ta" +
+            "ble>\r\n    <table style=\"margin-left: 380px; text-align: center;\">\r\n        <tr>\r" +
+            "\n            <td class=\"style11\">\r\n        \r\n\t\t    <span id=\"Label55\"><b>«Статус" +
+            "ы/События<br> почтовых отправлений»</b></span>\r\n            <br><input type=\"ima" +
+            "ge\" name=\"ImageButton5\" id=\"ImageButton5\" src=\"Resources/%D0%A1%D1%82%D0%B0%D1%8" +
+            "2%D1%83%D1%81%D1%8B.jpg\" onclick=\"javascript:WebForm_DoPostBackWithOptions(new W" +
+            "ebForm_PostBackOptions(&quot;ImageButton5&quot;, &quot;&quot;, false, &quot;&quo" +
+            "t;, &quot;Matters/Status.aspx&quot;, false, false))\" border=\"0\" />\r\n            " +
+            "</td>\r\n            <td class=\"style10\">\r\n        \r\n\t\t        <br />\r\n        \r\n\t" +
+            "\t    <span id=\"Label56\"><b>«Таможенные вопросы»</b></span>\r\n            <br>&nbs" +
+            "p;<input type=\"image\" name=\"ImageButton6\" id=\"ImageButton6\" src=\"Resources/%D0%A" +
+            "2%D0%B0%D0%BC%D0%BE%D0%B6%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D0%BF%D1%" +
+            "80%D0%BE%D1%81%D1%8B.jpg\" onclick=\"javascript:WebForm_DoPostBackWithOptions(new " +
+            "WebForm_PostBackOptions(&quot;ImageButton6&quot;, &quot;&quot;, false, &quot;&qu" +
+            "ot;, &quot;Matters/Customs.aspx&quot;, false, false))\" border=\"0\" />\r\n          " +
+            "  </td>\r\n        </tr>\r\n    </table>\r\n    <p style=\"margin-left: 250px\">\r\n      " +
+            "  \r\n\t\t    &nbsp;<p style=\"margin-left: 250px\">\r\n        \r\n\t\t    &nbsp;\r\n\r\n<scrip" +
+            "t type=\"text/javascript\">\r\n//<![CDATA[\r\nSys.Application.initialize();\r\n//]]>\r\n</" +
+            "script>\r\n</form>\r\n    \r\n    <!-- Yandex.Metrika counter -->\r\n<script type=\"text/" +
+            "javascript\">\r\n    (function (d, w, c) {\r\n        (w[c] = w[c] || []).push(functi" +
+            "on() {\r\n            try {\r\n                w.yaCounter33628179 = new Ya.Metrika(" +
+            "{\r\n                    id:33628179,\r\n                    clickmap:true,\r\n       " +
+            "             trackLinks:true,\r\n                    accurateTrackBounce:true\r\n   " +
+            "             });\r\n            } catch(e) { }\r\n        });\r\n\r\n        var n = d.g" +
+            "etElementsByTagName(\"script\")[0],\r\n            s = d.createElement(\"script\"),\r\n " +
+            "           f = function () { n.parentNode.insertBefore(s, n); };\r\n        s.type" +
+            " = \"text/javascript\";\r\n        s.async = true;\r\n        s.src = \"https://mc.yand" +
+            "ex.ru/metrika/watch.js\";\r\n\r\n        if (w.opera == \"[object Opera]\") {\r\n        " +
+            "    d.addEventListener(\"DOMContentLoaded\", f, false);\r\n        } else { f(); }\r\n" +
+            "    })(document, window, \"yandex_metrika_callbacks\");\r\n</script>\r\n<noscript><div" +
+            "><img src=\"https://mc.yandex.ru/watch/33628179\" style=\"position:absolute; left:-" +
+            "9999px;\" alt=\"\" /></div></noscript>\r\n<!-- /Yandex.Metrika counter -->\r\n\r\n</body>" +
+            "\r\n</html>\r\n")]
         public string ResponseSample {
             get {
                 return ((string)(this["ResponseSample"]));
