@@ -24,7 +24,7 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="HistoryRegex" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|\d{2}.\d{2}.\d{4} \d{2}:\d{2}:\d{2}).+?(?=Label1"&gt;)[^&gt;]+&gt;(.+?(?=&lt;/span&gt;))(.+?(?=size="4"&gt;)[^&gt;]+&gt;([^&lt;]+))?</Value>
+      <Value Profile="(Default)">(\d{4}-\d{2}-\d{2}|\d{2}.\d{2}.\d{4}).+?(?&gt;Label1"&gt;)(.+?(?=&lt;/span&gt;))(.+?(?&gt;size="4"&gt;)([^&lt;]+)&lt;/font&gt;&lt;/td&gt;\r\n\t\t\t\t&lt;/tr&gt;)?</Value>
     </Setting>
     <Setting Name="HttpSearchUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://declaration.belpost.by/searchRu.aspx</Value>
