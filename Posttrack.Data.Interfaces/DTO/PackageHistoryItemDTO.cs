@@ -25,7 +25,7 @@ namespace Posttrack.Data.Interfaces.DTO
                 return false;
             }
 
-            return //Object.Equals(this.Date, another.Date) &&
+            return
                 Equals(Action, another.Action) &&
                 Equals(Place, another.Place);
         }
@@ -35,7 +35,6 @@ namespace Posttrack.Data.Interfaces.DTO
             unchecked
             {
                 var hash = 24;
-                //hash = hash * 17 + this.Date.GetHashCode();
                 hash = hash*17 + Action.GetHashCode();
                 hash = hash*17 + Place.GetHashCode();
                 return hash;

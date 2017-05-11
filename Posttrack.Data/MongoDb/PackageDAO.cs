@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-using Posttrack.Data.Entities;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 
-namespace Posttrack.Data
+namespace Posttrack.Data.MongoDb
 {
     public class PackageDAO : IPackageDAO
     {
@@ -26,15 +24,9 @@ namespace Posttrack.Data
 
         ICollection<PackageDTO> IPackageDAO.LoadComingPackets()
         {
-            var result = new Collection<PackageDTO>();
             var query = Query.Or(Query<Package>.NotExists(e => e.IsFinished),
                 Query<Package>.EQ(e => e.IsFinished, false));
-            var items = packages.Find(query).ToList();
-            foreach (var item in items)
-            {
-                result.Add(item.Map());
-            }
-            return result;
+            return packages.Find(query).ToList().Select(x => x.Map()).ToList();
         }
 
         void IPackageDAO.Register(RegisterPackageDTO package)
@@ -57,7 +49,7 @@ namespace Posttrack.Data
 
         void IPackageDAO.Update(PackageDTO package)
         {
-            if (package == null || string.IsNullOrWhiteSpace(package.Tracking)) return;
+            if (string.IsNullOrWhiteSpace(package?.Tracking)) return;
             var entity = packages.FindOne(Query<Package>.EQ(e => e.Tracking, package.Tracking));
             if (entity == null) return;
             package.Map(entity);

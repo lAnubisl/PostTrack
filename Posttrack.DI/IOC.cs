@@ -7,8 +7,8 @@ using Posttrack.BLL;
 using Posttrack.BLL.Helpers.Implementations;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
-using Posttrack.Data;
 using Posttrack.Data.Interfaces;
+using Posttrack.Data.Mssql;
 
 namespace Posttrack.DI
 {
@@ -21,7 +21,7 @@ namespace Posttrack.DI
 
         private InversionOfControlContainer()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["mongodb"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["mssql"].ConnectionString;
             container = new Container();
             container.RegisterDelegate<IPackageDAO>(r => new PackageDAO(connectionString), Reuse.Singleton);
             container.Register<IPackagePresentationService, PackagePresentationService>(Reuse.Singleton);

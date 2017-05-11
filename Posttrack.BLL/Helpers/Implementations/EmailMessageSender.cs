@@ -5,6 +5,7 @@ using System.Net.Mail;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Properties;
 using Posttrack.Data.Interfaces.DTO;
+using System.Configuration;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
@@ -77,7 +78,7 @@ namespace Posttrack.BLL.Helpers.Implementations
         {
             var client = new SmtpClient(Settings.Default.SmtpHost, Settings.Default.SmtpPort);
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(Settings.Default.SmtpUser, Settings.Default.SmtpPassword);
+            client.Credentials = new NetworkCredential(Settings.Default.SmtpUser, ConfigurationManager.AppSettings["SmtpPassword"]);
             client.EnableSsl = Settings.Default.SmtpSecure;
             client.Timeout = 20000;       
             return client;

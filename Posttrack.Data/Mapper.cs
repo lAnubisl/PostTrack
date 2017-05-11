@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Posttrack.Data.Entities;
+using Newtonsoft.Json;
 using Posttrack.Data.Interfaces.DTO;
+using Posttrack.Data.MongoDb;
 
 namespace Posttrack.Data
 {
@@ -9,7 +11,28 @@ namespace Posttrack.Data
     {
         internal static Package Map(this RegisterPackageDTO model)
         {
-            return new Package {Tracking = model.Tracking, Email = model.Email, Description = model.Description};
+            return new Package
+            {
+                Tracking = model.Tracking,
+                Email = model.Email,
+                Description = model.Description,
+                CreateDate = DateTime.Now,
+                UpdateDate = DateTime.Now
+            };
+        }
+
+        internal static PackageDTO Map(this Mssql.Package package)
+        {
+            if (package == null) return null;
+            return new PackageDTO
+            {
+                Email = package.Email,
+                Description = package.Description,
+                Tracking = package.Tracking,
+                UpdateDate = package.UpdateDate,
+                IsFinished = package.IsFinished,
+                History = package.History == null ? null : JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(package.History)
+            };
         }
 
         internal static PackageDTO Map(this Package package)
@@ -25,20 +48,26 @@ namespace Posttrack.Data
             };
         }
 
+        internal static void Map(this PackageDTO dto, Mssql.Package package)
+        {
+            package.IsFinished = dto.IsFinished;
+            package.History = dto.History == null ? null : JsonConvert.SerializeObject(dto.History);
+        }
+
         internal static void Map(this PackageDTO dto, Package package)
         {
             package.IsFinished = dto.IsFinished;
             package.History = dto.History.Map();
         }
 
-        private static ICollection<PackageHistoryItemDTO> Map(this ICollection<PackageHistoryItem> history)
+        private static ICollection<PackageHistoryItemDTO> Map(this IEnumerable<PackageHistoryItem> history)
         {
-            return history != null ? history.Select(x => x.Map()).ToList() : null;
+            return history?.Select(x => x.Map()).ToList();
         }
 
-        private static ICollection<PackageHistoryItem> Map(this ICollection<PackageHistoryItemDTO> history)
+        private static ICollection<PackageHistoryItem> Map(this IEnumerable<PackageHistoryItemDTO> history)
         {
-            return history != null ? history.Select(x => x.Map()).ToList() : null;
+            return history?.Select(x => x.Map()).ToList();
         }
 
         private static PackageHistoryItem Map(this PackageHistoryItemDTO item)

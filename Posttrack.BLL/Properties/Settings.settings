@@ -11,9 +11,6 @@
     <Setting Name="SmtpUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">reply.posttrack@gmail.com</Value>
     </Setting>
-    <Setting Name="SmtpPassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">***********</Value>
-    </Setting>
     <Setting Name="SmtpSecure" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>

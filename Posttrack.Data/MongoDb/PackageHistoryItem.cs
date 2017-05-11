@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Posttrack.Data.Entities
+namespace Posttrack.Data.MongoDb
 {
     public class PackageHistoryItem
     {

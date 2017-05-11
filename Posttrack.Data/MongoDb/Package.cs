@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 
-namespace Posttrack.Data.Entities
+namespace Posttrack.Data.MongoDb
 {
     internal class Package
     {
