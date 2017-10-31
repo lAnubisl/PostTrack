@@ -85,20 +85,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Posttrack.BLL.Interfaces\Posttrack.BLL.Interfaces.csproj">
-      <Project>{7032df47-43f1-49b8-bed9-fe78919337b2}</Project>
-      <Name>Posttrack.BLL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Posttrack.BLL\Posttrack.BLL.csproj">
-      <Project>{f92b4faa-7023-41c7-94f1-82191f361454}</Project>
-      <Name>Posttrack.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj">
-      <Project>{cc50ef72-6aca-4233-92d4-11e9ce84d53b}</Project>
-      <Name>Posttrack.Data.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -23,6 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,16 +124,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Posttrack.BLL.Interfaces\Posttrack.BLL.Interfaces.csproj">
-      <Project>{7032df47-43f1-49b8-bed9-fe78919337b2}</Project>
-      <Name>Posttrack.BLL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Posttrack.DI\Posttrack.DI.csproj">
-      <Project>{3a6550b7-de31-49e4-8f3d-7f32f0a6f053}</Project>
-      <Name>Posttrack.DI</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

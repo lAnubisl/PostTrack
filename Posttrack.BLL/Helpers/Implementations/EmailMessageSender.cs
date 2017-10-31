@@ -3,18 +3,18 @@ using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using Posttrack.BLL.Helpers.Interfaces;
-using Posttrack.BLL.Properties;
 using Posttrack.Data.Interfaces.DTO;
-using System.Configuration;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailMessageSender : IMessageSender
     {
         private readonly IEmailTemplateManager templateManager;
+        private readonly ISettingsProvider settings;
 
-        public EmailMessageSender(IEmailTemplateManager templateManager)
+        public EmailMessageSender(IEmailTemplateManager templateManager, ISettingsProvider settings)
         {
+            this.settings = settings;
             this.templateManager = templateManager;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
@@ -43,10 +43,10 @@ namespace Posttrack.BLL.Helpers.Implementations
                 templateManager.GetInactivityEmailBody(package));
         }
 
-        private static void SendEmail(string toEmail, string subject, string body)
+        private void SendEmail(string toEmail, string subject, string body)
         {
             using (var clinet = GetClient())
-            using (var message = new MailMessage(Settings.Default.SmtpFrom, toEmail))
+            using (var message = new MailMessage(settings.SmtpFrom, toEmail))
             {
                 message.Subject = subject;
                 message.Body = body;
@@ -74,12 +74,12 @@ namespace Posttrack.BLL.Helpers.Implementations
                 package.Tracking);
         }
 
-        private static SmtpClient GetClient()
+        private SmtpClient GetClient()
         {
-            var client = new SmtpClient(Settings.Default.SmtpHost, Settings.Default.SmtpPort);
+            var client = new SmtpClient(settings.SmtpHost, settings.SmtpPort);
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(Settings.Default.SmtpUser, ConfigurationManager.AppSettings["SmtpPassword"]);
-            client.EnableSsl = Settings.Default.SmtpSecure;
+            client.Credentials = new NetworkCredential(settings.SmtpUser, settings.SmtpPassword);
+            client.EnableSsl = settings.IsSmtpSecured;
             client.Timeout = 20000;       
             return client;
         }

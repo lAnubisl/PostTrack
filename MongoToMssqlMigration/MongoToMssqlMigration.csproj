@@ -48,16 +48,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj">
-      <Project>{CC50EF72-6ACA-4233-92D4-11E9CE84D53B}</Project>
-      <Name>Posttrack.Data.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Posttrack.Data\Posttrack.Data.csproj">
-      <Project>{819D6339-6242-4A99-BC00-7CFBC7FEDE93}</Project>
-      <Name>Posttrack.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

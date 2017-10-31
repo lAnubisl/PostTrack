@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Posttrack.BLL.Properties;
 using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL
@@ -21,9 +20,9 @@ namespace Posttrack.BLL
                     historyAction == "Отправление доставлено");
         }
 
-        internal static bool IsInactivityPeriodElapsed(PackageDTO package)
+        internal static bool IsInactivityPeriodElapsed(PackageDTO package, int inactivityPeriodMonths)
         {
-            return package.UpdateDate <= DateTime.Now.AddMonths(-Settings.Default.InactivityPeriodInMonths);
+            return package.UpdateDate <= DateTime.Now.AddMonths(-inactivityPeriodMonths);
         }
 
         internal static bool IsStatusTheSame(ICollection<PackageHistoryItemDTO> history, PackageDTO package)

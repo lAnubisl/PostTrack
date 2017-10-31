@@ -17,7 +17,7 @@ namespace Posttrack.DI
         private static readonly Lazy<InversionOfControlContainer> Manager =
             new Lazy<InversionOfControlContainer>(() => new InversionOfControlContainer(), true);
 
-        private readonly IContainer container;
+        private readonly Container container;
 
         private InversionOfControlContainer()
         {
@@ -32,7 +32,7 @@ namespace Posttrack.DI
             container.Register<IResponseReader, ResponseReader>(Reuse.Singleton);
         }
 
-        private InversionOfControlContainer(IContainer container)
+        private InversionOfControlContainer(Container container)
         {
             this.container = container;
         }
