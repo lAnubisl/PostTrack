@@ -21,20 +21,6 @@ namespace Posttrack.Data
             };
         }
 
-        internal static PackageDTO Map(this Mssql.Package package)
-        {
-            if (package == null) return null;
-            return new PackageDTO
-            {
-                Email = package.Email,
-                Description = package.Description,
-                Tracking = package.Tracking,
-                UpdateDate = package.UpdateDate,
-                IsFinished = package.IsFinished,
-                History = package.History == null ? null : JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(package.History)
-            };
-        }
-
         internal static PackageDTO Map(this Package package)
         {
             return new PackageDTO
@@ -46,12 +32,6 @@ namespace Posttrack.Data
                 IsFinished = package.IsFinished,
                 History = package.History.Map()
             };
-        }
-
-        internal static void Map(this PackageDTO dto, Mssql.Package package)
-        {
-            package.IsFinished = dto.IsFinished;
-            package.History = dto.History == null ? null : JsonConvert.SerializeObject(dto.History);
         }
 
         internal static void Map(this PackageDTO dto, Package package)

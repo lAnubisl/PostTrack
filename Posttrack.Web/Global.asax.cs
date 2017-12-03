@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Posttrack.DI;
 using Posttrack.Web.Controllers;
+using Posttrack.BLL.Interfaces;
 
 namespace Posttrack.Web
 {
@@ -11,7 +12,8 @@ namespace Posttrack.Web
         {
             GlobalConfiguration.Configuration.Routes.MapHttpRoute("DefaultApi", "tracking",
                 new {controller = "Tracking", action = "index"});
-            InversionOfControlContainer.Instance.RegisterController(typeof (TrackingController));
+            InversionOfControlContainer.Instance.RegisterTransient<TrackingController, TrackingController>();
+            //InversionOfControlContainer.Instance.RegisterSingleton<ISettingsProvider, SettingsProvider>();
             GlobalConfiguration.Configuration.DependencyResolver =
                 new DependencyResolver(InversionOfControlContainer.Instance);
         }

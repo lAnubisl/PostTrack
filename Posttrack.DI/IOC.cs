@@ -8,7 +8,7 @@ using Posttrack.BLL.Helpers.Implementations;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
 using Posttrack.Data.Interfaces;
-using Posttrack.Data.Mssql;
+using Posttrack.Data.MongoDb;
 
 namespace Posttrack.DI
 {
@@ -17,15 +17,16 @@ namespace Posttrack.DI
         private static readonly Lazy<InversionOfControlContainer> Manager =
             new Lazy<InversionOfControlContainer>(() => new InversionOfControlContainer(), true);
 
-        private readonly IContainer container;
+        public readonly IContainer container;
 
         private InversionOfControlContainer()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["mssql"].ConnectionString;
-            container = new Container();
+            var connectionString = ConfigurationManager.ConnectionStrings["mongodb"].ConnectionString;
+            container = new Container(rules => rules.WithoutThrowOnRegisteringDisposableTransient());
             container.RegisterDelegate<IPackageDAO>(r => new PackageDAO(connectionString), Reuse.Singleton);
             container.Register<IPackagePresentationService, PackagePresentationService>(Reuse.Singleton);
             container.Register<IPackageValidator, PackageValidator>(Reuse.Singleton);
+            container.Register<ISettingsProvider, MySettingsProvider>(Reuse.Singleton);
             container.Register<IUpdateSearcher, BelpostSearcher>(Reuse.Singleton);
             container.Register<IMessageSender, EmailMessageSender>(Reuse.Singleton);
             container.Register<IEmailTemplateManager, EmailTemplateManager>(Reuse.Singleton);
@@ -73,14 +74,19 @@ namespace Posttrack.DI
             return new InversionOfControlContainer(container.OpenScope());
         }
 
+        public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
+        {
+            container.Register<TService, TImplementation>(Reuse.Transient);
+        }
+
+        public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
+        {
+            container.Register<TService, TImplementation>(Reuse.Singleton);
+        }
+
         void IDisposable.Dispose()
         {
             container.Dispose();
-        }
-
-        public void RegisterController(Type serviceType)
-        {
-            container.Register(serviceType, Reuse.Transient);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
+using Posttrack.BLL.Interfaces;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {

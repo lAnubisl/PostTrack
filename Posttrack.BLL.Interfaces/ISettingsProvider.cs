@@ -1,4 +1,4 @@
-﻿namespace Posttrack.BLL
+﻿namespace Posttrack.BLL.Interfaces
 {
     public interface ISettingsProvider
     {
