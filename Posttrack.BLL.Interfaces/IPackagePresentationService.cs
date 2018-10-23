@@ -1,10 +1,11 @@
 ﻿using Posttrack.BLL.Interfaces.Models;
+using System.Threading.Tasks;
 
 namespace Posttrack.BLL.Interfaces
 {
     public interface IPackagePresentationService
     {
-        void Register(RegisterTrackingModel model);
-        void UpdateComingPackages();
+        Task Register(RegisterTrackingModel model);
+        Task UpdateComingPackages();
     }
 }

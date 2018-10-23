@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Posttrack.Data.Interfaces.DTO;
-using Posttrack.Data.MongoDb;
+using Posttrack.Data.MySql;
 
 namespace Posttrack.Data
 {
@@ -40,14 +40,14 @@ namespace Posttrack.Data
             package.History = dto.History.Map();
         }
 
-        private static ICollection<PackageHistoryItemDTO> Map(this IEnumerable<PackageHistoryItem> history)
+        private static ICollection<PackageHistoryItemDTO> Map(this string history)
         {
-            return history?.Select(x => x.Map()).ToList();
+            return JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(history);
         }
 
-        private static ICollection<PackageHistoryItem> Map(this IEnumerable<PackageHistoryItemDTO> history)
+        private static string Map(this IEnumerable<PackageHistoryItemDTO> history)
         {
-            return history?.Select(x => x.Map()).ToList();
+            return JsonConvert.SerializeObject(history.ToList());
         }
 
         private static PackageHistoryItem Map(this PackageHistoryItemDTO item)

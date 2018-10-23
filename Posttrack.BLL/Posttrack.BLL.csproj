@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SparkPost.NetStandard" Version="1.0.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Posttrack.BLL.Interfaces\Posttrack.BLL.Interfaces.csproj" />
     <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj" />
   </ItemGroup>

@@ -18,7 +18,7 @@ namespace Posttrack.BLL
         private readonly IPackageDAO packageDAO;
         private readonly IResponseReader reader;
         private readonly IUpdateSearcher searcher;
-        private readonly ISettingsProvider settings;
+        private readonly Interfaces.IConfigurationService settings;
         private TaskScheduler taskScheduler;
 
         public PackagePresentationService(
@@ -26,7 +26,7 @@ namespace Posttrack.BLL
             IMessageSender messageSender,
             IUpdateSearcher searcher,
             IResponseReader reader,
-            ISettingsProvider settings)
+            Interfaces.IConfigurationService settings)
         {
             this.packageDAO = packageDAO;
             this.messageSender = messageSender;
@@ -35,23 +35,17 @@ namespace Posttrack.BLL
             this.settings = settings;
         }
 
-        internal TaskScheduler TaskScheduler
-        {
-            private get { return taskScheduler ?? new LimitedConcurrencyLevelTaskScheduler(threadsCount); }
-            set { taskScheduler = value; }
-        }
-
-        void IPackagePresentationService.Register(RegisterTrackingModel model)
+        async Task IPackagePresentationService.Register(RegisterTrackingModel model)
         {
             var dto = model.Map();
             //log.InfoFormat("Registration {0}", dto.Tracking);
-            packageDAO.Register(dto);
-            SendRegistered(dto);
+            await packageDAO.RegisterAsync(dto);
+            await SendRegistered(dto);
         }
 
-        void IPackagePresentationService.UpdateComingPackages()
+        async Task IPackagePresentationService.UpdateComingPackages()
         {
-            var packages = packageDAO.LoadComingPackets();
+            var packages = await packageDAO.LoadTrackingAsync();
             if (packages == null)
             {
                 //log.Fatal("PackageDAO returned null");
@@ -64,12 +58,9 @@ namespace Posttrack.BLL
                 return;
             }
 
-            ThreadPool.SetMaxThreads(threadsCount, threadsCount);
-            ThreadPool.SetMinThreads(threadsCount, threadsCount);
-
             var task = new Task(() =>
             {
-                var options = new ParallelOptions {TaskScheduler = TaskScheduler, MaxDegreeOfParallelism = threadsCount};
+                var options = new ParallelOptions {MaxDegreeOfParallelism = threadsCount};
                 Parallel.ForEach(packages, options, p =>
                 {
                     try
@@ -82,12 +73,12 @@ namespace Posttrack.BLL
                     }
                 });
             });
-            task.RunSynchronously(TaskScheduler);
+            task.RunSynchronously();
         }
 
-        private void SendRegistered(RegisterPackageDTO dto)
+        private async Task SendRegistered(RegisterPackageDTO dto)
         {
-            var package = packageDAO.Load(dto.Tracking);
+            var package = await packageDAO.LoadAsync(dto.Tracking);
             if (package == null)
             {
                 //log.FatalFormat("Cannot find package {0}", dto.Tracking);
@@ -96,7 +87,7 @@ namespace Posttrack.BLL
 
             var history = SearchPackageStatus(package);
 
-            messageSender.SendRegistered(package, history);
+            await messageSender.SendRegistered(package, history);
 
             if (PackageHelper.IsEmpty(history))
             {
@@ -162,7 +153,7 @@ namespace Posttrack.BLL
             package.IsFinished = PackageHelper.IsFinished(package);
 
             //log.WarnFormat("Updating status for package {0}", package.Tracking);
-            packageDAO.Update(package);
+            packageDAO.UpdateAsync(package);
         }
 
         private void StopTracking(PackageDTO package)
@@ -172,7 +163,7 @@ namespace Posttrack.BLL
                 //settings.InactivityPeriodMonths);
             messageSender.SendInactivityEmail(package);
             package.IsFinished = true;
-            packageDAO.Update(package);
+            packageDAO.UpdateAsync(package);
         }
     }
 }

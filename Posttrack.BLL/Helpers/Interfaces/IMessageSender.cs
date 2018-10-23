@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface IMessageSender
     {
-        void SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
-        void SendInactivityEmail(PackageDTO package);
-        void SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
+        Task SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
+        Task SendInactivityEmail(PackageDTO package);
+        Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
     }
 }

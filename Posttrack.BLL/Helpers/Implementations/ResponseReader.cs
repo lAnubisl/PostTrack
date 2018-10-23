@@ -12,10 +12,10 @@ namespace Posttrack.BLL.Helpers.Implementations
     {
         //private static readonly ILog log = LogManager.GetLogger(typeof (ResponseReader));
         private static readonly CultureInfo provider = new CultureInfo("ru-RU");
-        private readonly ISettingsProvider settings;
+        private readonly IConfigurationService settings;
         private static readonly PackageHistoryItemDTOComparer comparer = new PackageHistoryItemDTOComparer();
 
-        public ResponseReader(ISettingsProvider settings)
+        public ResponseReader(IConfigurationService settings)
         {
             this.settings = settings;
         }

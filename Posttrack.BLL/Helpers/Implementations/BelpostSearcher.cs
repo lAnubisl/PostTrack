@@ -11,9 +11,9 @@ namespace Posttrack.BLL.Helpers.Implementations
     {
         private readonly Uri url;
         //private static readonly ILog log = LogManager.GetLogger(typeof (BelpostSearcher));
-        private readonly ISettingsProvider settings;
+        private readonly IConfigurationService settings;
 
-        public BelpostSearcher(ISettingsProvider settings)
+        public BelpostSearcher(IConfigurationService settings)
         {
             this.settings = settings;
             this.url = new Uri(settings.HttpSearchUrl);
