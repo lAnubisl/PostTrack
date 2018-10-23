@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Posttrack.BLL.Interfaces;
-using Posttrack.DI;
 
 namespace Posttrack.Web
 {
     public class UniqueTrackingNumberAttribute : ValidationAttribute
     {
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var validator = InversionOfControlContainer.Instance.Resolve<IPackageValidator>();
-            return !validator.Exists((string) value);
+            var validator = (IPackageValidator)validationContext.GetService(typeof(IPackageValidator));
+            var validationResult = !validator.Exists((string)value);
+            return validationResult ? ValidationResult.Success : new ValidationResult(this.ErrorMessage);
         }
     }
 }

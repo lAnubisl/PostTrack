@@ -1,35 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Posttrack.Web.Models
 {
     public class SaveTrackingModel
     {
-	    private string tracking;
-	    private string email;
-	    private string description;
+        private string tracking;
+        private string email;
+        private string description;
 
-	    [Required]
-	    [RegularExpression(@".+@.+\..+")]
-	    public string Email
-	    {
-		    get { return email;}
-		    set { email = value.ToLower(CultureInfo.InvariantCulture); }
-	    }
+        [Required]
+        [RegularExpression(@".+@.+\..+")]
+        public string Email
+        {
+            get { return email; }
+            set { email = value.ToLower(CultureInfo.InvariantCulture); }
+        }
 
-	    [Required]
-	    [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")]
-	    public string Tracking
-	    {
-		    get { return tracking; }
-			set { tracking = value.ToUpper(CultureInfo.InvariantCulture); }
-	    }
+        [Required]
+        [UniqueTrackingNumber(ErrorMessage = "Такой номер уже зарегистрирован в системе")]
+        public string Tracking
+        {
+            get { return tracking; }
+            set { tracking = value.ToUpper(CultureInfo.InvariantCulture); }
+        }
 
-	    [Required]
-	    public string Description
-	    {
-		    get { return description; }
-			set { description = value.Trim(); }
-	    }
+        [Required]
+        public string Description
+        {
+            get { return description; }
+            set { description = value.Trim(); }
+        }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 using Posttrack.BLL.Interfaces;
 using Posttrack.Web.Models;
+using System.Threading.Tasks;
 
 namespace Posttrack.Web.Controllers
 {
-    public class TrackingController : ApiController
+    public class TrackingController : Controller
     {
         private readonly IPackagePresentationService service;
 
@@ -13,12 +14,12 @@ namespace Posttrack.Web.Controllers
             this.service = service;
         }
 
-        [HttpPost]
-        public OperationResult Index(SaveTrackingModel model)
+        [HttpPost, Route("tracking")]
+        public async Task<OperationResult> Post(SaveTrackingModel model)
         {
             if (ModelState.IsValid)
             {
-                service.Register(model.Map());
+                await service.Register(model.Map());
                 return new OperationResult(true);
             }
 

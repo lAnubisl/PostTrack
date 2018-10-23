@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.Data.Interfaces
 {
     public interface IPackageDAO
     {
-        ICollection<PackageDTO> LoadComingPackets();
-        PackageDTO Load(string trackingNumber);
-        void Register(RegisterPackageDTO package);
+        Task<ICollection<PackageDTO>> LoadTrackingAsync();
+        Task<PackageDTO> LoadAsync(string trackingNumber);
+        Task RegisterAsync(RegisterPackageDTO package);
         bool Exists(string trackingNumber);
-        void Update(PackageDTO package);
+        Task UpdateAsync(PackageDTO package);
     }
 }

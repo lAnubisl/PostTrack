@@ -1,87 +1,97 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
-using System.Net.Mail;
 using Posttrack.BLL.Helpers.Interfaces;
-using Posttrack.BLL.Properties;
 using Posttrack.Data.Interfaces.DTO;
-using System.Configuration;
+using Posttrack.BLL.Interfaces;
+using System.Threading.Tasks;
+using SparkPost;
+using System;
+using Posttrack.BLL.Models.EmailModels;
+using System.Reflection;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
     public class EmailMessageSender : IMessageSender
     {
-        private readonly IEmailTemplateManager templateManager;
+        private readonly ISparkPostTemplateProvider _sparkPostTemplateProvider;
+        private readonly string _apiKey;
 
-        public EmailMessageSender(IEmailTemplateManager templateManager)
+        public EmailMessageSender(IConfigurationService settingsProvider, ISparkPostTemplateProvider sparkPostTemplateProvider)
         {
-            this.templateManager = templateManager;
+            _apiKey = settingsProvider.SparkPostApiKey;
+            _sparkPostTemplateProvider = sparkPostTemplateProvider;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        void IMessageSender.SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        public Task SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            SendEmail(
-                package.Email, 
-                StatusUpdatedSubject(package), 
-                templateManager.GetUpdateStatusEmailBody(package, update));
+            return Send(new PackageUpdateEmailModel(package, update), EmailTypes.PostTrackPackageUpdate);
         }
 
-        void IMessageSender.SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        public Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            SendEmail(
-                package.Email,
-                RegisteredSubject(package),
-                templateManager.GetRegisteredEmailBody(package, update));
+            return Send(new PackageRegisteredEmailModel(package), EmailTypes.PostTrackRegistered);
         }
 
-        void IMessageSender.SendInactivityEmail(PackageDTO package)
+        public Task SendInactivityEmail(PackageDTO package)
         {
-            SendEmail(
-                package.Email,
-                InactivitySubject(package),
-                templateManager.GetInactivityEmailBody(package));
+            return Send(new PackageTrackingCancelledEmailModel(package), EmailTypes.PostTrackTrackingCancellation);
         }
 
-        private static void SendEmail(string toEmail, string subject, string body)
+        private async Task Send(BaseEmailModel model, EmailTypes emailType)
         {
-            using (var clinet = GetClient())
-            using (var message = new MailMessage(Settings.Default.SmtpFrom, toEmail))
+            var emailTemplate = await _sparkPostTemplateProvider.GetTemplate(emailType);
+            var substitutionData = GetSubstitutionData(model);
+            var transmission = new Transmission
             {
-                message.Subject = subject;
-                message.Body = body;
-                message.IsBodyHtml = true;
-                message.Priority = MailPriority.High;
-                clinet.Send(message);
+                Content =
+                    {
+                        From = emailTemplate.TemplateContent.From,
+                        Text = emailTemplate.TemplateContent.Text,
+                        Html = emailTemplate.TemplateContent.Html,
+                        Subject = emailTemplate.TemplateContent.Subject,
+                    },
+                SubstitutionData = substitutionData
+            };
+            await Transmit(model.Recipient, transmission, emailType);
+        }
+
+        private static Dictionary<string, object> GetSubstitutionData(BaseEmailModel model)
+        {
+            var dictionary = new Dictionary<string, object>();
+
+            if (model.GetType().BaseType != typeof(BaseEmailModel))
+            {
+                return dictionary;
             }
+
+            foreach (var field in model.GetType()
+                .GetFields(BindingFlags.Instance |
+                               BindingFlags.NonPublic |
+                               BindingFlags.DeclaredOnly))
+            {
+                dictionary.Add(field.Name, field.GetValue(model));
+            }
+
+            return dictionary;
         }
 
-        private static string InactivitySubject(PackageDTO package)
+        private async Task Transmit(string recipientEmail, Transmission transmission, EmailTypes emailType)
         {
-            return string.Format(CultureInfo.CurrentCulture, EmailMessages.InactivityEmailSubject, package.Description,
-                package.Tracking);
-        }
-
-        private static string StatusUpdatedSubject(PackageDTO package)
-        {
-            return string.Format(CultureInfo.CurrentCulture, EmailMessages.StatusUpdateEmailSubject, package.Description,
-                package.Tracking);
-        }
-
-        private static string RegisteredSubject(PackageDTO package)
-        {
-            return string.Format(CultureInfo.CurrentCulture, EmailMessages.RegisteredEmailSubject, package.Description,
-                package.Tracking);
-        }
-
-        private static SmtpClient GetClient()
-        {
-            var client = new SmtpClient(Settings.Default.SmtpHost, Settings.Default.SmtpPort);
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(Settings.Default.SmtpUser, ConfigurationManager.AppSettings["SmtpPassword"]);
-            client.EnableSsl = Settings.Default.SmtpSecure;
-            client.Timeout = 20000;       
-            return client;
+            try
+            {
+                transmission.Recipients.Add(new Recipient
+                {
+                    Address = new Address { Email = recipientEmail }
+                });
+                var client = new Client(_apiKey);
+                await client.Transmissions.Send(transmission);
+                //logger.Info($"Message {emailType} sent to {recipientEmail}");
+            }
+            catch (Exception ex)
+            {
+                //logger.Error(ex.Message + "\n" + ex.StackTrace);
+            }
         }
     }
 }

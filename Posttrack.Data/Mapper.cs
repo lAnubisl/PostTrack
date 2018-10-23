@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Posttrack.Data.Interfaces.DTO;
-using Posttrack.Data.MongoDb;
+using Posttrack.Data.MySql;
 
 namespace Posttrack.Data
 {
@@ -21,20 +21,6 @@ namespace Posttrack.Data
             };
         }
 
-        internal static PackageDTO Map(this Mssql.Package package)
-        {
-            if (package == null) return null;
-            return new PackageDTO
-            {
-                Email = package.Email,
-                Description = package.Description,
-                Tracking = package.Tracking,
-                UpdateDate = package.UpdateDate,
-                IsFinished = package.IsFinished,
-                History = package.History == null ? null : JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(package.History)
-            };
-        }
-
         internal static PackageDTO Map(this Package package)
         {
             return new PackageDTO
@@ -48,26 +34,20 @@ namespace Posttrack.Data
             };
         }
 
-        internal static void Map(this PackageDTO dto, Mssql.Package package)
-        {
-            package.IsFinished = dto.IsFinished;
-            package.History = dto.History == null ? null : JsonConvert.SerializeObject(dto.History);
-        }
-
         internal static void Map(this PackageDTO dto, Package package)
         {
             package.IsFinished = dto.IsFinished;
             package.History = dto.History.Map();
         }
 
-        private static ICollection<PackageHistoryItemDTO> Map(this IEnumerable<PackageHistoryItem> history)
+        private static ICollection<PackageHistoryItemDTO> Map(this string history)
         {
-            return history?.Select(x => x.Map()).ToList();
+            return JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(history);
         }
 
-        private static ICollection<PackageHistoryItem> Map(this IEnumerable<PackageHistoryItemDTO> history)
+        private static string Map(this IEnumerable<PackageHistoryItemDTO> history)
         {
-            return history?.Select(x => x.Map()).ToList();
+            return JsonConvert.SerializeObject(history.ToList());
         }
 
         private static PackageHistoryItem Map(this PackageHistoryItemDTO item)
