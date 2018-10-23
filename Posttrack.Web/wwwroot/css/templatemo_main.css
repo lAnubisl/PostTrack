@@ -251,3 +251,7 @@ label.valid { display: none !important; }
 	line-height: 16px;
 	padding: 8px 10px;
 }
+
+.btn.btn-primary:disabled {
+    color: yellow;
+}

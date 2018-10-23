@@ -75,9 +75,12 @@ jQuery(function($) {
         $(".btn-primary").click(function() {
             if ($("#tracking-form").valid()) {
                 $(this).prop("disabled", true);
+                $("#loading").show();
+                $(this).hide();
+                
                 $.ajax({
                     url: "/Tracking",
-                    async: false,
+                    async: true,
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -86,17 +89,19 @@ jQuery(function($) {
                     	description: $.trim($("#description").val())
                     },
                     success: function(data) {
-                        if (data.Errors && data.Errors.length > 0) {
+                        if (data.errors && data.errors.length > 0) {
                             var validator = $("#tracking-form").validate();
-                            validator.showErrors({ "tracking": data.Errors[0].Value[0] });
+                            validator.showErrors({ "tracking": data.errors[0].value[0] });
                         } else {
                         	createCookie("email", $("#email").val(), 365);
 	                        $("#email-sent").text($("#email").val());
                             $(".alert-success").fadeIn();
                         }
+                        $(".btn-primary").prop("disabled", false);
+                        $("#loading").hide();
+                        $(".btn-primary").show();
                     }
                 });
-                $(this).prop("disabled", false);
             }
         });
 

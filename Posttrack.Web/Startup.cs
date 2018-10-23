@@ -49,6 +49,7 @@ namespace Posttrack.Web
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+ 
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
