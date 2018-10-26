@@ -58,6 +58,7 @@ namespace Posttrack.Data.MySql
                 try
                 {
                     await c.ExecuteAsync(RegisterQuery, package.Map());
+                    logger.Warning($"New package registered: {package.Tracking}");
                 } catch (Exception ex)
                 {
                     logger.Log(ex);

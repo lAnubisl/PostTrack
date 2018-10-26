@@ -54,7 +54,7 @@ namespace Posttrack.BLL
                 return;
             }
 
-            _logger.Info($"Starting update {packages.Count} packages");
+            _logger.Warning($"Starting update {packages.Count} packages");
             if (packages.Count == 0)
             {
                 return;
@@ -120,13 +120,13 @@ namespace Posttrack.BLL
                     StopTracking(package);
                 }
 
-                _logger.Debug($"No update was found for package {package.Tracking}.");
+                _logger.Warning($"No update was found for package {package.Tracking}.");
                 return;
             }
 
             if (history != null)
             {
-                _logger.Debug($"Update was Found!!! Sending an update email for package {package.Tracking}.");
+                _logger.Warning($"Update was Found!!! Sending an update email for package {package.Tracking}.");
                 await _messageSender.SendStatusUpdate(package, history);
                 SavePackageStatus(package, history);
             }

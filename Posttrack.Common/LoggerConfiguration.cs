@@ -24,7 +24,7 @@
             target.Parameters.Add(new NLog.Targets.DatabaseParameterInfo("@Exception", "${exception:tostring}"));
             target.Parameters.Add(new NLog.Targets.DatabaseParameterInfo("@ActivityId", "${activityid}"));
             config.AddTarget("DatabaseTarget", target);
-            config.AddRuleForAllLevels(target);
+            config.AddRule(NLog.LogLevel.Warn, NLog.LogLevel.Fatal, target);
             NLog.LogManager.Configuration = config;
         }
     }

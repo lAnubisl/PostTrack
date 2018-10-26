@@ -35,7 +35,7 @@ namespace Posttrack.BLL.Helpers.Implementations
         public Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             _logger.Info($"Call: {nameof(SendRegistered)}(package, update)");
-            return Send(new PackageRegisteredEmailModel(package), EmailTypes.PostTrackRegistered);
+            return Send(new PackageRegisteredEmailModel(package, update), EmailTypes.PostTrackRegistered);
         }
 
         public Task SendInactivityEmail(PackageDTO package)
