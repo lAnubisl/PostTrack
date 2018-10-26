@@ -18,7 +18,8 @@ namespace PostTrack.Checker
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Production.json", true);
             Configuration = builder.Build();
             LoggerConfiguration.ConfigureLogger("Posttrack.Checker", Configuration["log"]);
             var configurationService = new ConfigurationService();
