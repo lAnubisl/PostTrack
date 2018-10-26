@@ -11,11 +11,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="MySqlConnector" Version="0.46.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Posttrack.BLL.Interfaces\Posttrack.BLL.Interfaces.csproj" />
     <ProjectReference Include="..\Posttrack.BLL\Posttrack.BLL.csproj" />
+    <ProjectReference Include="..\Posttrack.Common\Posttrack.Common.csproj" />
     <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj" />
     <ProjectReference Include="..\Posttrack.Data\Posttrack.Data.csproj" />
   </ItemGroup>

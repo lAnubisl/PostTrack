@@ -11,6 +11,7 @@ namespace Posttrack.Web.Controllers
 
         public TrackingController(IPackagePresentationService service)
         {
+            var logger = NLog.LogManager.GetLogger("");
             this.service = service;
         }
 

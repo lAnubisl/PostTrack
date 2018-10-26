@@ -9,6 +9,7 @@ using Moq;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
 using Posttrack.BLL.Interfaces.Models;
+using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 using Xunit;
@@ -32,7 +33,9 @@ namespace Posttrack.BLL.Tests
             sender = new Mock<IMessageSender>();
             configuration = new Mock<Interfaces.IConfigurationService>();
             configuration.Setup(c => c.InactivityPeriodMonths).Returns(2);
-            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, configuration.Object);
+            var logger = new Mock<ILogger>();
+            logger.Setup(l => l.CreateScope(It.IsAny<string>()));
+            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, configuration.Object, logger.Object);
         }
 
         [Fact]
@@ -63,7 +66,7 @@ namespace Posttrack.BLL.Tests
             var savedPackage = new PackageDTO {Tracking = model.Tracking};
 
             dao.Setup(d => d.LoadAsync(model.Tracking)).Returns(Task.FromResult(savedPackage));
-            searcher.Setup(s => s.Search(savedPackage)).Returns("Empty search result");
+            searcher.Setup(s => s.SearchAsync(savedPackage)).Returns(Task.FromResult("Empty search result"));
 
             service.Register(model).Wait();
             sender.Verify(c => c.SendRegistered(savedPackage, null));
@@ -79,8 +82,8 @@ namespace Posttrack.BLL.Tests
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
             service.UpdateComingPackages();
             var arr = packages.ToArray();
-            searcher.Verify(c => c.Search(arr[0]));
-            searcher.Verify(c => c.Search(arr[1]));
+            searcher.Verify(c => c.SearchAsync(arr[0]));
+            searcher.Verify(c => c.SearchAsync(arr[1]));
         }
 
         [Fact]
@@ -92,7 +95,7 @@ namespace Posttrack.BLL.Tests
             packages.Add(new PackageDTO {Tracking = "t3"});
 
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Fake result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Fake result"));
             service.UpdateComingPackages();
             reader.Verify(c => c.Read("Fake result"), Times.Exactly(3));
         }
@@ -106,7 +109,7 @@ namespace Posttrack.BLL.Tests
                 UpdateDate = DateTime.Now.AddMonths(-2)
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
 
             service.UpdateComingPackages().Wait();
@@ -124,7 +127,7 @@ namespace Posttrack.BLL.Tests
                 UpdateDate = DateTime.Now.AddMonths(-2)
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
 
             service.UpdateComingPackages().Wait();
@@ -143,7 +146,7 @@ namespace Posttrack.BLL.Tests
                 UpdateDate = DateTime.Now.AddMonths(-2 + 1)
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
 
             service.UpdateComingPackages().Wait();
@@ -160,7 +163,7 @@ namespace Posttrack.BLL.Tests
                 new PackageHistoryItemDTO {Action = "Action", Place = "Place", Date = DateTime.Now}
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
             sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
@@ -179,7 +182,7 @@ namespace Posttrack.BLL.Tests
                 new PackageHistoryItemDTO {Action = "Доставлено, вручено", Place = "Place", Date = DateTime.Now}
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
             sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
@@ -196,7 +199,7 @@ namespace Posttrack.BLL.Tests
                 new PackageHistoryItemDTO {Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now}
             };
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>())).Returns("Not empty search result");
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
             sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()));
 
@@ -225,9 +228,9 @@ namespace Posttrack.BLL.Tests
                 new PackageHistoryItemDTO {Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now}
             };
             reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-            searcher.Setup(s => s.Search(It.IsAny<PackageDTO>()))
+            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>()))
                 .Callback(() => Thread.Sleep(500))
-                .Returns("Not empty search result");
+                .Returns(Task.FromResult("Not empty search result"));
             sender.Setup(s => s.SendStatusUpdate(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()))
                 .Callback(() => Thread.Sleep(500));
             dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));

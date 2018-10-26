@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Newtonsoft.Json;
+using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 
@@ -24,23 +24,35 @@ namespace Posttrack.Data.MySql
             "update Package set UpdateDate = @UpdateDate, IsFinished = @IsFinished, History = @History where Tracking = @Tracking";
 
 
-        public PackageDAO(IConfigurationService configurationService) : base(configurationService) { }
+        public PackageDAO(IConfigurationService configurationService, ILogger logger) 
+            : base(configurationService, logger.CreateScope(nameof(PackageDAO))) { }
 
         public async Task<ICollection<PackageDTO>> LoadTrackingAsync()
         {
+            logger.Info($"Call: {nameof(LoadTrackingAsync)}()");
             using (var c = NewConnection)
             {
-                return (await c.QueryAsync<Package>(LoadComingPackagesQuery)).ToList().Select(x => x.Map()).ToList();
+                try
+                {
+                    return (await c.QueryAsync<Package>(LoadComingPackagesQuery)).ToList().Select(x => x.Map()).ToList();
+                }
+                catch(Exception ex)
+                {
+                    logger.Log(ex);
+                    return null;
+                }
             }
         }
 
         public async Task<PackageDTO> LoadAsync(string trackingNumber)
         {
+            logger.Info($"Call: {nameof(LoadAsync)}({trackingNumber})");
             return (await Get(trackingNumber)).Map();
         }
 
         public async Task RegisterAsync(RegisterPackageDTO package)
         {
+            logger.Info($"Call: {nameof(RegisterAsync)}(package)");
             using (var c = NewConnection)
             {
                 try
@@ -48,21 +60,31 @@ namespace Posttrack.Data.MySql
                     await c.ExecuteAsync(RegisterQuery, package.Map());
                 } catch (Exception ex)
                 {
-
+                    logger.Log(ex);
                 }
             }
         }
 
         public bool Exists(string trackingNumber)
         {
+            logger.Info($"Call: {nameof(Exists)}({trackingNumber})");
             using (var c = NewConnection)
             {
-                return c.QueryFirstOrDefault<bool>(ExistsQuery, new {trackingNumber});
+                try
+                {
+                    return c.QueryFirstOrDefault<bool>(ExistsQuery, new { trackingNumber });
+                }
+                catch (Exception ex)
+                {
+                    logger.Log(ex);
+                    throw ex;
+                }  
             }
         }
 
         public async Task UpdateAsync(PackageDTO package)
         {
+            logger.Info($"Call: {nameof(UpdateAsync)}(package)");
             using (var c = NewConnection)
             {
                 var entity = await Get(package.Tracking);
@@ -72,33 +94,20 @@ namespace Posttrack.Data.MySql
             }
         }
 
-        /// <summary>
-        /// This function was created to be used for mongodb->mssql data migration
-        /// </summary>
-        /// <param name="package"></param>
-        public void Create(PackageDTO package)
-        {
-            using (var c = NewConnection)
-            {
-                c.Execute("insert into Package (Tracking, Email, Description, CreateDate, IsFinished, History) values (@Tracking, @Email, @Description, @CreateDate, @IsFinished, @History)", 
-                    new Package
-                    {
-                        History = package.History == null ? null : JsonConvert.SerializeObject(package.History),
-                        CreateDate = DateTime.Now,
-                        Tracking = package.Tracking,
-                        Description = package.Description,
-                        Email = package.Email,
-                        IsFinished = package.IsFinished,
-                        UpdateDate = package.UpdateDate
-                    });
-            }
-        }
-
         private async Task<Package> Get(string trackingNumber)
         {
+            logger.Info($"Call: {nameof(Get)}({trackingNumber})");
             using (var c = NewConnection)
             {
-                return await c.QueryFirstOrDefaultAsync<Package>(LoadQuery, new {trackingNumber});
+                try
+                {
+                    return await c.QueryFirstOrDefaultAsync<Package>(LoadQuery, new { trackingNumber });
+                }
+                catch(Exception ex)
+                {
+                    logger.Log(ex);
+                    return null;
+                }
             }
         }
     }

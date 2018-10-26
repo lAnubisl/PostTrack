@@ -9,6 +9,20 @@ namespace Posttrack.Data
 {
     internal static class Mapper
     {
+        internal static Package Map(this PackageDTO model)
+        {
+            return new Package
+            {
+                History = model.History == null ? null : JsonConvert.SerializeObject(model.History),
+                CreateDate = DateTime.Now,
+                Tracking = model.Tracking,
+                Description = model.Description,
+                Email = model.Email,
+                IsFinished = model.IsFinished,
+                UpdateDate = model.UpdateDate
+            };
+        }
+
         internal static Package Map(this RegisterPackageDTO model)
         {
             return new Package

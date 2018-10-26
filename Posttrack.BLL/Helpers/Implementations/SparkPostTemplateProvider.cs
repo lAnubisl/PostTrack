@@ -1,5 +1,6 @@
 ﻿using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
+using Posttrack.Common;
 using SparkPost;
 using System;
 using System.Collections.Concurrent;
@@ -10,7 +11,7 @@ namespace Posttrack.BLL.Helpers.Implementations
 {
     public class SparkPostTemplateProvider : ISparkPostTemplateProvider
     {
-        //private readonly ILogger logger;
+        private readonly ILogger _logger;
         private static ConcurrentDictionary<EmailTypes, TemplateHolder> templates;
         private static readonly TimeSpan UpdateInterval = TimeSpan.FromHours(1);
         private readonly string _apiKey;
@@ -39,10 +40,10 @@ namespace Posttrack.BLL.Helpers.Implementations
             }
         }
 
-        public SparkPostTemplateProvider(IConfigurationService settingsProvider)
+        public SparkPostTemplateProvider(IConfigurationService settingsProvider, ILogger logger)
         {
             _apiKey = settingsProvider.SparkPostApiKey;
-            //this.logger = logger.CreateScope(nameof(SparkPostTemplateProvider));
+            _logger = logger.CreateScope(nameof(SparkPostTemplateProvider));
         }
 
         static SparkPostTemplateProvider()
@@ -60,6 +61,7 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         public async Task<RetrieveTemplateResponse> GetTemplate(EmailTypes type)
         {
+            _logger.Info($"GetTemplate({type})");
             TemplateHolder templateHolder;
             templates.TryGetValue(type, out templateHolder);
             if (templateHolder != null && templateHolder.LastUpdate.Add(UpdateInterval) >= DateTime.UtcNow)
@@ -67,7 +69,6 @@ namespace Posttrack.BLL.Helpers.Implementations
                 return templateHolder.Template;
             }
 
-            //logger.Info($"LoadTemplate({type})");
             var client = new Client(_apiKey);
             var emailTemplate = await client.Templates.Retrieve(GetTemplateId(type));
             templates.AddOrUpdate(type,

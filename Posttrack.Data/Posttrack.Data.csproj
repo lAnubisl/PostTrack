@@ -15,11 +15,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="MySqlConnector" Version="0.46.0" />
+    <PackageReference Include="MySqlConnector" Version="0.46.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Posttrack.Common\Posttrack.Common.csproj" />
     <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj" />
   </ItemGroup>
 

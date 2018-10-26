@@ -8,6 +8,7 @@ using SparkPost;
 using System;
 using Posttrack.BLL.Models.EmailModels;
 using System.Reflection;
+using Posttrack.Common;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
@@ -15,9 +16,11 @@ namespace Posttrack.BLL.Helpers.Implementations
     {
         private readonly ISparkPostTemplateProvider _sparkPostTemplateProvider;
         private readonly string _apiKey;
+        private readonly ILogger _logger;
 
-        public EmailMessageSender(IConfigurationService settingsProvider, ISparkPostTemplateProvider sparkPostTemplateProvider)
+        public EmailMessageSender(IConfigurationService settingsProvider, ISparkPostTemplateProvider sparkPostTemplateProvider, ILogger logger)
         {
+            _logger = logger.CreateScope(nameof(EmailMessageSender));
             _apiKey = settingsProvider.SparkPostApiKey;
             _sparkPostTemplateProvider = sparkPostTemplateProvider;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -25,21 +28,25 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         public Task SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
+            _logger.Info($"Call: {nameof(SendStatusUpdate)}(package, update)");
             return Send(new PackageUpdateEmailModel(package, update), EmailTypes.PostTrackPackageUpdate);
         }
 
         public Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
+            _logger.Info($"Call: {nameof(SendRegistered)}(package, update)");
             return Send(new PackageRegisteredEmailModel(package), EmailTypes.PostTrackRegistered);
         }
 
         public Task SendInactivityEmail(PackageDTO package)
         {
+            _logger.Info($"Call: {nameof(SendInactivityEmail)}(package)");
             return Send(new PackageTrackingCancelledEmailModel(package), EmailTypes.PostTrackTrackingCancellation);
         }
 
         private async Task Send(BaseEmailModel model, EmailTypes emailType)
         {
+            _logger.Info($"Call: {nameof(Send)}(model, {emailType})");
             var emailTemplate = await _sparkPostTemplateProvider.GetTemplate(emailType);
             var substitutionData = GetSubstitutionData(model);
             var transmission = new Transmission
@@ -78,6 +85,7 @@ namespace Posttrack.BLL.Helpers.Implementations
 
         private async Task Transmit(string recipientEmail, Transmission transmission, EmailTypes emailType)
         {
+            _logger.Info($"Call: {nameof(Transmit)}({recipientEmail}, transmission, {emailType})");
             try
             {
                 transmission.Recipients.Add(new Recipient
@@ -86,11 +94,11 @@ namespace Posttrack.BLL.Helpers.Implementations
                 });
                 var client = new Client(_apiKey);
                 await client.Transmissions.Send(transmission);
-                //logger.Info($"Message {emailType} sent to {recipientEmail}");
+                _logger.Info($"Message {emailType} sent to {recipientEmail}");
             }
             catch (Exception ex)
             {
-                //logger.Error(ex.Message + "\n" + ex.StackTrace);
+                _logger.Log(ex);
             }
         }
     }

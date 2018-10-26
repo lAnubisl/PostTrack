@@ -5,32 +5,35 @@ using System.Text.RegularExpressions;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
 using Posttrack.BLL.Interfaces;
+using Posttrack.Common;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
     public class ResponseReader : IResponseReader
     {
-        //private static readonly ILog log = LogManager.GetLogger(typeof (ResponseReader));
+        private readonly ILogger _logger;
         private static readonly CultureInfo provider = new CultureInfo("ru-RU");
-        private readonly IConfigurationService settings;
+        private readonly IConfigurationService _configurationService;
         private static readonly PackageHistoryItemDTOComparer comparer = new PackageHistoryItemDTOComparer();
 
-        public ResponseReader(IConfigurationService settings)
+        public ResponseReader(IConfigurationService configurationService, ILogger logger)
         {
-            this.settings = settings;
+            _logger = logger.CreateScope(nameof(ResponseReader));
+            _configurationService = configurationService;
         }
 
-        ICollection<PackageHistoryItemDTO> IResponseReader.Read(string input)
+        public ICollection<PackageHistoryItemDTO> Read(string input)
         {
+            _logger.Info($"Call: {nameof(Read)}()");
             if (input.Contains("ничего не найдено"))
             {
                 return null;
             }
 
-            var matches = Regex.Matches(input, settings.HistoryRegex, RegexOptions.Singleline);
+            var matches = Regex.Matches(input, _configurationService.HistoryRegex, RegexOptions.Singleline);
             if (matches.Count == 0)
             {
-                //log.Error("Cannot parse response string: " + input);
+                _logger.Error($"Cannot parse response string: {input}.");
                 return null;
             }
 

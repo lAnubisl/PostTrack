@@ -2,6 +2,7 @@
 using Moq;
 using Posttrack.BLL.Helpers.Implementations;
 using Posttrack.BLL.Helpers.Interfaces;
+using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Xunit;
 
@@ -13,8 +14,10 @@ namespace Posttrack.BLL.Tests
         public void Read_Should_Read_Items()
         {
             var settingDao = new Mock<ISettingDAO>();
+            var logger = new Mock<ILogger>();
+            logger.Setup(l => l.CreateScope(It.IsAny<string>())).Returns(logger.Object);
             settingDao.Setup(s => s.Get(It.IsAny<string>())).Returns(string.Empty);
-            IResponseReader reader = new ResponseReader(new ConfigurationService(settingDao.Object));
+            IResponseReader reader = new ResponseReader(new ConfigurationService(settingDao.Object), logger.Object);
             var history = reader.Read(Samples.Sample).GetEnumerator();
             history.MoveNext();
             Assert.Equal(new DateTime(2016, 01, 18), history.Current.Date);
