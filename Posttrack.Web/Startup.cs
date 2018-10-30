@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,14 @@ using Posttrack.BLL.Interfaces;
 using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.MySql;
+using System.Threading.Tasks;
 
 namespace Posttrack.Web
 {
     public class Startup
     {
         public static IConfiguration Configuration {get; private set;}
+        private static ILogger _logger;
 
         public Startup(IConfiguration configuration)
         {
@@ -26,6 +29,7 @@ namespace Posttrack.Web
         public void ConfigureServices(IServiceCollection services)
         {
             LoggerConfiguration.ConfigureLogger("Posttrack.Web", Configuration.GetConnectionString("log"));
+            _logger = new Logger("Root");
             services.AddSingleton<Data.Interfaces.IConfigurationService, ConfigurationService>();
             services.AddSingleton<IPackageDAO, PackageDAO>();
             services.AddSingleton<ISettingDAO, SettingDAO>();
@@ -38,14 +42,20 @@ namespace Posttrack.Web
             services.AddSingleton<IResponseReader, ResponseReader>();
             services.AddSingleton<ILogger>(new Logger("Root"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            _logger.Info("Application started.");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseExceptionHandler(new ExceptionHandlerOptions()
             {
-                app.UseDeveloperExceptionPage();
-            }
+                ExceptionHandler = (ctx) =>
+                {
+                    var feature = ctx.Features.Get<IExceptionHandlerFeature>();
+                    _logger.Log(feature.Error);
+                    return Task.FromResult(0);
+                }
+            });
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
