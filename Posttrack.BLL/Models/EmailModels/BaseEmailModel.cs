@@ -22,7 +22,7 @@ namespace Posttrack.BLL.Models.EmailModels
            ICollection<PackageHistoryItemDTO> oldHistory,
            IEnumerable<PackageHistoryItemDTO> newHistory)
         {
-            var itemTemplate = @"<tr><td valign=""top"" style=""width: 140px; {Style}"">{Date}</td><td style = ""{Style}"">{Action} {Place}</td></tr>";
+            var itemTemplate = @"<tr><td valign=""top"" style=""width: 50px; {Style}"">{Date}</td><td style = ""{Style}"">{Action} {Place}</td></tr>";
             var renderedItems = new Collection<string>();
             if (newHistory != null)
             {
