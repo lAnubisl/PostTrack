@@ -26,21 +26,21 @@ namespace Posttrack.BLL.Helpers.Implementations
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        public Task SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        public Task SendStatusUpdateAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            _logger.Info($"Call: {nameof(SendStatusUpdate)}(package, update)");
+            _logger.Info($"Call: {nameof(SendStatusUpdateAsync)}(package, update)");
             return Send(new PackageUpdateEmailModel(package, update), EmailTypes.PostTrackPackageUpdate);
         }
 
-        public Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+        public Task SendRegisteredAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
-            _logger.Info($"Call: {nameof(SendRegistered)}(package, update)");
+            _logger.Info($"Call: {nameof(SendRegisteredAsync)}(package, update)");
             return Send(new PackageRegisteredEmailModel(package, update), EmailTypes.PostTrackRegistered);
         }
 
-        public Task SendInactivityEmail(PackageDTO package)
+        public Task SendInactivityEmailAsync(PackageDTO package)
         {
-            _logger.Info($"Call: {nameof(SendInactivityEmail)}(package)");
+            _logger.Info($"Call: {nameof(SendInactivityEmailAsync)}(package)");
             return Send(new PackageTrackingCancelledEmailModel(package), EmailTypes.PostTrackTrackingCancellation);
         }
 

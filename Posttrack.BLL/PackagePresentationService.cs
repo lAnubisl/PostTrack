@@ -12,7 +12,6 @@ namespace Posttrack.BLL
 {
     public class PackagePresentationService : IPackagePresentationService
     {
-        private const int threadsCount = 4;
         private readonly ILogger _logger;
         private readonly IMessageSender _messageSender;
         private readonly IPackageDAO _packageDAO;
@@ -60,7 +59,8 @@ namespace Posttrack.BLL
                 return;
             }
 
-            await Task.WhenAll(packages.Select(p => UpdatePackage(p)));
+            var tasks = packages.Select(p => UpdatePackage(p)).ToArray();
+            await Task.WhenAll(tasks);
         }
 
         private async Task SendRegistered(RegisterPackageDTO dto)
@@ -74,14 +74,14 @@ namespace Posttrack.BLL
             }
 
             var history = await SearchPackageStatus(package);
-            await _messageSender.SendRegistered(package, history);
+            await _messageSender.SendRegisteredAsync(package, history);
 
             if (PackageHelper.IsEmpty(history))
             {
                 return;
             }
 
-            SavePackageStatus(package, history);
+            await SavePackageStatusAsync(package, history);
         }
 
         private async Task<ICollection<PackageHistoryItemDTO>> SearchPackageStatus(PackageDTO package)
@@ -108,7 +108,7 @@ namespace Posttrack.BLL
             _logger.Info($"Call: {nameof(UpdatePackage)}(package)");
             if (PackageHelper.IsFinished(package))
             {
-                SavePackageStatus(package, package.History);
+                await SavePackageStatusAsync(package, package.History);
                 return;
             }
 
@@ -117,7 +117,7 @@ namespace Posttrack.BLL
             {
                 if (PackageHelper.IsInactivityPeriodElapsed(package, _configurationService.InactivityPeriodMonths))
                 {
-                    StopTracking(package);
+                    await StopTrackingAsync(package);
                 }
 
                 _logger.Warning($"No update was found for package {package.Tracking}.");
@@ -127,25 +127,25 @@ namespace Posttrack.BLL
             if (history != null)
             {
                 _logger.Warning($"Update was Found!!! Sending an update email for package {package.Tracking}.");
-                await _messageSender.SendStatusUpdate(package, history);
-                SavePackageStatus(package, history);
+                await SavePackageStatusAsync(package, history);
+                await _messageSender.SendStatusUpdateAsync(package, history);
             }
         }
 
-        private void SavePackageStatus(PackageDTO package, ICollection<PackageHistoryItemDTO> history)
+        private Task SavePackageStatusAsync(PackageDTO package, ICollection<PackageHistoryItemDTO> history)
         {
-            _logger.Info($"Call: {nameof(SavePackageStatus)}(package, history)");
+            _logger.Info($"Call: {nameof(SavePackageStatusAsync)}(package, history)");
             package.History = history;
             package.IsFinished = PackageHelper.IsFinished(package);
-            _packageDAO.UpdateAsync(package);
+            return _packageDAO.UpdateAsync(package);
         }
 
-        private void StopTracking(PackageDTO package)
+        private Task StopTrackingAsync(PackageDTO package)
         {
             _logger.Warning($"The package {package.Tracking} was inactive for {_configurationService.InactivityPeriodMonths} months. Stop tracking it.");
-            _messageSender.SendInactivityEmail(package);
+            _messageSender.SendInactivityEmailAsync(package);
             package.IsFinished = true;
-            _packageDAO.UpdateAsync(package);
+            return _packageDAO.UpdateAsync(package);
         }
     }
 }

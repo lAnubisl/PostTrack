@@ -6,8 +6,8 @@ namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface IMessageSender
     {
-        Task SendStatusUpdate(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
-        Task SendInactivityEmail(PackageDTO package);
-        Task SendRegistered(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
+        Task SendStatusUpdateAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
+        Task SendInactivityEmailAsync(PackageDTO package);
+        Task SendRegisteredAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update);
     }
 }
