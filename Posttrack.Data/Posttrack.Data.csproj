@@ -1,9 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="MongoDb\**" />
     <Compile Remove="Mssql\**" />
@@ -11,6 +13,10 @@
     <EmbeddedResource Remove="Mssql\**" />
     <None Remove="MongoDb\**" />
     <None Remove="Mssql\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +28,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Posttrack.Common\Posttrack.Common.csproj" />
     <ProjectReference Include="..\Posttrack.Data.Interfaces\Posttrack.Data.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>
