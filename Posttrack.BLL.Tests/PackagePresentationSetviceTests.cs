@@ -6,16 +6,17 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
+using NUnit.Framework;
 using Posttrack.BLL.Helpers.Interfaces;
 using Posttrack.BLL.Interfaces;
 using Posttrack.BLL.Interfaces.Models;
 using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.Interfaces.DTO;
-using Xunit;
 
 namespace Posttrack.BLL.Tests
 {
+    [TestFixture]
     public class PackagePresentationSetviceTests
     {
         private Mock<IPackageDAO> dao;
@@ -25,7 +26,8 @@ namespace Posttrack.BLL.Tests
         private Mock<Interfaces.IConfigurationService> configuration;
         private IPackagePresentationService service;
 
-        public PackagePresentationSetviceTests()
+        [SetUp]
+        public void Setup()
         {
             dao = new Mock<IPackageDAO>();
             searcher = new Mock<IUpdateSearcher>();
@@ -39,7 +41,7 @@ namespace Posttrack.BLL.Tests
             service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, configuration.Object, logger.Object);
         }
 
-        [Fact]
+        [Test]
         public void Register_Shoudl_Call_DAO()
         {
             var model = new RegisterTrackingModel();
@@ -56,7 +58,7 @@ namespace Posttrack.BLL.Tests
                                 d.Description == model.Description)));
         }
 
-        [Fact]
+        [Test]
         public void Register_Shoudl_Call_Sender()
         {
             var model = new RegisterTrackingModel();
@@ -73,7 +75,7 @@ namespace Posttrack.BLL.Tests
             sender.Verify(c => c.SendRegisteredAsync(savedPackage, null));
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPachages_Should_Call_Searcher_For_Each_Package()
         {
             ICollection<PackageDTO> packages = new Collection<PackageDTO>();
@@ -87,7 +89,7 @@ namespace Posttrack.BLL.Tests
             searcher.Verify(c => c.SearchAsync(arr[1]));
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPachages_Should_Call_Reader_For_Each_Package()
         {
             ICollection<PackageDTO> packages = new Collection<PackageDTO>();
@@ -101,7 +103,7 @@ namespace Posttrack.BLL.Tests
             reader.Verify(c => c.Read("Fake result"), Times.Exactly(3));
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPackages_Should_Call_SendInactivityEmail_When_Package_Was_Inactive_For_A_Long_Time()
         {
             var inactivePackage = new PackageDTO
@@ -118,7 +120,7 @@ namespace Posttrack.BLL.Tests
             sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage));
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPackages_Should_Finish_Package_When_Package_Was_Inactive_For_A_Long_Time()
         {
             var inactivePackage = new PackageDTO
@@ -137,7 +139,7 @@ namespace Posttrack.BLL.Tests
             Assert.True(inactivePackage.IsFinished);
         }
 
-        [Fact]
+        [Test]
         public void
             UpdateComingPackages_Should_Not_Call_SendInactivityEmail_When_Package_Was_Not_Inactive_For_A_Long_Time()
         {
@@ -155,7 +157,7 @@ namespace Posttrack.BLL.Tests
             sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage), Times.Never);
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPackages_Should_Update_Package_History()
         {
             var package = new PackageDTO {Tracking = "Not null tracking", History = null};
@@ -170,10 +172,10 @@ namespace Posttrack.BLL.Tests
             service.UpdateComingPackages().Wait();
 
             dao.Verify(c => c.UpdateAsync(package));
-            Assert.Equal(history, package.History);
+            Assert.AreEqual(history, package.History);
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPackages_Should_Finish_Package_When_History_Has_A_Special_Action_1()
         {
             var package = new PackageDTO {Tracking = "Not null tracking", History = null, IsFinished = false};
@@ -189,7 +191,7 @@ namespace Posttrack.BLL.Tests
             Assert.True(package.IsFinished);
         }
 
-        [Fact]
+        [Test]
         public void UpdateComingPackages_Should_Finish_Package_When_History_Has_A_Special_Action_2()
         {
             var package = new PackageDTO {Tracking = "Not null tracking", History = null, IsFinished = false};
@@ -205,7 +207,7 @@ namespace Posttrack.BLL.Tests
             Assert.True(package.IsFinished);
         }
 
-        [Fact (Skip ="Executing in 1 thread")]
+        [Test, Ignore("")]
         public void UpdateComingPackages_Should_Work_Async()
         {
             ICollection<PackageDTO> packages = new Collection<PackageDTO>
