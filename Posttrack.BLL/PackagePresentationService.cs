@@ -127,8 +127,8 @@ namespace Posttrack.BLL
             if (history != null)
             {
                 _logger.Warning($"Update was Found!!! Sending an update email for package {package.Tracking}.");
-                await SavePackageStatusAsync(package, history);
                 await _messageSender.SendStatusUpdateAsync(package, history);
+                await SavePackageStatusAsync(package, history);
             }
         }
 
