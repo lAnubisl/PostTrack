@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using Posttrack.BLL.Helpers.Interfaces;
-using Posttrack.Data.Interfaces.DTO;
-using Posttrack.BLL.Interfaces;
-using System.Threading.Tasks;
-using SparkPost;
-using System;
-using Posttrack.BLL.Models.EmailModels;
 using System.Reflection;
+using System.Threading.Tasks;
+using Posttrack.BLL.Helpers.Interfaces;
+using Posttrack.BLL.Interfaces;
+using Posttrack.BLL.Models.EmailModels;
 using Posttrack.Common;
+using Posttrack.Data.Interfaces.DTO;
+using SparkPost;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
