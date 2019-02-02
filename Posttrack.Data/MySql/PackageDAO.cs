@@ -23,22 +23,23 @@ namespace Posttrack.Data.MySql
         private const string UpdateQuery =
             "update Package set UpdateDate = @UpdateDate, IsFinished = @IsFinished, History = @History where Tracking = @Tracking";
 
-
-        public PackageDAO(IConfigurationService configurationService, ILogger logger) 
-            : base(configurationService, logger.CreateScope(nameof(PackageDAO))) { }
+        public PackageDAO(IConfigurationService configurationService, ILogger logger)
+            : base(configurationService, logger.CreateScope(nameof(PackageDAO)))
+        {
+        }
 
         public async Task<ICollection<PackageDTO>> LoadTrackingAsync()
         {
-            logger.Info($"Call: {nameof(LoadTrackingAsync)}()");
+            Logger.Info($"Call: {nameof(LoadTrackingAsync)}()");
             using (var c = NewConnection)
             {
                 try
                 {
                     return (await c.QueryAsync<Package>(LoadComingPackagesQuery)).ToList().Select(x => x.Map()).ToList();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    logger.Log(ex);
+                    Logger.Log(ex);
                     return null;
                 }
             }
@@ -46,29 +47,30 @@ namespace Posttrack.Data.MySql
 
         public async Task<PackageDTO> LoadAsync(string trackingNumber)
         {
-            logger.Info($"Call: {nameof(LoadAsync)}({trackingNumber})");
+            Logger.Info($"Call: {nameof(LoadAsync)}({trackingNumber})");
             return (await Get(trackingNumber)).Map();
         }
 
         public async Task RegisterAsync(RegisterPackageDTO package)
         {
-            logger.Info($"Call: {nameof(RegisterAsync)}(package)");
+            Logger.Info($"Call: {nameof(RegisterAsync)}(package)");
             using (var c = NewConnection)
             {
                 try
                 {
                     await c.ExecuteAsync(RegisterQuery, package.Map());
-                    logger.Warning($"New package registered: {package.Tracking}");
-                } catch (Exception ex)
+                    Logger.Warning($"New package registered: {package.Tracking}");
+                }
+                catch (Exception ex)
                 {
-                    logger.Log(ex);
+                    Logger.Log(ex);
                 }
             }
         }
 
         public bool Exists(string trackingNumber)
         {
-            logger.Info($"Call: {nameof(Exists)}({trackingNumber})");
+            Logger.Info($"Call: {nameof(Exists)}({trackingNumber})");
             using (var c = NewConnection)
             {
                 try
@@ -77,15 +79,17 @@ namespace Posttrack.Data.MySql
                 }
                 catch (Exception ex)
                 {
-                    logger.Log(ex);
+                    Logger.Log(ex);
+#pragma warning disable CA2200 // Rethrow to preserve stack details.
                     throw ex;
-                }  
+#pragma warning restore CA2200 // Rethrow to preserve stack details.
+                }
             }
         }
 
         public async Task UpdateAsync(PackageDTO package)
         {
-            logger.Info($"Call: {nameof(UpdateAsync)}(package)");
+            Logger.Info($"Call: {nameof(UpdateAsync)}(package)");
             using (var c = NewConnection)
             {
                 var entity = await Get(package.Tracking);
@@ -97,16 +101,16 @@ namespace Posttrack.Data.MySql
 
         private async Task<Package> Get(string trackingNumber)
         {
-            logger.Info($"Call: {nameof(Get)}({trackingNumber})");
+            Logger.Info($"Call: {nameof(Get)}({trackingNumber})");
             using (var c = NewConnection)
             {
                 try
                 {
                     return await c.QueryFirstOrDefaultAsync<Package>(LoadQuery, new { trackingNumber });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    logger.Log(ex);
+                    Logger.Log(ex);
                     return null;
                 }
             }

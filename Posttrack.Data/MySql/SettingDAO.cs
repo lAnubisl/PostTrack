@@ -1,29 +1,31 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using Posttrack.Common;
 using Posttrack.Data.Interfaces;
-using System;
 
 namespace Posttrack.Data.MySql
 {
     public class SettingDAO : BaseDAO, ISettingDAO
     {
-        public SettingDAO(IConfigurationService configurationService, ILogger logger) 
-            : base(configurationService, logger.CreateScope(nameof(SettingDAO))) { }
-
         private const string GetQuery = "select Value from Settings where Name = @name";
 
-        public string Get(string name)
+        public SettingDAO(IConfigurationService configurationService, ILogger logger)
+            : base(configurationService, logger.CreateScope(nameof(SettingDAO)))
         {
-            logger.Info($"Call: {nameof(Get)}({name})");
+        }
+
+        public string Load(string name)
+        {
+            Logger.Info($"Call: {nameof(Load)}({name})");
             using (var c = NewConnection)
             {
                 try
                 {
                     return c.QueryFirstOrDefault<string>(GetQuery, new { name });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    logger.Log(ex);
+                    Logger.Log(ex);
                     return null;
                 }
             }

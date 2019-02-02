@@ -1,20 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Posttrack.BLL;
 using Posttrack.BLL.Helpers.Implementations;
 using Posttrack.BLL.Interfaces;
 using Posttrack.Common;
 using Posttrack.Data.MySql;
-using System;
-using System.Diagnostics;
-using System.IO;
 
 namespace PostTrack.Checker
 {
-    class Program
+    public static class Program
     {
         public static IConfigurationRoot Configuration { get; private set; }
 
-        static void Main(string[] args)
+        public static void Main()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -32,17 +32,14 @@ namespace PostTrack.Checker
                     new SettingDAO(configurationService, logger));
                 IPackagePresentationService presentationService = new PackagePresentationService(
                     new PackageDAO(configurationService, logger),
-                    new EmailMessageSender(
-                        anotherConfigurationService,
-                        new SparkPostTemplateProvider(anotherConfigurationService, logger),
-                        logger),
+                    new EmailMessageSender(anotherConfigurationService, new SparkPostTemplateProvider(anotherConfigurationService, logger), logger),
                     new BelpostSearcher(anotherConfigurationService, logger),
                     new ResponseReader(anotherConfigurationService, logger),
                     anotherConfigurationService,
                     logger);
                 presentationService.UpdateComingPackages().Wait();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Log(ex);
             }

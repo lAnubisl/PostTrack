@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Posttrack.Web
 {
     public class TraceIdMiddleware
     {
         private readonly RequestDelegate _next;
+
         public TraceIdMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -18,14 +18,6 @@ namespace Posttrack.Web
         {
             Trace.CorrelationManager.ActivityId = Guid.NewGuid();
             await _next.Invoke(context);
-        }
-    }
-
-    public static class MyMiddlewareExtensions
-    {
-        public static IApplicationBuilder UseTraceId(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<TraceIdMiddleware>();
         }
     }
 }

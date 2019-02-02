@@ -16,7 +16,9 @@ namespace Posttrack.BLL
 
             var historyAction = package.History.First().Action;
             return historyAction != null &&
+#pragma warning disable CA1308 // Normalize strings to uppercase
                    (historyAction.ToLowerInvariant().Contains("вручено") ||
+#pragma warning restore CA1308 // Normalize strings to uppercase
                     historyAction == "Отправление доставлено");
         }
 

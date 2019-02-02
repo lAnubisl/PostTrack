@@ -1,26 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Posttrack.Web.Models
 {
     public class OperationResult
     {
-        private readonly IEnumerable<KeyValuePair<string, string[]>> errors;
-        private readonly bool success;
+        private readonly IEnumerable<KeyValuePair<string, string[]>> _errors;
+        private readonly bool _success;
 
         internal OperationResult(bool success)
         {
-            this.success = success;
+            _success = success;
         }
 
-        internal OperationResult(bool success, ModelStateDictionary modelState) : this(success)
+        internal OperationResult(bool success, ModelStateDictionary modelState)
+            : this(success)
         {
             if (!modelState.IsValid)
             {
-                errors = modelState
+                _errors = modelState
                     .ToDictionary(x => x.Key, y => y.Value.Errors.Select(e => e.ErrorMessage).ToArray())
                     .Where(m => m.Value.Any())
                     .ToList();
@@ -29,12 +28,12 @@ namespace Posttrack.Web.Models
 
         public bool Success
         {
-            get { return success; }
+            get { return _success; }
         }
 
         public IEnumerable<KeyValuePair<string, string[]>> Errors
         {
-            get { return errors; }
+            get { return _errors; }
         }
     }
 }

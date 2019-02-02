@@ -7,9 +7,13 @@ namespace Posttrack.Data.Interfaces
     public interface IPackageDAO
     {
         Task<ICollection<PackageDTO>> LoadTrackingAsync();
+
         Task<PackageDTO> LoadAsync(string trackingNumber);
+
         Task RegisterAsync(RegisterPackageDTO package);
+
         bool Exists(string trackingNumber);
+
         Task UpdateAsync(PackageDTO package);
     }
 }

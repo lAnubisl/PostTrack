@@ -1,5 +1,5 @@
-﻿using Posttrack.Data.Interfaces.DTO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Helpers.Interfaces
 {

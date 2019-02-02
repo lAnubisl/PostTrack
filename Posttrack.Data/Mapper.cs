@@ -66,12 +66,12 @@ namespace Posttrack.Data
 
         private static PackageHistoryItem Map(this PackageHistoryItemDTO item)
         {
-            return new PackageHistoryItem {Action = item.Action, Place = item.Place, Date = item.Date};
+            return new PackageHistoryItem { Action = item.Action, Place = item.Place, Date = item.Date };
         }
 
         private static PackageHistoryItemDTO Map(this PackageHistoryItem item)
         {
-            return new PackageHistoryItemDTO {Action = item.Action, Date = item.Date, Place = item.Place};
+            return new PackageHistoryItemDTO { Action = item.Action, Date = item.Date, Place = item.Place };
         }
     }
 }

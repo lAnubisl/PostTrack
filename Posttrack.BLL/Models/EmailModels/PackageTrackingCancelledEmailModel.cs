@@ -7,7 +7,8 @@ namespace Posttrack.BLL.Models.EmailModels
         internal readonly string Tracking;
         internal readonly string Description;
 
-        internal PackageTrackingCancelledEmailModel(PackageDTO package) : base(package.Email)
+        internal PackageTrackingCancelledEmailModel(PackageDTO package)
+            : base(package.Email)
         {
             Tracking = package.Tracking;
             Description = package.Description;

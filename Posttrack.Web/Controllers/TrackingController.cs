@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Posttrack.BLL.Interfaces;
 using Posttrack.Web.Models;
-using System.Threading.Tasks;
 
 namespace Posttrack.Web.Controllers
 {
@@ -11,11 +11,12 @@ namespace Posttrack.Web.Controllers
 
         public TrackingController(IPackagePresentationService service)
         {
-            var logger = NLog.LogManager.GetLogger("");
+            var logger = NLog.LogManager.GetLogger(string.Empty);
             this.service = service;
         }
 
-        [HttpPost, Route("tracking")]
+        [HttpPost]
+        [Route("tracking")]
         public async Task<OperationResult> Post(SaveTrackingModel model)
         {
             if (ModelState.IsValid)

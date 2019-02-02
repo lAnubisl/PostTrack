@@ -1,11 +1,11 @@
 ﻿using System;
-using Posttrack.Common;
 
 namespace Posttrack.Common
 {
     public class Logger : ILogger
     {
         private readonly NLog.Logger _logger;
+
         public Logger(string name)
         {
             _logger = NLog.LogManager.GetLogger(name);

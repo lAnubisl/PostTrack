@@ -17,28 +17,28 @@ namespace Posttrack.BLL.Tests
             var settingDao = new Mock<ISettingDAO>();
             var logger = new Mock<ILogger>();
             logger.Setup(l => l.CreateScope(It.IsAny<string>())).Returns(logger.Object);
-            settingDao.Setup(s => s.Get(It.IsAny<string>())).Returns(string.Empty);
+            settingDao.Setup(s => s.Load(It.IsAny<string>())).Returns(string.Empty);
             IResponseReader reader = new ResponseReader(new ConfigurationService(settingDao.Object), logger.Object);
             var history = reader.Read(Samples.Sample).GetEnumerator();
             history.MoveNext();
             Assert.AreEqual(new DateTime(2016, 01, 18), history.Current.Date);
             Assert.AreEqual("Вручено", history.Current.Action);
-			Assert.AreEqual("MINSK - 34", history.Current.Place);
+            Assert.AreEqual("MINSK - 34", history.Current.Place);
 
             history.MoveNext();
             Assert.AreEqual(new DateTime(2016, 01, 18), history.Current.Date);
             Assert.AreEqual("10. Доставлено, вручено (<a href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34", history.Current.Action);
-			Assert.AreEqual(string.Empty, history.Current.Place);
+            Assert.AreEqual(string.Empty, history.Current.Place);
 
             history.MoveNext();
             Assert.AreEqual(new DateTime(2016, 01, 16), history.Current.Date);
             Assert.AreEqual("09. Попытка доставки (<a href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34", history.Current.Action);
-			Assert.AreEqual(string.Empty, history.Current.Place);
+            Assert.AreEqual(string.Empty, history.Current.Place);
 
             history.MoveNext();
             Assert.AreEqual(new DateTime(2016, 01, 16), history.Current.Date);
             Assert.AreEqual("08. Передано из (<a href=\"http://zip.belpost.by/zip_code/200400\">200400</a>)  в (<a href=\"http://zip.belpost.by/zip_code/220034\">220034</a>) Минск - 34", history.Current.Action);
-			Assert.AreEqual(string.Empty, history.Current.Place);
+            Assert.AreEqual(string.Empty, history.Current.Place);
 
             history.MoveNext();
             Assert.AreEqual(new DateTime(2016, 01, 16), history.Current.Date);

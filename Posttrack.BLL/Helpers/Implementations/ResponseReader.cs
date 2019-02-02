@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Posttrack.BLL.Helpers.Interfaces;
-using Posttrack.Data.Interfaces.DTO;
 using Posttrack.BLL.Interfaces;
 using Posttrack.Common;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
     public class ResponseReader : IResponseReader
     {
+        private static readonly CultureInfo Provider = new CultureInfo("ru-RU");
+        private static readonly PackageHistoryItemDTOComparer Comparer = new PackageHistoryItemDTOComparer();
         private readonly ILogger _logger;
-        private static readonly CultureInfo provider = new CultureInfo("ru-RU");
         private readonly IConfigurationService _configurationService;
-        private static readonly PackageHistoryItemDTOComparer comparer = new PackageHistoryItemDTOComparer();
 
         public ResponseReader(IConfigurationService configurationService, ILogger logger)
         {
@@ -37,28 +37,28 @@ namespace Posttrack.BLL.Helpers.Implementations
                 return null;
             }
 
-            var history = new SortedSet<PackageHistoryItemDTO>(comparer);
+            var history = new SortedSet<PackageHistoryItemDTO>(Comparer);
             foreach (Match match in matches)
             {
                 var historyItem = new PackageHistoryItemDTO();
                 historyItem.Date = ParseDate(match);
                 historyItem.Action = match.Groups[2].Value.Trim();
-	            if (match.Groups.Count > 3)
-	            {
-					historyItem.Place = match.Groups[4].Value.Trim();
-				}
-                
+                if (match.Groups.Count > 3)
+                {
+                    historyItem.Place = match.Groups[4].Value.Trim();
+                }
+
                 history.Add(historyItem);
             }
 
             return history;
         }
 
-	    private static DateTime ParseDate(Match match)
-	    {
-		    return match.Groups[1].Value.Contains("-")
-			    ? DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd", provider)
-			    : DateTime.ParseExact(match.Groups[1].Value, "dd.MM.yyyy", provider);
-	    }
+        private static DateTime ParseDate(Match match)
+        {
+            return match.Groups[1].Value.Contains("-")
+                ? DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd", Provider)
+                : DateTime.ParseExact(match.Groups[1].Value, "dd.MM.yyyy", Provider);
+        }
     }
 }

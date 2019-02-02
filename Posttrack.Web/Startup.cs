@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -12,19 +13,19 @@ using Posttrack.BLL.Interfaces;
 using Posttrack.Common;
 using Posttrack.Data.Interfaces;
 using Posttrack.Data.MySql;
-using System.Threading.Tasks;
 
 namespace Posttrack.Web
 {
     public class Startup
     {
-        public static IConfiguration Configuration {get; private set;}
         private static ILogger _logger;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public static IConfiguration Configuration { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -60,7 +61,7 @@ namespace Posttrack.Web
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
- 
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseTraceId();

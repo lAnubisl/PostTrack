@@ -19,37 +19,39 @@ namespace Posttrack.BLL.Tests
     [TestFixture]
     public class PackagePresentationSetviceTests
     {
-        private Mock<IPackageDAO> dao;
-        private Mock<IResponseReader> reader;
-        private Mock<IUpdateSearcher> searcher;
-        private Mock<IMessageSender> sender;
-        private Mock<Interfaces.IConfigurationService> configuration;
-        private IPackagePresentationService service;
+        private Mock<IPackageDAO> _dao;
+        private Mock<IResponseReader> _reader;
+        private Mock<IUpdateSearcher> _searcher;
+        private Mock<IMessageSender> _sender;
+        private Mock<Interfaces.IConfigurationService> _configuration;
+        private IPackagePresentationService _service;
 
         [SetUp]
         public void Setup()
         {
-            dao = new Mock<IPackageDAO>();
-            searcher = new Mock<IUpdateSearcher>();
-            reader = new Mock<IResponseReader>();
-            sender = new Mock<IMessageSender>();
-            sender.Setup(s => s.SendStatusUpdateAsync(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(Task.FromResult(0));
-            configuration = new Mock<Interfaces.IConfigurationService>();
-            configuration.Setup(c => c.InactivityPeriodMonths).Returns(2);
+            _dao = new Mock<IPackageDAO>();
+            _searcher = new Mock<IUpdateSearcher>();
+            _reader = new Mock<IResponseReader>();
+            _sender = new Mock<IMessageSender>();
+            _sender.Setup(s => s.SendStatusUpdateAsync(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(Task.FromResult(0));
+            _configuration = new Mock<Interfaces.IConfigurationService>();
+            _configuration.Setup(c => c.InactivityPeriodMonths).Returns(2);
             var logger = new Mock<ILogger>();
             logger.Setup(l => l.CreateScope(It.IsAny<string>())).Returns(logger.Object);
-            service = new PackagePresentationService(dao.Object, sender.Object, searcher.Object, reader.Object, configuration.Object, logger.Object);
+            _service = new PackagePresentationService(_dao.Object, _sender.Object, _searcher.Object, _reader.Object, _configuration.Object, logger.Object);
         }
 
         [Test]
         public void Register_Shoudl_Call_DAO()
         {
-            var model = new RegisterTrackingModel();
-            model.Description = "Description";
-            model.Email = "email@email.com";
-            model.Tracking = "AA123123123PP";
-            service.Register(model).Wait();
-            dao.Verify(
+            var model = new RegisterTrackingModel
+            {
+                Description = "Description",
+                Email = "email@email.com",
+                Tracking = "AA123123123PP"
+            };
+            _service.Register(model).Wait();
+            _dao.Verify(
                 c =>
                     c.RegisterAsync(
                         It.Is<RegisterPackageDTO>(
@@ -59,48 +61,54 @@ namespace Posttrack.BLL.Tests
         }
 
         [Test]
-        public void Register_Shoudl_Call_Sender()
+        public void Register_Should_Call_Sender()
         {
-            var model = new RegisterTrackingModel();
-            model.Description = "Description";
-            model.Email = "email@email.com";
-            model.Tracking = "AA123123123PP";
+            var model = new RegisterTrackingModel
+            {
+                Description = "Description",
+                Email = "email@email.com",
+                Tracking = "AA123123123PP"
+            };
 
-            var savedPackage = new PackageDTO {Tracking = model.Tracking};
+            var savedPackage = new PackageDTO { Tracking = model.Tracking };
 
-            dao.Setup(d => d.LoadAsync(model.Tracking)).Returns(Task.FromResult(savedPackage));
-            searcher.Setup(s => s.SearchAsync(savedPackage)).Returns(Task.FromResult("Empty search result"));
+            _dao.Setup(d => d.LoadAsync(model.Tracking)).Returns(Task.FromResult(savedPackage));
+            _searcher.Setup(s => s.SearchAsync(savedPackage)).Returns(Task.FromResult("Empty search result"));
 
-            service.Register(model).Wait();
-            sender.Verify(c => c.SendRegisteredAsync(savedPackage, null));
+            _service.Register(model).Wait();
+            _sender.Verify(c => c.SendRegisteredAsync(savedPackage, null));
         }
 
         [Test]
         public void UpdateComingPachages_Should_Call_Searcher_For_Each_Package()
         {
-            ICollection<PackageDTO> packages = new Collection<PackageDTO>();
-            packages.Add(new PackageDTO {Tracking = "t1"});
-            packages.Add(new PackageDTO {Tracking = "t2"});
+            ICollection<PackageDTO> packages = new Collection<PackageDTO>
+            {
+                new PackageDTO { Tracking = "t1" },
+                new PackageDTO { Tracking = "t2" }
+            };
 
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
-            service.UpdateComingPackages();
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
+            _service.UpdateComingPackages();
             var arr = packages.ToArray();
-            searcher.Verify(c => c.SearchAsync(arr[0]));
-            searcher.Verify(c => c.SearchAsync(arr[1]));
+            _searcher.Verify(c => c.SearchAsync(arr[0]));
+            _searcher.Verify(c => c.SearchAsync(arr[1]));
         }
 
         [Test]
         public void UpdateComingPachages_Should_Call_Reader_For_Each_Package()
         {
-            ICollection<PackageDTO> packages = new Collection<PackageDTO>();
-            packages.Add(new PackageDTO {Tracking = "t1"});
-            packages.Add(new PackageDTO {Tracking = "t2"});
-            packages.Add(new PackageDTO {Tracking = "t3"});
+            ICollection<PackageDTO> packages = new Collection<PackageDTO>
+            {
+                new PackageDTO { Tracking = "t1" },
+                new PackageDTO { Tracking = "t2" },
+                new PackageDTO { Tracking = "t3" }
+            };
 
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Fake result"));
-            service.UpdateComingPackages();
-            reader.Verify(c => c.Read("Fake result"), Times.Exactly(3));
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Fake result"));
+            _service.UpdateComingPackages();
+            _reader.Verify(c => c.Read("Fake result"), Times.Exactly(3));
         }
 
         [Test]
@@ -111,13 +119,11 @@ namespace Posttrack.BLL.Tests
                 Tracking = "Not null tracking",
                 UpdateDate = DateTime.Now.AddMonths(-2)
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
-
-            service.UpdateComingPackages().Wait();
-
-            sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage));
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { inactivePackage } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
+            _service.UpdateComingPackages().Wait();
+            _sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage));
         }
 
         [Test]
@@ -129,13 +135,11 @@ namespace Posttrack.BLL.Tests
                 Tracking = "Not null tracking",
                 UpdateDate = DateTime.Now.AddMonths(-2)
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
-
-            service.UpdateComingPackages().Wait();
-
-            dao.Verify(c => c.UpdateAsync(inactivePackage));
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { inactivePackage } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
+            _service.UpdateComingPackages().Wait();
+            _dao.Verify(c => c.UpdateAsync(inactivePackage));
             Assert.True(inactivePackage.IsFinished);
         }
 
@@ -148,96 +152,91 @@ namespace Posttrack.BLL.Tests
                 Tracking = "Not null tracking",
                 UpdateDate = DateTime.Now.AddMonths(-2 + 1)
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {inactivePackage} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
-
-            service.UpdateComingPackages().Wait();
-
-            sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage), Times.Never);
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { inactivePackage } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(null as ICollection<PackageHistoryItemDTO>);
+            _service.UpdateComingPackages().Wait();
+            _sender.Verify(c => c.SendInactivityEmailAsync(inactivePackage), Times.Never);
         }
 
         [Test]
         public void UpdateComingPackages_Should_Update_Package_History()
         {
-            var package = new PackageDTO {Tracking = "Not null tracking", History = null};
+            var package = new PackageDTO { Tracking = "Not null tracking", History = null };
             var history = new Collection<PackageHistoryItemDTO>
             {
-                new PackageHistoryItemDTO {Action = "Action", Place = "Place", Date = DateTime.Now}
+                new PackageHistoryItemDTO { Action = "Action", Place = "Place", Date = DateTime.Now }
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-
-            service.UpdateComingPackages().Wait();
-
-            dao.Verify(c => c.UpdateAsync(package));
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { package } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
+            _service.UpdateComingPackages().Wait();
+            _dao.Verify(c => c.UpdateAsync(package));
             Assert.AreEqual(history, package.History);
         }
 
         [Test]
         public void UpdateComingPackages_Should_Finish_Package_When_History_Has_A_Special_Action_1()
         {
-            var package = new PackageDTO {Tracking = "Not null tracking", History = null, IsFinished = false};
+            var package = new PackageDTO { Tracking = "Not null tracking", History = null, IsFinished = false };
             var history = new Collection<PackageHistoryItemDTO>
             {
-                new PackageHistoryItemDTO {Action = "Доставлено, вручено", Place = "Place", Date = DateTime.Now}
+                new PackageHistoryItemDTO { Action = "Доставлено, вручено", Place = "Place", Date = DateTime.Now }
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-
-            service.UpdateComingPackages().Wait();
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { package } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
+            _service.UpdateComingPackages().Wait();
             Assert.True(package.IsFinished);
         }
 
         [Test]
         public void UpdateComingPackages_Should_Finish_Package_When_History_Has_A_Special_Action_2()
         {
-            var package = new PackageDTO {Tracking = "Not null tracking", History = null, IsFinished = false};
+            var package = new PackageDTO { Tracking = "Not null tracking", History = null, IsFinished = false };
             var history = new Collection<PackageHistoryItemDTO>
             {
-                new PackageHistoryItemDTO {Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now}
+                new PackageHistoryItemDTO { Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now }
             };
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> {package} as ICollection<PackageDTO>));
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-
-            service.UpdateComingPackages().Wait();
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(new Collection<PackageDTO> { package } as ICollection<PackageDTO>));
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>())).Returns(Task.FromResult("Not empty search result"));
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
+            _service.UpdateComingPackages().Wait();
             Assert.True(package.IsFinished);
         }
 
-        [Test, Ignore("")]
+        [Test]
+        [Ignore("")]
         public void UpdateComingPackages_Should_Work_Async()
         {
             ICollection<PackageDTO> packages = new Collection<PackageDTO>
             {
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"},
-                new PackageDTO {Tracking = "Not null tracking"}
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" },
+                new PackageDTO { Tracking = "Not null tracking" }
             };
             var history = new Collection<PackageHistoryItemDTO>
             {
-                new PackageHistoryItemDTO {Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now}
+                new PackageHistoryItemDTO { Action = "Отправление доставлено", Place = "Place", Date = DateTime.Now }
             };
-            reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
-            searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>()))
+            _reader.Setup(r => r.Read(It.IsAny<string>())).Returns(history);
+            _searcher.Setup(s => s.SearchAsync(It.IsAny<PackageDTO>()))
                 .Callback(() => Thread.Sleep(500))
                 .Returns(Task.FromResult("Not empty search result"));
-            sender.Setup(s => s.SendStatusUpdateAsync(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()))
+            _sender.Setup(s => s.SendStatusUpdateAsync(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>()))
                 .Callback(() => Thread.Sleep(500))
                 .Returns(Task.FromResult(0));
-            dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
+            _dao.Setup(d => d.LoadTrackingAsync()).Returns(Task.FromResult(packages));
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            service.UpdateComingPackages().Wait();
+            _service.UpdateComingPackages().Wait();
             stopwatch.Stop();
             Assert.True(stopwatch.Elapsed.Seconds > 1);
             Assert.True(stopwatch.Elapsed.Seconds < 10);

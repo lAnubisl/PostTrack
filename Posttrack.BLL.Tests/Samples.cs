@@ -2,7 +2,7 @@
 {
     internal class Samples
     {
-        internal static string Sample = "\r\n\r\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3" +
+        internal static string Sample => "\r\n\r\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3" +
             ".org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n\r\n<html xmlns=\"http://www.w3.org/1" +
             "999/xhtml\" >\r\n<head><title>\r\n\tПоиск отправлений\r\n</title><link rel=\"icon\" href=\"" +
             "Resources/favicon.ico\" type=\"image/x-icon\" />\r\n    <style type=\"text/css\">\r\n\r\n\r\n" +

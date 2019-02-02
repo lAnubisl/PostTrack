@@ -1,4 +1,5 @@
-﻿using Posttrack.Data.Interfaces;
+﻿using System;
+using Posttrack.Data.Interfaces;
 
 namespace Posttrack.BLL
 {
@@ -6,7 +7,7 @@ namespace Posttrack.BLL
     {
         public ConfigurationService(ISettingDAO settingDAO)
         {
-            SparkPostApiKey = settingDAO.Get("SparkPostApiKey");
+            SparkPostApiKey = settingDAO.Load("SparkPostApiKey");
         }
 
         public string SparkPostApiKey { get; }
@@ -15,6 +16,6 @@ namespace Posttrack.BLL
 
         public string HistoryRegex => @"(\d{4}-\d{2}-\d{2}|\d{2}.\d{2}.\d{4}).+?(?>Label1"">)(.+?(?=</span>))(.+?(?>size=""4"">)([^<]+)</font></td>\r\n\t\t\t\t</tr>)?";
 
-        public string HttpSearchUrl => "http://declaration.belpost.by/searchRu.aspx";
+        public Uri HttpSearchUrl => new Uri("http://declaration.belpost.by/searchRu.aspx");
     }
 }

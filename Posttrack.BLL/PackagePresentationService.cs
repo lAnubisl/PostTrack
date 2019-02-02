@@ -140,12 +140,12 @@ namespace Posttrack.BLL
             return _packageDAO.UpdateAsync(package);
         }
 
-        private Task StopTrackingAsync(PackageDTO package)
+        private async Task StopTrackingAsync(PackageDTO package)
         {
             _logger.Warning($"The package {package.Tracking} was inactive for {_configurationService.InactivityPeriodMonths} months. Stop tracking it.");
-            _messageSender.SendInactivityEmailAsync(package);
+            await _messageSender.SendInactivityEmailAsync(package);
             package.IsFinished = true;
-            return _packageDAO.UpdateAsync(package);
+            await _packageDAO.UpdateAsync(package);
         }
     }
 }

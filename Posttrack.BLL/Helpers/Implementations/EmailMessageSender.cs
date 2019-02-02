@@ -23,44 +23,25 @@ namespace Posttrack.BLL.Helpers.Implementations
             _logger = logger.CreateScope(nameof(EmailMessageSender));
             _apiKey = settingsProvider.SparkPostApiKey;
             _sparkPostTemplateProvider = sparkPostTemplateProvider;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
         }
 
         public Task SendStatusUpdateAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             _logger.Info($"Call: {nameof(SendStatusUpdateAsync)}(package, update)");
-            return Send(new PackageUpdateEmailModel(package, update), EmailTypes.PostTrackPackageUpdate);
+            return Send(new PackageUpdateEmailModel(package, update), EmailType.PostTrackPackageUpdate);
         }
 
         public Task SendRegisteredAsync(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
         {
             _logger.Info($"Call: {nameof(SendRegisteredAsync)}(package, update)");
-            return Send(new PackageRegisteredEmailModel(package, update), EmailTypes.PostTrackRegistered);
+            return Send(new PackageRegisteredEmailModel(package, update), EmailType.PostTrackRegistered);
         }
 
         public Task SendInactivityEmailAsync(PackageDTO package)
         {
             _logger.Info($"Call: {nameof(SendInactivityEmailAsync)}(package)");
-            return Send(new PackageTrackingCancelledEmailModel(package), EmailTypes.PostTrackTrackingCancellation);
-        }
-
-        private async Task Send(BaseEmailModel model, EmailTypes emailType)
-        {
-            _logger.Info($"Call: {nameof(Send)}(model, {emailType})");
-            var emailTemplate = await _sparkPostTemplateProvider.GetTemplate(emailType);
-            var substitutionData = GetSubstitutionData(model);
-            var transmission = new Transmission
-            {
-                Content =
-                    {
-                        From = emailTemplate.TemplateContent.From,
-                        Text = emailTemplate.TemplateContent.Text,
-                        Html = emailTemplate.TemplateContent.Html,
-                        Subject = emailTemplate.TemplateContent.Subject,
-                    },
-                SubstitutionData = substitutionData
-            };
-            await Transmit(model.Recipient, transmission, emailType);
+            return Send(new PackageTrackingCancelledEmailModel(package), EmailType.PostTrackTrackingCancellation);
         }
 
         private static Dictionary<string, object> GetSubstitutionData(BaseEmailModel model)
@@ -83,7 +64,26 @@ namespace Posttrack.BLL.Helpers.Implementations
             return dictionary;
         }
 
-        private async Task Transmit(string recipientEmail, Transmission transmission, EmailTypes emailType)
+        private async Task Send(BaseEmailModel model, EmailType emailType)
+        {
+            _logger.Info($"Call: {nameof(Send)}(model, {emailType})");
+            var emailTemplate = await _sparkPostTemplateProvider.GetTemplate(emailType);
+            var substitutionData = GetSubstitutionData(model);
+            var transmission = new Transmission
+            {
+                Content =
+                    {
+                        From = emailTemplate.TemplateContent.From,
+                        Text = emailTemplate.TemplateContent.Text,
+                        Html = emailTemplate.TemplateContent.Html,
+                        Subject = emailTemplate.TemplateContent.Subject,
+                    },
+                SubstitutionData = substitutionData
+            };
+            await Transmit(model.Recipient, transmission, emailType);
+        }
+
+        private async Task Transmit(string recipientEmail, Transmission transmission, EmailType emailType)
         {
             _logger.Info($"Call: {nameof(Transmit)}({recipientEmail}, transmission, {emailType})");
             try

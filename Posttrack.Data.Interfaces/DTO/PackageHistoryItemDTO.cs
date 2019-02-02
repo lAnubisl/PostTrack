@@ -5,7 +5,9 @@ namespace Posttrack.Data.Interfaces.DTO
     public class PackageHistoryItemDTO
     {
         public DateTime Date { get; set; }
+
         public string Action { get; set; }
+
         public string Place { get; set; }
 
         public override bool Equals(object obj)
@@ -35,8 +37,8 @@ namespace Posttrack.Data.Interfaces.DTO
             unchecked
             {
                 var hash = 24;
-                hash = hash*17 + Action.GetHashCode();
-                hash = hash*17 + Place.GetHashCode();
+                hash = (hash * 17) + Action.GetHashCode();
+                hash = (hash * 17) + Place.GetHashCode();
                 return hash;
             }
         }

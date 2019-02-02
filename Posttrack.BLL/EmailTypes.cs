@@ -1,6 +1,6 @@
 ﻿namespace Posttrack.BLL
 {
-    public enum EmailTypes
+    public enum EmailType
     {
         PostTrackRegistered, PostTrackPackageUpdate, PostTrackTrackingCancellation
     }

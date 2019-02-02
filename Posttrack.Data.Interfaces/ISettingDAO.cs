@@ -2,6 +2,6 @@
 {
     public interface ISettingDAO
     {
-        string Get(string name);
+        string Load(string name);
     }
 }

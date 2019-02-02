@@ -1,11 +1,12 @@
-﻿using SparkPost;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using SparkPost;
 
 namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface ISparkPostTemplateProvider
     {
-        string GetTemplateId(EmailTypes type);
-        Task<RetrieveTemplateResponse> GetTemplate(EmailTypes type);
+        string GetTemplateId(EmailType type);
+
+        Task<RetrieveTemplateResponse> GetTemplate(EmailType type);
     }
 }

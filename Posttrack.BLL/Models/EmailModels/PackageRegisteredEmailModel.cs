@@ -1,5 +1,5 @@
-﻿using Posttrack.Data.Interfaces.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Models.EmailModels
 {
@@ -9,7 +9,8 @@ namespace Posttrack.BLL.Models.EmailModels
         internal readonly string Description;
         internal readonly string Update;
 
-        internal PackageRegisteredEmailModel(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update) : base(package.Email)
+        internal PackageRegisteredEmailModel(PackageDTO package, IEnumerable<PackageHistoryItemDTO> update)
+            : base(package.Email)
         {
             Tracking = package.Tracking;
             Description = package.Description;

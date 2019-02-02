@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Text;
-using Posttrack.BLL.Helpers.Interfaces;
-using Posttrack.Data.Interfaces.DTO;
-using Posttrack.BLL.Interfaces;
 using System.Threading.Tasks;
+using Posttrack.BLL.Helpers.Interfaces;
+using Posttrack.BLL.Interfaces;
 using Posttrack.Common;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Helpers.Implementations
 {
@@ -19,10 +19,10 @@ namespace Posttrack.BLL.Helpers.Implementations
         {
             _logger = logger.CreateScope(nameof(BelpostSearcher));
             _configurationService = configurationService;
-            _url = new Uri(configurationService.HttpSearchUrl);
+            _url = configurationService.HttpSearchUrl;
         }
 
-        async Task<string> IUpdateSearcher.SearchAsync(PackageDTO package)
+        public async Task<string> SearchAsync(PackageDTO package)
         {
             if (package == null)
             {

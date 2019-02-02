@@ -1,20 +1,22 @@
-﻿using Posttrack.Data.Interfaces.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Posttrack.Data.Interfaces.DTO;
 
 namespace Posttrack.BLL.Models.EmailModels
 {
     internal abstract class BaseEmailModel
     {
+        private static readonly Regex CleanActionRegex = new Regex("\\d{2}\\. ", RegexOptions.Compiled);
+
         internal BaseEmailModel(string recipient)
         {
             Recipient = recipient;
         }
 
-        internal string Year => DateTime.Now.Year.ToString();
+        internal static string Year => DateTime.Now.ToString("yyyy", CultureInfo.InvariantCulture);
 
         internal string Recipient { get; }
 
@@ -30,17 +32,14 @@ namespace Posttrack.BLL.Models.EmailModels
                 {
                     var greenItem = oldHistory == null || !oldHistory.Contains(item);
                     renderedItems.Add(itemTemplate
-                        .Replace("{Date}", item.Date.ToString("dd.MM", CultureInfo.CurrentCulture))
+                        .Replace("{Date}", item.Date.ToString("dd.MM", CultureInfo.InvariantCulture))
                         .Replace("{Action}", CleanActionRegex.Replace(item.Action, string.Empty))
                         .Replace("{Place}", item.Place)
                         .Replace("{Style}", greenItem ? "color:green;font-weight:bold;" : string.Empty));
                 }
             }
 
-            return string.Format("<table>{0}</table>", string.Join(string.Empty, renderedItems));
+            return $"<table>{string.Join(string.Empty, renderedItems)}</table>";
         }
-
-
-        private static readonly Regex CleanActionRegex = new Regex("\\d{2}\\. ", RegexOptions.Compiled);
     }
 }
