@@ -56,12 +56,12 @@ namespace Posttrack.Data
 
         private static ICollection<PackageHistoryItemDTO> Map(this string history)
         {
-            return JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(history);
+            return string.IsNullOrEmpty(history) ? null : JsonConvert.DeserializeObject<ICollection<PackageHistoryItemDTO>>(history);
         }
 
         private static string Map(this IEnumerable<PackageHistoryItemDTO> history)
         {
-            return JsonConvert.SerializeObject(history.ToList());
+            return history == null ? null : JsonConvert.SerializeObject(history.ToList());
         }
 
         private static PackageHistoryItem Map(this PackageHistoryItemDTO item)

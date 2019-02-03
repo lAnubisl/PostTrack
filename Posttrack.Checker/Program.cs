@@ -42,6 +42,10 @@ namespace PostTrack.Checker
             catch (Exception ex)
             {
                 logger.Log(ex);
+                if (ex.InnerException != null)
+                {
+                    logger.Log(ex.InnerException);
+                }
             }
 
             logger.Warning("Checker finished.");
