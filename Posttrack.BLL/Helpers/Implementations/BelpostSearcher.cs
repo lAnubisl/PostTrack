@@ -36,7 +36,7 @@ namespace Posttrack.BLL.Helpers.Implementations
                 _logger.Debug($"Start searching '{package.Tracking}' at '{_url}");
                 try
                 {
-                    var response = await webClient.DownloadStringTaskAsync(_url + "?search=" + package.Tracking);
+                    var response = await webClient.DownloadStringTaskAsync(_url + package.Tracking);
                     _logger.Debug($"Complete searching '{package.Tracking}'. The response is '{response}'.");
                     return response;
                 }
