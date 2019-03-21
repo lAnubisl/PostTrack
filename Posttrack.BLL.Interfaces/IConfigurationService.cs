@@ -2,7 +2,7 @@
 
 namespace Posttrack.BLL.Interfaces
 {
-    public interface IConfigurationService
+    public interface ISettingsService
     {
         string SparkPostApiKey { get; }
 

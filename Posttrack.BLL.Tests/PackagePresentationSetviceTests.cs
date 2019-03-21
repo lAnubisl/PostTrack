@@ -17,13 +17,13 @@ using Posttrack.Data.Interfaces.DTO;
 namespace Posttrack.BLL.Tests
 {
     [TestFixture]
-    public class PackagePresentationSetviceTests
+    public class PackagePresentationServiceTests
     {
         private Mock<IPackageDAO> _dao;
         private Mock<IResponseReader> _reader;
         private Mock<IUpdateSearcher> _searcher;
         private Mock<IMessageSender> _sender;
-        private Mock<Interfaces.IConfigurationService> _configuration;
+        private Mock<ISettingsService> _configuration;
         private IPackagePresentationService _service;
 
         [SetUp]
@@ -34,7 +34,7 @@ namespace Posttrack.BLL.Tests
             _reader = new Mock<IResponseReader>();
             _sender = new Mock<IMessageSender>();
             _sender.Setup(s => s.SendStatusUpdateAsync(It.IsAny<PackageDTO>(), It.IsAny<IEnumerable<PackageHistoryItemDTO>>())).Returns(Task.FromResult(0));
-            _configuration = new Mock<Interfaces.IConfigurationService>();
+            _configuration = new Mock<ISettingsService>();
             _configuration.Setup(c => c.InactivityPeriodMonths).Returns(2);
             var logger = new Mock<ILogger>();
             logger.Setup(l => l.CreateScope(It.IsAny<string>())).Returns(logger.Object);

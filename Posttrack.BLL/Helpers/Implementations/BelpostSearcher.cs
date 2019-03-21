@@ -13,9 +13,9 @@ namespace Posttrack.BLL.Helpers.Implementations
     {
         private readonly Uri _url;
         private readonly ILogger _logger;
-        private readonly IConfigurationService _configurationService;
+        private readonly ISettingsService _configurationService;
 
-        public BelpostSearcher(IConfigurationService configurationService, ILogger logger)
+        public BelpostSearcher(ISettingsService configurationService, ILogger logger)
         {
             _logger = logger.CreateScope(nameof(BelpostSearcher));
             _configurationService = configurationService;

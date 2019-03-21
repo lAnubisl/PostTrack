@@ -17,14 +17,14 @@ namespace Posttrack.BLL
         private readonly IPackageDAO _packageDAO;
         private readonly IResponseReader _reader;
         private readonly IUpdateSearcher _searcher;
-        private readonly Interfaces.IConfigurationService _configurationService;
+        private readonly Interfaces.ISettingsService _configurationService;
 
         public PackagePresentationService(
             IPackageDAO packageDAO,
             IMessageSender messageSender,
             IUpdateSearcher searcher,
             IResponseReader reader,
-            Interfaces.IConfigurationService configurationService,
+            Interfaces.ISettingsService configurationService,
             ILogger logger)
         {
             _packageDAO = packageDAO;
@@ -120,13 +120,13 @@ namespace Posttrack.BLL
                     await StopTrackingAsync(package);
                 }
 
-                _logger.Warning($"No update was found for package {package.Tracking}.");
+                _logger.Info($"No update was found for package {package.Tracking}.");
                 return;
             }
 
             if (history != null)
             {
-                _logger.Warning($"Update was Found!!! Sending an update email for package {package.Tracking}.");
+                _logger.Info($"Update was Found!!! Sending an update email for package {package.Tracking}.");
                 await _messageSender.SendStatusUpdateAsync(package, history);
                 await SavePackageStatusAsync(package, history);
             }

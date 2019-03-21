@@ -5,6 +5,6 @@ namespace Posttrack.BLL.Helpers.Interfaces
 {
     public interface IUpdateSearcher
     {
-        Task<string> SearchAsync(PackageDTO paclage);
+        Task<string> SearchAsync(PackageDTO package);
     }
 }

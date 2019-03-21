@@ -18,7 +18,7 @@ namespace Posttrack.BLL.Helpers.Implementations
         private readonly string _apiKey;
         private readonly ILogger _logger;
 
-        public EmailMessageSender(IConfigurationService settingsProvider, ISparkPostTemplateProvider sparkPostTemplateProvider, ILogger logger)
+        public EmailMessageSender(ISettingsService settingsProvider, ISparkPostTemplateProvider sparkPostTemplateProvider, ILogger logger)
         {
             _logger = logger.CreateScope(nameof(EmailMessageSender));
             _apiKey = settingsProvider.SparkPostApiKey;

@@ -36,7 +36,7 @@ namespace Posttrack.Web
             services.AddSingleton<ISettingDAO, SettingDAO>();
             services.AddSingleton<IPackagePresentationService, PackagePresentationService>();
             services.AddSingleton<IPackageValidator, PackageValidator>();
-            services.AddSingleton<BLL.Interfaces.IConfigurationService, BLL.ConfigurationService>();
+            services.AddSingleton<BLL.Interfaces.ISettingsService, BLL.SettingsService>();
             services.AddSingleton<IUpdateSearcher, BelpostSearcher>();
             services.AddSingleton<IMessageSender, EmailMessageSender>();
             services.AddSingleton<ISparkPostTemplateProvider, SparkPostTemplateProvider>();

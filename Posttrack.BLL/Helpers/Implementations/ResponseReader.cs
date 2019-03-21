@@ -14,9 +14,9 @@ namespace Posttrack.BLL.Helpers.Implementations
         private static readonly CultureInfo Provider = new CultureInfo("ru-RU");
         private static readonly PackageHistoryItemDTOComparer Comparer = new PackageHistoryItemDTOComparer();
         private readonly ILogger _logger;
-        private readonly IConfigurationService _configurationService;
+        private readonly ISettingsService _configurationService;
 
-        public ResponseReader(IConfigurationService configurationService, ILogger logger)
+        public ResponseReader(ISettingsService configurationService, ILogger logger)
         {
             _logger = logger.CreateScope(nameof(ResponseReader));
             _configurationService = configurationService;
@@ -34,7 +34,7 @@ namespace Posttrack.BLL.Helpers.Implementations
             if (matches.Count == 0)
             {
                 _logger.Error($"Cannot parse response string: {input}.");
-                return null;
+                return null; 
             }
 
             var history = new SortedSet<PackageHistoryItemDTO>(Comparer);
@@ -42,10 +42,10 @@ namespace Posttrack.BLL.Helpers.Implementations
             {
                 var historyItem = new PackageHistoryItemDTO();
                 historyItem.Date = ParseDate(match);
-                historyItem.Action = match.Groups[2].Value.Trim();
+                historyItem.Action = match.Groups[3].Value.Trim();
                 if (match.Groups.Count > 3)
                 {
-                    historyItem.Place = match.Groups[4].Value.Trim();
+                    historyItem.Place = match.Groups[7].Value.Trim();
                 }
 
                 history.Add(historyItem);
